@@ -5,7 +5,7 @@
  */
 package Persistence;
 
-import "c:\users\becky\desktop\school\softeng1\reallyawesomerpg\gson-master\gson";
+
 /**
  *
  * @author becky
@@ -29,7 +29,7 @@ public class FileIO {
     
     public String serialize()
     {
-        Gson ser = new Gson();
+        return "";
     }
 }
 

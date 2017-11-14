@@ -5,6 +5,7 @@
  */
 package MenuUI;
 
+import Persistence.FileIO;
 import UIFramework.NavigationController;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -27,17 +28,27 @@ public class SaveLoadController {
 		String btn = ((Button) event.getSource()).getId();
                 String previous = NavigationController.PREVIOUS;
 		NavigationController.PREVIOUS = NavigationController.SAVELOAD;
+                
+		String selection = "";
+               
 		// send load request
 		if (btn.equals("back"))
 			NavigationController.loadView(previous);
-		if (btn.equals("loadgame"))
-			NavigationController.loadView(NavigationController.SAVELOAD);
+		if (btn.startsWith("save"))
+                        selection = btn;
+		if (btn.equals("save"))
+			// Save the game, stay on this view
+                        saveGame(selection);
+                //if (btn.equals("load"))
+                        // Load the game, trasition to main menu
 
 		// if this spot is reached: do nothing
 	}
     
-    /** Send exit request */
-	@FXML private void exit() {
-		NavigationController.closeApplication();
+    private void saveGame(String fileName)
+    {
+        FileIO fileHandler = new FileIO();
+        
+        fileHandler.saveFile(fileName.charAt(-1));
     }
 }
