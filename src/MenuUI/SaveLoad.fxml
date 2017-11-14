@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?scenebuilder-stylesheet rarpg.css?>
+
+<BorderPane styleClass="window" fx:id="startmenu" fx:controller="MenuUI.SaveLoadController" xmlns:fx="http://javafx.com/fxml">
+	
+	<top>
+	<HBox styleClass="menuBorderTitle">
+		<!-- header -->
+		
+		<Label styleClass="menuTitle" text="Save and Load Game"/>
+	</HBox>
+	</top>
+	
+	<bottom>
+	<HBox styleClass="menuBorder">
+		<!-- footer -->
+		
+	</HBox>
+	</bottom>
+	
+	<left>
+	<VBox styleClass="menuBorder">
+		<!-- left margin -->
+		
+	</VBox>
+	</left>
+	
+	<right>
+	<VBox styleClass="menuBorder">
+		<!-- right margin -->
+		
+	</VBox>
+	</right>
+	
+	<center>
+	<VBox styleClass="menuButtonHolder">
+		
+		<Button styleClass="menuButton" onAction="#transitionView" id="save1" text="New Game"/>
+		<Button styleClass="menuButton" onAction="#transitionView" id="save2" text="New Game"/>
+		<Button styleClass="menuButton" onAction="#transitionView" id="save3" text="New Game"/>
+                <HBox alignment="center" spacing="10">
+                    <Button styleClass="menuButton" onAction="#transitionView" id="save" text="Save"/>
+                    <Button styleClass="menuButton" onAction="#transitionView" id="load" text="Load"/>
+                    <Button styleClass="menuButton" onAction="#transitionView" id="back" text="Back"/>
+                </HBox>
+	</VBox>
+	</center>
+	
+</BorderPane>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?scenebuilder-stylesheet rarpg.css?>
+
+<BorderPane styleClass="window" fx:id="mainmenu" fx:controller="MenuUI.MainMenuController" xmlns:fx="http://javafx.com/fxml">
+	
+	<top>
+	<HBox styleClass="menuBorderTitle">
+		<!-- header -->
+		
+		<Label styleClass="menuTitle" text="You Win!"/>
+	</HBox>
+	</top>
+	
+	<bottom>
+	<HBox styleClass="menuBorder">
+		<!-- footer -->
+		
+	</HBox>
+	</bottom>
+	
+	<left>
+	<VBox styleClass="menuBorder">
+		<!-- left margin -->
+		
+	</VBox>
+	</left>
+	
+	<right>
+	<VBox styleClass="menuBorder">
+		<!-- right margin -->
+		
+	</VBox>
+	</right>
+	
+	<center>
+	<VBox styleClass="menuButtonHolder">
+		
+		<Button styleClass="menuButton" onAction="#transitionView" id="continue" text="Continue"/>
+		<Button styleClass="menuButton" onAction="#transitionView" id="market" text="Market"/>
+		<Button styleClass="menuButton" onAction="#transitionView" id="savegame" text="Save Game"/>
+		<Button styleClass="menuButton" onAction="#transitionView" id="exitgame" text="Exit"/>
+	</VBox>
+	</center>
+	
+</BorderPane>

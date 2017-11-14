@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?scenebuilder-stylesheet rarpg.css?>
+
+<BorderPane styleClass="window" fx:id="startmenu" fx:controller="MenuUI.StartMenuController" xmlns:fx="http://javafx.com/fxml">
+	
+	<top>
+	<HBox styleClass="menuBorderTitle">
+		<!-- header -->
+		
+		<Label styleClass="menuTitle" text="Really Awesome RPG!"/>
+	</HBox>
+	</top>
+	
+	<bottom>
+	<HBox styleClass="menuBorder">
+		<!-- footer -->
+		
+	</HBox>
+	</bottom>
+	
+	<left>
+	<VBox styleClass="menuBorder">
+		<!-- left margin -->
+		
+	</VBox>
+	</left>
+	
+	<right>
+	<VBox styleClass="menuBorder">
+		<!-- right margin -->
+		
+	</VBox>
+	</right>
+	
+	<center>
+	<VBox styleClass="menuButtonHolder">
+		
+		<Button styleClass="menuButton" visible="false"/>
+		<Button styleClass="menuButton" onAction="#transitionView" id="newgame" text="New Game"/>
+		<Button styleClass="menuButton" onAction="#transitionView" id="loadgame" text="Load Game"/>
+		<Button styleClass="menuButton" onAction="#exit" text="Quit"/>
+	</VBox>
+	</center>
+	
+</BorderPane>
