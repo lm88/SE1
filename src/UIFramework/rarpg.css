@@ -38,7 +38,7 @@
 	-fx-font-family: serif;
 	-fx-font-size: 80;
 	-fx-font-weight: bold; 
-	-fx-text-fill: #b6495c ;
+	-fx-text-fill: #d32c49 ;
 	-fx-effect: dropshadow(two-pass-box, #404040, 10, 0.5, 3, 3);
 }
 /* Button */
@@ -46,12 +46,12 @@
 	-fx-alignment: center;
     -fx-max-width: 300;
     -fx-max-height: 50;
-    -fx-background-color: radial-gradient(center 50% -40%, radius 200%, #b6495c 55%, #8c3847 65%);
+    -fx-background-color: radial-gradient(center 50% -40%, radius 200%, #668899  55%, #c4d1d8 65%);
     -fx-background-radius: 20;
     -fx-background-insets: 0;
-    -fx-border-color: linear-gradient(#8c3847, #e7a7a2);
+    -fx-border-color: linear-gradient(#c4d1d8, #668899);
     -fx-border-radius: 20;
-    -fx-border-width: 3 3 3 3;
+    -fx-border-width: 5 7 5 7;
     -fx-font-size: 30;
     -fx-label-padding: 0;
 	-fx-text-fill: #eeeeee;
