@@ -125,3 +125,89 @@
     -fx-background-insets: 0, 1, 2;
 	-fx-text-fill: #ffffff;
 }
+
+/* Market Properties */
+
+.marketContainer {
+    -fx-alignment: TOP_CENTER;
+    -fx-spacing: 15;
+}
+/* Button */
+.marketButton {
+    -fx-alignment: center;
+    -fx-background-image: url('plusIcon.png');
+    -fx-background-size: 100%;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-color: transparent;
+    -fx-min-width: 50;
+    -fx-min-height: 50;
+}
+
+.marketLabel {
+    -fx-alignment: center;
+    -fx-font-family: sans-serif;
+    -fx-font-size: 16;
+    -fx-font-weight: bold; 
+    -fx-text-fill:#fbb868  ;
+    -fx-effect: dropshadow(two-pass-box, #333333, 10, 0.5, 3, 3);
+}
+
+.marketCostLabel {
+    
+    -fx-alignment: center;
+    -fx-background-image: url('gemIcon.png');
+    -fx-background-size: 100%;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-color: transparent;
+    -fx-min-width: 50;
+    -fx-min-height: 50;
+    -fx-font-size: 25;
+    -fx-label-padding: 0;
+    -fx-text-fill: #000000;
+    -fx-effect: dropshadow(two-pass-box, #333333, 10, 0.5, 3, 3);
+    
+}
+
+.marketCostLabel .text {
+    -fx-effect: dropshadow(one-pass-box, #b6cfff, 10, 0.5, 2, 2);
+    -fx-font-weight: bold;
+}
+
+/* TODO Only one of these should really be needed once the controller is finished */
+.marketUnit1 {
+    
+    -fx-alignment: center;
+    -fx-background-image: url('fireIcon.png');
+    -fx-background-size: 100%;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-color: transparent;
+    -fx-min-width: 200;
+    -fx-min-height: 200;
+}
+
+.marketUnit2 {
+    
+    -fx-alignment: center;
+    -fx-background-image: url('waterIcon.png');
+    -fx-background-size: 100%;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-color: transparent;
+    -fx-min-width: 200;
+    -fx-min-height: 200;
+}
+
+.marketUnit3 {
+    
+    -fx-alignment: center;
+    -fx-background-image: url('earthIcon.png');
+    -fx-background-size: 100%;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-color: transparent;
+    -fx-min-width: 200;
+    -fx-min-height: 200;
+}
