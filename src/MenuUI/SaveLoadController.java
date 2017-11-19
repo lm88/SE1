@@ -7,48 +7,117 @@ package MenuUI;
 
 import Persistence.FileIO;
 import UIFramework.NavigationController;
-import java.net.URL;
-import java.util.ResourceBundle;
+import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 
 /**
  * FXML Controller class
  *
  * @author becky
  */
-public class SaveLoadController {
-
- 	/** Send view change request
-	 * @param event - the onAction event from fxml */ 
-	@FXML private void transitionView(ActionEvent event) {
-		// id button caller
-		String btn = ((Button) event.getSource()).getId();
-                String previous = NavigationController.PREVIOUS;
-		NavigationController.PREVIOUS = NavigationController.SAVELOAD;
-                
-		String selection = "";
-               
-		// send load request
-		if (btn.equals("back"))
-			NavigationController.loadView(previous);
-		if (btn.startsWith("save"))
-                        selection = btn;
-		if (btn.equals("save"))
-			// Save the game, stay on this view
-                        saveGame(selection);
-                //if (btn.equals("load"))
-                        // Load the game, trasition to main menu
-
-		// if this spot is reached: do nothing
-	}
+public class SaveLoadController 
+{
+    private int saveSlotNum = -1;
+    private String _Previous;
+    private Button _Selection;
     
-    private void saveGame(String fileName)
+    @FXML
+    private Label statusMessage;
+    
+    /** Send view change request
+     * @param event - the onAction event from fxml */ 
+    @FXML 
+    private void transitionView(ActionEvent event) {
+	// id button caller
+	String btn = ((Button) event.getSource()).getId();
+            
+	// send load request
+	switch (btn) {
+	    case "back":
+		_Previous = NavigationController.PREVIOUS;
+		NavigationController.PREVIOUS = NavigationController.SAVELOAD;
+		NavigationController.loadView(_Previous);
+		break;
+	    case "load":
+		// Load the game, trasition to main menu
+		NavigationController.loadView(NavigationController.MAINMENU);
+		break;
+	    default:
+		break;
+	}
+    }
+    
+    @FXML
+    private void saveGame() 
     {
-        FileIO fileHandler = new FileIO();
+	if(_Selection != null)
+	{
+	    statusMessage.setText("Saving...");
+	    try
+	    {
+		FileIO fileHandler = new FileIO();
+
+		fileHandler.saveFile(Integer.parseInt(_Selection.getId()));
+		
+		// Display success message
+		statusMessage.setText("Game Saved Successfully");
+	    }
+	    catch (IOException ex)
+	    {
+		// Display failure message
+		statusMessage.setText("Game Could Not Be Saved");
+	    }
+	}
+	else
+	{
+	    // Display error message
+	    statusMessage.setText("Please Select A Save Slot");
+	}
         
-        fileHandler.saveFile(fileName.charAt(-1));
+    }
+      
+    @FXML
+    private void setSlotNum(ActionEvent event)
+    {
+	if(_Selection != null)
+	{
+	    //ObservableList<String> styles = _Selection.getStyleClass();
+	    boolean removeAll = _Selection.getStyleClass().removeAll("selectedButton");
+	}
+	
+	_Selection = ((Button) event.getSource());
+	_Selection.getStyleClass().add("selectedButton");
+    }
+    
+    @FXML
+    private void loadGame(ActionEvent event)
+    {
+	// Load game
+	if(_Selection != null)
+	{
+	    statusMessage.setText("Loading...");
+	    try
+	    {
+		FileIO fileHandler = new FileIO();
+
+		fileHandler.loadFile(Integer.parseInt(_Selection.getId()));
+		
+		// Transition to main menu
+		transitionView(event);
+	    }
+	    catch (IOException ex)
+	    {
+		// Display failure message
+		statusMessage.setText("Game Could Not Be Loaded");
+	    }
+	}
+	else
+	{
+	    // Display error message
+	    statusMessage.setText("Please Select A Save");
+	}
     }
 }

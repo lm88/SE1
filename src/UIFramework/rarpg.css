@@ -38,32 +38,42 @@
 	-fx-font-family: serif;
 	-fx-font-size: 80;
 	-fx-font-weight: bold; 
-	-fx-text-fill: #d32c49 ;
-	-fx-effect: dropshadow(two-pass-box, #404040, 10, 0.5, 3, 3);
+	-fx-text-fill: radial-gradient(center 50% -40%, radius 185%, #f8941c 55%, #fcca8e 65%);
+	-fx-effect: dropshadow(two-pass-box, #684d38, 10, 0.5, 3, 3);
 }
 /* Button */
 .menuButton {
 	-fx-alignment: center;
     -fx-max-width: 300;
     -fx-max-height: 50;
-    -fx-background-color: radial-gradient(center 50% -40%, radius 200%, #668899  55%, #c4d1d8 65%);
-    -fx-background-radius: 20;
+    -fx-background-color: radial-gradient(center 50% -40%, radius 200%, #2099d9  55%, #c4d1d8 65%);
+    -fx-background-radius: 22;
     -fx-background-insets: 0;
     -fx-border-color: linear-gradient(#c4d1d8, #668899);
     -fx-border-radius: 20;
-    -fx-border-width: 5 7 5 7;
+    -fx-border-width: 5 5 5 5;
     -fx-font-size: 30;
     -fx-label-padding: 0;
 	-fx-text-fill: #eeeeee;
 }
 .menuButton:hover {
-    -fx-background-color: radial-gradient(center 50% -40%, radius 200%, #999166 55%, #4d4933 65%);
-    -fx-border-color: linear-gradient(#4d4933, #ccc8b3);
+    -fx-background-color: radial-gradient(center 50% -40%, radius 185%, #f8941c 55%, #fcca8e 65%);
+    -fx-border-color: linear-gradient(#fcca8e, #9a5605);
 }
-.menuButton:pressed {
-	-fx-effect: dropshadow(two-pass-box, #ccc8b3, 30, 0.5, 0, 0);
+.selectedButton {
+        -fx-background-color: radial-gradient(center 50% 110%, radius 150%, #15648e 55%, #7bc5ec 65%);
+        -fx-border-color: linear-gradient(#7bc5ec, #1a7cb0);
 }
 
+/* Status Message Label */
+.statusMessage {
+	-fx-alignment: center;
+	-fx-font-family: sans-serif;
+	-fx-font-size: 25;
+	-fx-font-weight: bold; 
+	-fx-text-fill:#fbb868  ;
+        -fx-effect: dropshadow(two-pass-box, #333333, 10, 0.5, 3, 3);
+}
 
 /* Battle Properties */
 /* Pane */
@@ -91,8 +101,8 @@
 	-fx-font-family: serif;
 	-fx-font-size: 80;
 	-fx-font-weight: bold;
-	-fx-text-fill: #99666f;
-	-fx-effect: dropshadow(two-pass-box, #404040, 10, 0.5, 3, 3);
+	-fx-text-fill: #ff7a01;
+	-fx-effect: dropshadow(two-pass-box, #684d38, 10, 0.5, 3, 3);
 }
 /* Button */
 .tile {
@@ -114,4 +124,90 @@
     -fx-background-radius: 0, 1, 2;
     -fx-background-insets: 0, 1, 2;
 	-fx-text-fill: #ffffff;
+}
+
+/* Market Properties */
+
+.marketContainer {
+    -fx-alignment: TOP_CENTER;
+    -fx-spacing: 15;
+}
+/* Button */
+.marketButton {
+    -fx-alignment: center;
+    -fx-background-image: url('plusIcon.png');
+    -fx-background-size: 100%;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-color: transparent;
+    -fx-min-width: 50;
+    -fx-min-height: 50;
+}
+
+.marketLabel {
+    -fx-alignment: center;
+    -fx-font-family: sans-serif;
+    -fx-font-size: 16;
+    -fx-font-weight: bold; 
+    -fx-text-fill:#fbb868  ;
+    -fx-effect: dropshadow(two-pass-box, #333333, 10, 0.5, 3, 3);
+}
+
+.marketCostLabel {
+    
+    -fx-alignment: center;
+    -fx-background-image: url('gemIcon.png');
+    -fx-background-size: 100%;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-color: transparent;
+    -fx-min-width: 50;
+    -fx-min-height: 50;
+    -fx-font-size: 25;
+    -fx-label-padding: 0;
+    -fx-text-fill: #000000;
+    -fx-effect: dropshadow(two-pass-box, #333333, 10, 0.5, 3, 3);
+    
+}
+
+.marketCostLabel .text {
+    -fx-effect: dropshadow(one-pass-box, #b6cfff, 10, 0.5, 2, 2);
+    -fx-font-weight: bold;
+}
+
+/* TODO Only one of these should really be needed once the controller is finished */
+.marketUnit1 {
+    
+    -fx-alignment: center;
+    -fx-background-image: url('fireIcon.png');
+    -fx-background-size: 100%;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-color: transparent;
+    -fx-min-width: 200;
+    -fx-min-height: 200;
+}
+
+.marketUnit2 {
+    
+    -fx-alignment: center;
+    -fx-background-image: url('waterIcon.png');
+    -fx-background-size: 100%;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-color: transparent;
+    -fx-min-width: 200;
+    -fx-min-height: 200;
+}
+
+.marketUnit3 {
+    
+    -fx-alignment: center;
+    -fx-background-image: url('earthIcon.png');
+    -fx-background-size: 100%;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-color: transparent;
+    -fx-min-width: 200;
+    -fx-min-height: 200;
 }
