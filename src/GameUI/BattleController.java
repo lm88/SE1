@@ -1,4 +1,4 @@
-package BattleUI;
+package GameUI;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

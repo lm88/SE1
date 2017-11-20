@@ -1,4 +1,4 @@
-package BattleUI;
+package GameUI;
 
 import javafx.fxml.FXML;
 import UIFramework.NavigationController;

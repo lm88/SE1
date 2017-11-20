@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?scenebuilder-stylesheet rarpg.css?>
 
-<BorderPane styleClass="window" fx:id="battle" fx:controller="BattleUI.BattleController" xmlns:fx="http://javafx.com/fxml">
+<BorderPane styleClass="window" fx:id="battle" fx:controller="GameUI.BattleController" xmlns:fx="http://javafx.com/fxml">
 	
 	<top>
 	<HBox styleClass="battleBorder">

@@ -20,13 +20,13 @@ import javafx.scene.layout.Pane;
 public class NavigationController {
 	
 	// list of view.fxml file locations
-	public static final String BATTLE		= "/BattleUI/Battle.fxml";
-	public static final String GAMECREATION	= "/BattleUI/GameCreation.fxml";
+	public static final String BATTLE		= "/GameUI/Battle.fxml";
+	public static final String GAMECREATION	= "/GameUI/GameCreation.fxml";
 	public static final String MAINMENU		= "/MenuUI/MainMenu.fxml";
 	public static final String MARKET		= "/MenuUI/Market.fxml";
 	public static final String SAVELOAD		= "/MenuUI/SaveLoad.fxml";
 	public static final String STARTMENU	= "/MenuUI/StartMenu.fxml";
-        public static String PREVIOUS;
+	public static String PREVIOUS;
 	private static Pane root;
     
 	/** Set the root Pane for the application
@@ -39,7 +39,7 @@ public class NavigationController {
      * @param viewFXML - the view.fxml file location */
     public static void loadView(String viewFXML) {
         try {
-                // load up the new view
+            // load up the new view
 		    Node node = FXMLLoader.load(NavigationController.class.getResource(viewFXML));
         	// replace the root's children (setAll = old view removed, new view added)
 		    root.getChildren().setAll(node);
