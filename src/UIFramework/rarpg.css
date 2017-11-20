@@ -4,13 +4,13 @@
  */
 
 
-    /*-fx-background-color: #668899;
 /* Universal Window Settings */
 .window {
 	-fx-alignment: center;
 	-fx-pref-width: 1280;
 	-fx-pref-height: 720;
     -fx-background-image: url("stoneBG.png");
+    /*-fx-background-color: #668899; */
 }
 
 
@@ -52,15 +52,19 @@
     -fx-border-color: linear-gradient(#c4d1d8, #668899);
     -fx-border-radius: 20;
     -fx-border-width: 5 5 5 5;
-    -fx-font-size: 30;
     -fx-label-padding: 0;
-	-fx-text-fill: #eeeeee;
+}
+.menuButton .text {
+    -fx-font-size: 30;
+	-fx-font-weight: bold; 
+	-fx-fill: #eeeeee;
+	-fx-effect: innershadow(one-pass-box, #668899, 4, 0.5, 0, 1);
 }
 .menuButton:hover {
-    -fx-background-color: radial-gradient(center 50% -40%, radius 185%, #f8941c 55%, #fcca8e 65%);
+    -fx-background-color: radial-gradient(center 50% -40%, radius 200%, #f8941c 55%, #fcca8e 65%);
     -fx-border-color: linear-gradient(#fcca8e, #9a5605);
 }
-.selectedButton {
+.menuButton:pressed {
         -fx-background-color: radial-gradient(center 50% 110%, radius 150%, #15648e 55%, #7bc5ec 65%);
         -fx-border-color: linear-gradient(#7bc5ec, #1a7cb0);
 }
@@ -72,8 +76,9 @@
 	-fx-font-size: 25;
 	-fx-font-weight: bold; 
 	-fx-text-fill:#fbb868  ;
-        -fx-effect: dropshadow(two-pass-box, #333333, 10, 0.5, 3, 3);
+    -fx-effect: dropshadow(two-pass-box, #333333, 10, 0.5, 3, 3);
 }
+
 
 /* Battle Properties */
 /* Pane */
@@ -88,7 +93,7 @@
 	-fx-max-height: 480;
 	-fx-padding: 0;
 	-fx-pref-tile-width: 60;	/* must match .tile:-fx-min-width */
-	-fx-pref-tile-height: 60;	/* must match .tile:-fx-min-width */
+	-fx-pref-tile-height: 60;	/* must match .tile:-fx-min-height */
 	-fx-hgap: 0;
 	-fx-vgap: 0;
 }
@@ -126,11 +131,39 @@
 	-fx-text-fill: #ffffff;
 }
 
-/* Market Properties */
 
+/* Market Properties */
+/* Pane */
 .marketContainer {
     -fx-alignment: TOP_CENTER;
     -fx-spacing: 15;
+}
+/* Label */
+.marketLabel {
+    -fx-alignment: center;
+    -fx-font-family: sans-serif;
+    -fx-font-size: 16;
+    -fx-font-weight: bold; 
+    -fx-text-fill:#fbb868  ;
+    -fx-effect: dropshadow(two-pass-box, #333333, 10, 0.5, 3, 3);
+}
+.marketCostLabel {
+    -fx-alignment: center;
+    -fx-background-image: url('gemIcon.png');
+    -fx-background-size: 100%;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-color: transparent;
+    -fx-min-width: 50;
+    -fx-min-height: 50;
+    -fx-font-size: 25;
+    -fx-label-padding: 0;
+    -fx-text-fill: #000000;
+    -fx-effect: dropshadow(two-pass-box, #333333, 10, 0.5, 3, 3);
+}
+.marketCostLabel .text {
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(one-pass-box, #b6cfff, 10, 0.5, 2, 2);
 }
 /* Button */
 .marketButton {
@@ -144,40 +177,8 @@
     -fx-min-height: 50;
 }
 
-.marketLabel {
-    -fx-alignment: center;
-    -fx-font-family: sans-serif;
-    -fx-font-size: 16;
-    -fx-font-weight: bold; 
-    -fx-text-fill:#fbb868  ;
-    -fx-effect: dropshadow(two-pass-box, #333333, 10, 0.5, 3, 3);
-}
-
-.marketCostLabel {
-    
-    -fx-alignment: center;
-    -fx-background-image: url('gemIcon.png');
-    -fx-background-size: 100%;
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: center;
-    -fx-background-color: transparent;
-    -fx-min-width: 50;
-    -fx-min-height: 50;
-    -fx-font-size: 25;
-    -fx-label-padding: 0;
-    -fx-text-fill: #000000;
-    -fx-effect: dropshadow(two-pass-box, #333333, 10, 0.5, 3, 3);
-    
-}
-
-.marketCostLabel .text {
-    -fx-effect: dropshadow(one-pass-box, #b6cfff, 10, 0.5, 2, 2);
-    -fx-font-weight: bold;
-}
-
 /* TODO Only one of these should really be needed once the controller is finished */
 .marketUnit1 {
-    
     -fx-alignment: center;
     -fx-background-image: url('fireIcon.png');
     -fx-background-size: 100%;
@@ -189,7 +190,6 @@
 }
 
 .marketUnit2 {
-    
     -fx-alignment: center;
     -fx-background-image: url('waterIcon.png');
     -fx-background-size: 100%;
@@ -199,9 +199,7 @@
     -fx-min-width: 200;
     -fx-min-height: 200;
 }
-
 .marketUnit3 {
-    
     -fx-alignment: center;
     -fx-background-image: url('earthIcon.png');
     -fx-background-size: 100%;
