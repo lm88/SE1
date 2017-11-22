@@ -85,11 +85,11 @@ public class SaveLoadController
 	if(_Selection != null)
 	{
 	    //ObservableList<String> styles = _Selection.getStyleClass();
-	    boolean removeAll = _Selection.getStyleClass().removeAll("selectedButton");
+	    boolean removeAll = _Selection.getStyleClass().removeAll("menuButtonSelected");
 	}
 	
 	_Selection = ((Button) event.getSource());
-	_Selection.getStyleClass().add("selectedButton");
+	_Selection.getStyleClass().add("menuButtonSelected");
     }
     
     @FXML
