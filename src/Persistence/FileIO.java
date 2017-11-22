@@ -4,7 +4,8 @@
  */
 package Persistence;
 
-import DataModels.testObject;
+
+import DataModels.Player;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.io.BufferedReader;
@@ -30,7 +31,7 @@ public class FileIO {
     {
 	// TODO Change this to use player object
 
-	testObject obj = new testObject("test", 100);
+	Player obj = new Player();
 	String serializedObj = serialize(obj);
 	writeToFile(serializedObj, SAVESLOT[saveSlot]);
     }
@@ -42,14 +43,14 @@ public class FileIO {
     }
 
     // TODO Change this to use player object
-    public String serialize(testObject obj)
+    public String serialize(Player obj)
     {
 	GsonBuilder gsonBuilder  = new GsonBuilder();
 	// Allowing the serialization of static fields
 	gsonBuilder.excludeFieldsWithModifiers(java.lang.reflect.Modifier.TRANSIENT);
 	
 	Gson serializer = gsonBuilder.create();
-	obj = new testObject("test", 100);
+	obj = new Player();
 	String text = serializer.toJson(obj, obj.getClass());
 	
 	return text;
@@ -64,7 +65,7 @@ public class FileIO {
 
 	Gson serializer = gsonBuilder.create();
 
-	testObject obj = serializer.fromJson(text, testObject.class);
+	Player obj = serializer.fromJson(text, Player.class);
 
 	System.out.println(obj.toString());
     }
