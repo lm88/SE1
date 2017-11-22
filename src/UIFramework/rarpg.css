@@ -196,6 +196,7 @@
     -fx-border-width: 3;
     -fx-min-width: 200;
     -fx-min-height: 200;
+    -fx-effect: dropshadow(one-pass-box, #444444, 10, 0.5, 2, 2);
 }
 
 .marketUnit2 {
@@ -211,6 +212,7 @@
     -fx-border-width: 3;
     -fx-min-width: 200;
     -fx-min-height: 200;
+    -fx-effect: dropshadow(one-pass-box, #444444, 10, 0.5, 2, 2);
 }
 .marketUnit3 {
     -fx-alignment: center;
@@ -225,6 +227,7 @@
     -fx-border-width: 3;
     -fx-min-width: 200;
     -fx-min-height: 200;
+    -fx-effect: dropshadow(one-pass-box, #444444, 10, 0.5, 2, 2);
 }
 
 
