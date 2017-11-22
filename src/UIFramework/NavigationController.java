@@ -23,7 +23,7 @@ public class NavigationController {
 	public static final String BATTLE		= "/GameUI/Battle.fxml";
 	public static final String GAMECREATION	= "/GameUI/GameCreation.fxml";
 	public static final String MAINMENU		= "/MenuUI/MainMenu.fxml";
-	public static final String MARKET		= "/MenuUI/Market.fxml";
+	public static final String MARKET		= "/GameUI/Market.fxml";
 	public static final String SAVELOAD		= "/MenuUI/SaveLoad.fxml";
 	public static final String STARTMENU	= "/MenuUI/StartMenu.fxml";
 	public static String PREVIOUS;

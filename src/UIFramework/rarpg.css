@@ -135,7 +135,7 @@
 /* Market Properties */
 /* Pane */
 .marketContainer {
-    -fx-alignment: TOP_CENTER;
+    -fx-alignment: CENTER;
     -fx-spacing: 15;
 }
 /* Label */
@@ -144,7 +144,7 @@
     -fx-font-family: sans-serif;
     -fx-font-size: 16;
     -fx-font-weight: bold; 
-    -fx-text-fill:#fbb868  ;
+    -fx-text-fill: #92b326  ;
     -fx-effect: dropshadow(two-pass-box, #333333, 10, 0.5, 3, 3);
 }
 .marketCostLabel {
@@ -184,7 +184,11 @@
     -fx-background-size: 100%;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
-    -fx-background-color: transparent;
+    -fx-background-color: linear-gradient(#999999, #cccccc);
+    -fx-background-radius: 450;
+    -fx-border-color: linear-gradient(#cccccc, #888888);
+    -fx-border-radius: 500;
+    -fx-border-width: 3;
     -fx-min-width: 200;
     -fx-min-height: 200;
 }
@@ -195,7 +199,11 @@
     -fx-background-size: 100%;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
-    -fx-background-color: transparent;
+    -fx-background-color: linear-gradient(#999999, #cccccc);
+    -fx-background-radius: 450;
+    -fx-border-color: linear-gradient(#cccccc, #888888);
+    -fx-border-radius: 500;
+    -fx-border-width: 3;
     -fx-min-width: 200;
     -fx-min-height: 200;
 }
@@ -205,7 +213,35 @@
     -fx-background-size: 100%;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
-    -fx-background-color: transparent;
+    -fx-background-color: linear-gradient(#999999, #cccccc);
+    -fx-background-radius: 450;
+    -fx-border-color: linear-gradient(#cccccc, #888888);
+    -fx-border-radius: 500;
+    -fx-border-width: 3;
     -fx-min-width: 200;
     -fx-min-height: 200;
+}
+
+
+.marketBanner {
+     -fx-background-image: url('banner.png');
+    -fx-background-size: 100%;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-color: transparent;
+    -fx-min-height: 250;
+    -fx-min-width: 175;
+    -fx-padding: 25;
+    -fx-spacing: 5;
+}
+
+.unitReport {
+    -fx-border-color: #684d38;
+    -fx-border-style: solid;
+    -fx-border-radius: 10;
+    -fx-border-width: 3;
+    -fx-effect: dropshadow(two-pass-box, #333333, 10, 0.5, 3, 3);
+    -fx-background-color: #dedede;
+    -fx-background-radius: 15;
+    -fx-padding: 10;
 }

@@ -23,18 +23,18 @@
         
 	<center> 
             <VBox styleClass="menuBorder">
-                <HBox spacing="40" alignment="TOP_CENTER">
+                <HBox spacing="40" alignment="CENTER">
                     <!-- Unit One -->
                     <HBox>
-                        <VBox styleClass="marketContainer">
+                        <VBox styleClass="marketBanner">
                             <Label styleClass="marketLabel" text="Upgrade Weapon"/>
-                            <HBox spacing="5">
+                            <HBox spacing="5" alignment="CENTER">
                                 <Button styleClass="marketButton" onAction="#transitionView" id="back" text=""/>
                                 <Button styleClass="marketCostLabel" fx:id="weaponCost1" text="5"/>
                             </HBox>
 
                             <Label styleClass="marketLabel" text="Upgrade Armor"/>
-                            <HBox spacing="5">
+                            <HBox spacing="5" alignment="CENTER">
                                 <Button styleClass="marketButton" onAction="#transitionView" id="back" text=""/>
                                 <Label styleClass="marketCostLabel" fx:id="armorCost1" text="5"/>
                             </HBox>
@@ -45,15 +45,15 @@
 
                     <HBox>               
                     <!-- Unit Two -->
-                        <VBox styleClass="marketContainer">
+                        <VBox styleClass="marketBanner">
                             <Label styleClass="marketLabel" text="Upgrade Weapon"/>
-                            <HBox spacing="5">
+                            <HBox spacing="5" alignment="CENTER">
                                 <Button styleClass="marketButton" onAction="#transitionView" id="back" text=""/>
                                 <Button styleClass="marketCostLabel" fx:id="weaponCost2" text="5"/>
                             </HBox>
 
                             <Label styleClass="marketLabel" text="Upgrade Armor"/>
-                            <HBox spacing="5">
+                            <HBox spacing="5" alignment="CENTER">
                                 <Button styleClass="marketButton" onAction="#transitionView" id="back" text=""/>
                                 <Label styleClass="marketCostLabel" fx:id="armorCost2" text="5"/>
                             </HBox>
@@ -64,15 +64,15 @@
 
                     <HBox>
                         <!-- Unit Three -->
-                        <VBox styleClass="marketContainer">
+                        <VBox styleClass="marketBanner">
                             <Label styleClass="marketLabel" text="Upgrade Weapon"/>
-                            <HBox spacing="5">
+                            <HBox spacing="5" alignment="CENTER">
                                 <Button styleClass="marketButton" onAction="#transitionView" id="back" text=""/>
                                 <Button styleClass="marketCostLabel" fx:id="weaponCost3" text="5"/>
                             </HBox>
 
                             <Label styleClass="marketLabel" text="Upgrade Armor"/>
-                            <HBox spacing="5">
+                            <HBox spacing="5" alignment="CENTER">
                                 <Button styleClass="marketButton" onAction="#transitionView" id="back" text=""/>
                                 <Label styleClass="marketCostLabel" fx:id="armorCost3" text="5"/>
                             </HBox>
