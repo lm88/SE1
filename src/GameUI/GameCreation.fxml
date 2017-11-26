@@ -30,14 +30,14 @@
 	
 	<center>
 		<VBox styleClass="unitSelectContainer">
-			<Button styleClass="unitSelect" id="1" text="Team Member 2" visible="true"/>
+			<Button styleClass="unitSelect" id="1" text="Team Member 2" onAction="#handlePlayerSelect" visible="true"/>
 		</VBox>
 	</center>
 	
 	<right>
 		<VBox styleClass="unitSelectContainer">
 			<!-- right margin -->
-			<Button styleClass="unitSelect" id="2" text="Team Member 3" visible="true"/>
+			<Button styleClass="unitSelect" id="2" text="Team Member 3" onAction="#handlePlayerSelect" visible="true"/>
 		</VBox>
 	</right>
 	
