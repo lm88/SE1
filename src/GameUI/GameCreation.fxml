@@ -7,42 +7,40 @@
 <BorderPane styleClass="window" fx:id="gamecreation" fx:controller="GameUI.GameCreationController" xmlns:fx="http://javafx.com/fxml">
 	
 	<top>
-	<HBox styleClass="menuBorderTitle">
-		<!-- header -->
-		
-		<Label styleClass="menuTitle" text="Game Creation"/>
-	</HBox>
+		<HBox styleClass="menuBorderTitle">
+			<!-- header -->
+			
+			<Label styleClass="menuTitle" text="Game Creation"/>
+		</HBox>
 	</top>
 	
 	<bottom>
-	<HBox styleClass="menuBorder">
-		<!-- footer -->
-		
-	</HBox>
+		<HBox styleClass="menuBorder">
+			<!-- footer -->
+			<Button styleClass="menuButton" onAction="#transitionView" text="To Battle!"/>
+		</HBox>
 	</bottom>
 	
 	<left>
-	<VBox styleClass="menuBorder">
-		<!-- left margin -->
-		
-	</VBox>
+		<VBox styleClass="unitSelectContainer">
+			<!-- left margin -->
+			<Button styleClass="unitSelect" id="0" text="Team Member 1" onAction="#handlePlayerSelect" visible="true"/>
+		</VBox>
 	</left>
 	
+	<center>
+		<VBox styleClass="unitSelectContainer">
+			<Button styleClass="unitSelect" id="1" text="Team Member 2" visible="true"/>
+		</VBox>
+	</center>
+	
 	<right>
-	<VBox styleClass="menuBorder">
-		<!-- right margin -->
-		
-	</VBox>
+		<VBox styleClass="unitSelectContainer">
+			<!-- right margin -->
+			<Button styleClass="unitSelect" id="2" text="Team Member 3" visible="true"/>
+		</VBox>
 	</right>
 	
-	<center>
-	<VBox styleClass="menuButtonHolder">
-		
-		<Button styleClass="menuButton" visible="false"/>
-		<Button styleClass="menuButton" onAction="#transitionView" text="To Battle!"/>
-		<Button styleClass="menuButton" visible="false"/>
-		<Button styleClass="menuButton" visible="false"/>
-	</VBox>
-	</center>
+	
 	
 </BorderPane>
