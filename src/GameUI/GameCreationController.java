@@ -16,11 +16,9 @@ import javafx.scene.layout.HBox;
 
 public class GameCreationController {
 	
-	@FXML Button teamMember1, teamMember2, teamMember3; //Inject element IDs into controller
+	@FXML Button teamMember1, teamMember2, teamMember3, battleButton; //Inject element IDs into controller
 	
 	@FXML HBox typeSelectContainer; //Inject element IDs into controller
-	
-	//Player thisPlayer = new Player(); //Instantiate Player object
 	
 	String teamMember; //Team member index
 	int index;
@@ -65,23 +63,25 @@ public class GameCreationController {
 		
 		switch(type) {
 			case "fire":
-				Player.unitList.add(index, new Unit(type, 10));
+				Player.unitList.add(index, new Unit(type, 0, 10));
 				typeSelectContainer.setVisible(false);
 				replaceButton(index, type);
 				break;
 			case "earth":
-				Player.unitList.add(index, new Unit(type, 10));
+				Player.unitList.add(index, new Unit(type, 0, 10));
 				typeSelectContainer.setVisible(false);
 				replaceButton(index, type);
 				break;
 			case "water":
-				Player.unitList.add(index, new Unit(type, 10));
+				Player.unitList.add(index, new Unit(type, 0, 15));
 				typeSelectContainer.setVisible(false);
 				replaceButton(index, type);
 				break;	
 		}
 		
-		
+		if(Player.unitList.size() == 3) {
+			battleButton.setDisable(false);
+		}
 	}
 	
 	/** Send view change request */ 

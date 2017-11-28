@@ -8,6 +8,7 @@ public class Player {
 	public static int level;
 	public static int currency;
 	public static ArrayList<Unit> unitList = new ArrayList<Unit>();
+	
 	public Player() {
 		name = "";
 		level = 0; 

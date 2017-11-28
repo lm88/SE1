@@ -38,7 +38,7 @@
 		</HBox>
 		
 		<HBox styleClass="menuBorder">
-			<Button styleClass="menuButton" onAction="#transitionView" text="To Battle!"/>
+			<Button styleClass="menuButton" fx:id="battleButton" onAction="#transitionView" text="To Battle!" disable="true"/>
 		</HBox>
 		
 </VBox>

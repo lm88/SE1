@@ -6,9 +6,10 @@ public class Unit {
 	public int resource;
 	public int damage; 
 	
-	public Unit(String newType, int newDamage) {
+	public Unit(String newType, int newDamage, int newHealth) {
 		type = newType;
 		damage = newDamage; 
+		health = newHealth;
 	}
 	
 	public void setType(String newType) {
