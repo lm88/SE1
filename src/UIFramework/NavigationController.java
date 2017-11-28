@@ -22,7 +22,6 @@ public class NavigationController {
 	// list of view.fxml file locations
 	public static final String BATTLE		= "/GameUI/Battle.fxml";
 	public static final String GAMECREATION	= "/GameUI/GameCreation.fxml";
-	public static final String TYPESELECT	= "/GameUI/TypeSelect.fxml";
 	public static final String MAINMENU		= "/MenuUI/MainMenu.fxml";
 	public static final String MARKET		= "/GameUI/Market.fxml";
 	public static final String SAVELOAD		= "/MenuUI/SaveLoad.fxml";
