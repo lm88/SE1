@@ -35,25 +35,29 @@ public class GameCreationController {
 		
 	}
 	
+	private void setButtonIcon(String type, Button btn) {
+		btn.getStyleClass().removeAll("unitSelect");
+		if(type.equals("fire")) btn.getStyleClass().add("fire");
+		if(type.equals("earth")) btn.getStyleClass().add("earth");
+		if(type.equals("water")) btn.getStyleClass().add("water");
+	}
+	
 	private void replaceButton(int index, String type) {
 		if(index == 0) {
-			teamMember1.getStyleClass().removeAll("unitSelect");
-			if(type.equals("fire")) teamMember1.getStyleClass().add("fire");
-			if(type.equals("earth")) teamMember1.getStyleClass().add("earth");
-			if(type.equals("water")) teamMember1.getStyleClass().add("water");
+			setButtonIcon(type, teamMember1);
 		}
 		else if(index == 1) {
-			teamMember2.getStyleClass().removeAll("unitSelect");
-			if(type.equals("fire")) teamMember2.getStyleClass().add("fire");
-			if(type.equals("earth")) teamMember2.getStyleClass().add("earth");
-			if(type.equals("water")) teamMember2.getStyleClass().add("water");
+			setButtonIcon(type, teamMember2);
 		}
 		else {
-			teamMember3.getStyleClass().removeAll("unitSelect");
-			if(type.equals("fire")) teamMember3.getStyleClass().add("fire");
-			if(type.equals("earth")) teamMember3.getStyleClass().add("earth");
-			if(type.equals("water")) teamMember3.getStyleClass().add("water");
+			setButtonIcon(type, teamMember3);
 		}
+	}
+	
+	private void typeSelect(String type) {
+		Player.unitList.add(index, new Unit(type, 0, 10));
+		typeSelectContainer.setVisible(false);
+		replaceButton(index, type);
 	}
 	
 	@FXML
@@ -62,21 +66,9 @@ public class GameCreationController {
 		String type = ((Button) event.getSource()).getId();
 		
 		switch(type) {
-			case "fire":
-				Player.unitList.add(index, new Unit(type, 0, 10));
-				typeSelectContainer.setVisible(false);
-				replaceButton(index, type);
-				break;
-			case "earth":
-				Player.unitList.add(index, new Unit(type, 0, 10));
-				typeSelectContainer.setVisible(false);
-				replaceButton(index, type);
-				break;
-			case "water":
-				Player.unitList.add(index, new Unit(type, 0, 15));
-				typeSelectContainer.setVisible(false);
-				replaceButton(index, type);
-				break;	
+			case "fire":  typeSelect(type);  break;
+			case "earth": typeSelect(type);  break;
+			case "water": typeSelect(type);  break;	
 		}
 		
 		if(Player.unitList.size() == 3) {
