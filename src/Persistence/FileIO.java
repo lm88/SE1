@@ -31,8 +31,7 @@ public class FileIO {
     {
 	// TODO Change this to use player object
 
-	Player obj = new Player();
-	String serializedObj = serialize(obj);
+	String serializedObj = serialize();
 	writeToFile(serializedObj, SAVESLOT[saveSlot]);
     }
     
@@ -43,15 +42,15 @@ public class FileIO {
     }
 
     // TODO Change this to use player object
-    public String serialize(Player obj)
+    public String serialize()
     {
 	GsonBuilder gsonBuilder  = new GsonBuilder();
 	// Allowing the serialization of static fields
 	gsonBuilder.excludeFieldsWithModifiers(java.lang.reflect.Modifier.TRANSIENT);
 	
 	Gson serializer = gsonBuilder.create();
-	obj = new Player();
-	String text = serializer.toJson(obj, obj.getClass());
+	
+	String text = serializer.toJson(Player.class, Player.class);
 	
 	return text;
     }
@@ -65,9 +64,8 @@ public class FileIO {
 
 	Gson serializer = gsonBuilder.create();
 
-	Player obj = serializer.fromJson(text, Player.class);
-
-	System.out.println(obj.toString());
+	Player p = new Player();
+	Player obj = serializer.fromJson(text, p.getClass());
     }
     
     public void writeToFile(String text, String fileName) throws IOException

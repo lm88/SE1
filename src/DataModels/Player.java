@@ -3,15 +3,25 @@ package DataModels;
 import java.util.ArrayList;
 
 public class Player {
+
 	public String name;
 	public int level;
 	public int currency;
 	public ArrayList<Unit> unitList = new ArrayList<Unit>(3); 
-	
+
 	public Player() {
 		name = "";
 		level = 0; 
 		currency = 0; 
+	}
+	
+	// The GSon serializer needs this to properly deserialize
+	public Player(String name, int level, int currency, ArrayList<Unit> unitList)
+	{
+	    Player.name = name;
+	    Player.level = level;
+	    Player.currency = currency;
+	    Player.unitList.addAll(unitList);
 	}
 	
 	public void setName(String newName) {
@@ -33,7 +43,5 @@ public class Player {
 	public int getCurrency() {
 		return currency; 
 	}
-	
-	
 	
 }
