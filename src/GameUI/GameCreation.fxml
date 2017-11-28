@@ -14,13 +14,13 @@
 		<HBox styleClass="typeSelectContainer" fx:id="typeSelectContainer" visible="false">
 			<VBox styleClass="typeContainer"></VBox> 
 			<VBox styleClass="typeContainer">
-				<Button styleClass="typeSelect" id="fire" text="Fire" onAction="#handleTypeSelect" visible="true"/>
+				<Button styleClass="fire" id="fire" text="Fire" onAction="#handleTypeSelect" visible="true"/>
 			</VBox>
 			<VBox styleClass="typeContainer">
-				<Button styleClass="typeSelect" id="earth" text="Earth" onAction="#handleTypeSelect" visible="true"/>
+				<Button styleClass="earth" id="earth" text="Earth" onAction="#handleTypeSelect" visible="true"/>
 			</VBox>
 			<VBox styleClass="typeContainer">
-				<Button styleClass="typeSelect" id="water" text="Water" onAction="#handleTypeSelect" visible="true"/>
+				<Button styleClass="water" id="water" text="Water" onAction="#handleTypeSelect" visible="true"/>
 			</VBox>
 			<VBox styleClass="typeContainer"></VBox>
 		</HBox>

@@ -10,8 +10,6 @@ import UIFramework.NavigationController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
 public class GameCreationController {
@@ -26,7 +24,7 @@ public class GameCreationController {
 	int index;
 	
 	private int getIndex(String teamMember) {
-		return (teamMember == "teamMember1") ? 0 : (teamMember == "teamMember2") ? 1 : 2;
+		return (teamMember.equals("teamMember1")) ? 0 : (teamMember.equals("teamMember2")) ? 1 : 2;
 	}
 	
 	@FXML
@@ -38,18 +36,24 @@ public class GameCreationController {
 		
 	}
 	
-	private void replaceButton(int index) {
+	private void replaceButton(int index, String type) {
 		if(index == 0) {
-			Image image = new Image(getClass().getResourceAsStream("fireIcon.png"));
-			teamMember1.setGraphic(new ImageView(image));
+			teamMember1.getStyleClass().removeAll("unitSelect");
+			if(type.equals("fire")) teamMember1.getStyleClass().add("fire");
+			if(type.equals("earth")) teamMember1.getStyleClass().add("earth");
+			if(type.equals("water")) teamMember1.getStyleClass().add("water");
 		}
 		else if(index == 1) {
-			Image image = new Image(getClass().getResourceAsStream("fireIcon.png"));
-			teamMember2.setGraphic(new ImageView(image));
+			teamMember2.getStyleClass().removeAll("unitSelect");
+			if(type.equals("fire")) teamMember2.getStyleClass().add("fire");
+			if(type.equals("earth")) teamMember2.getStyleClass().add("earth");
+			if(type.equals("water")) teamMember2.getStyleClass().add("water");
 		}
 		else {
-			Image image = new Image(getClass().getResourceAsStream("fireIcon.png"));
-			teamMember3.setGraphic(new ImageView(image));
+			teamMember3.getStyleClass().removeAll("unitSelect");
+			if(type.equals("fire")) teamMember3.getStyleClass().add("fire");
+			if(type.equals("earth")) teamMember3.getStyleClass().add("earth");
+			if(type.equals("water")) teamMember3.getStyleClass().add("water");
 		}
 	}
 	
@@ -61,17 +65,17 @@ public class GameCreationController {
 			case "fire":
 				thisPlayer.unitList.add(index, new Unit(type, 10));
 				typeSelectContainer.setVisible(false);
-				//replaceButton(index);
+				replaceButton(index, type);
 				break;
 			case "earth":
 				thisPlayer.unitList.add(index, new Unit(type, 10));
 				typeSelectContainer.setVisible(false);
-				//replaceButton(index);
+				replaceButton(index, type);
 				break;
 			case "water":
 				thisPlayer.unitList.add(index, new Unit(type, 10));
 				typeSelectContainer.setVisible(false);
-				//replaceButton(index);
+				replaceButton(index, type);
 				break;	
 		}
 		

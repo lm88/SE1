@@ -6,7 +6,7 @@ public class Player {
 	public String name;
 	public int level;
 	public int currency;
-	public ArrayList<Unit> unitList = new ArrayList<Unit>(); 
+	public ArrayList<Unit> unitList = new ArrayList<Unit>(3); 
 	
 	public Player() {
 		name = "";
