@@ -255,15 +255,12 @@
 }
 
 /*Game Creation*/
-.unitSelectContainer {
-	-fx-alignment: center;
-	-fx-min-width: 400;
-	-fx-min-height: 400;
-	-fx-padding: 10;
-	/*-fx-border-color: #000000;
-    -fx-border-radius: 20;
-    -fx-border-width: 1 1 1 1;*/
+.gameCreationWindow {
+	-fx-pref-width: 1280;
+	-fx-pref-height: 720;
+    -fx-background-image: url("stoneBG.png");
 }
+
 .unitSelect{
 	-fx-alignment: center;
     -fx-max-width: 300;
@@ -297,12 +294,25 @@
 	-fx-effect: dropshadow(two-pass-box, #684d38, 10, 0.5, 3, 3);
 }
 
-.typeSelect{
-	-fx-min-width: 100;
-    -fx-min-height: 100;
+.typeSelectContainer{
+	-fx-min-width: 400;
+	-fx-min-height: 210;
     
 }
-
+.typeContainer{
+	-fx-alignment: center;
+	-fx-min-width: 256;
+    
+}
+.unitSelectContainer {
+	-fx-alignment: center;
+	-fx-min-width: 426.67;
+	/*-fx-min-height: 400;
+	-fx-padding: 10;
+	-fx-border-color: #000000;
+    -fx-border-radius: 20;
+    -fx-border-width: 1 1 1 1;*/
+}
 #fire{
 	
     -fx-alignment: center;
