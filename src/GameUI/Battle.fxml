@@ -33,6 +33,9 @@
 	<VBox styleClass="battleBorder">
 		<!-- right margin -->
 		
+		<Button fx:id="playerUnit1"/>
+		<Button fx:id="playerUnit2"/>
+		<Button fx:id="playerUnit3"/>
 	</VBox>
 	</right>
 	

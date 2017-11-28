@@ -25,6 +25,11 @@
 	-fx-alignment: center;
 	-fx-min-width: 400;
 	-fx-min-height: 210;
+	-fx-background-image: url('gameLogo.png');
+    -fx-background-size: 15%;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 100 20;
+    -fx-background-color: transparent;
 }
 .menuButtonHolder {
 	-fx-alignment: center;
