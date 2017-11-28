@@ -22,24 +22,51 @@ import javafx.scene.control.Label;
 public class MarketController {
 
      private String _Previous;
-     private int UpgradeCost;
      
+    // View labels
+    @FXML
+    private Label playerCurrency;
+    @FXML
+    private Label insufficientFunds;
     @FXML
     private Label unit1Damage;
     @FXML
     private Label unit1Health;
     @FXML
+    private Label weaponCost1;
+    @FXML
+    private Label armorCost1;
+    @FXML
     private Label unit2Damage;
     @FXML
     private Label unit2Health;
     @FXML
+    private Label weaponCost2;
+    @FXML
+    private Label armorCost2;
+    @FXML
     private Label unit3Damage;
     @FXML
     private Label unit3Health;
+    @FXML
+    private Label weaponCost3;
+    @FXML
+    private Label armorCost3;
+    
+    // View buttons
+    @FXML
+    private Button unit1Icon;
+    @FXML
+    private Button unit2Icon;
+    @FXML
+    private Button unit3Icon;
+    
     
     @FXML
     protected void initialize()
     {
+	setUnitIcons();
+	updateUpgradeCost();
 	updateUnitStatsDisplay();
     }
     
@@ -69,31 +96,86 @@ public class MarketController {
    public void upgradeWeapon(ActionEvent event)
    {
        String id = ((Button) event.getSource()).getId();
+	Unit u = Player.unitList.get(Integer.parseInt(id));
+	if(Player.currency >= (int)(u.damage*1.5))
+	{
+	    Player.currency -= (int)(u.damage*1.5);
+	    int pl = Player.level;
 
-       int pl = Player.level;
+	    u.damage += (5*pl)/1.5;
 
-       Unit u = Player.unitList.get(Integer.parseInt(id));
-
-       u.damage += (5*pl)/1.5;
-       
-       updateUnitStatsDisplay();
+	    updateUpgradeCost();
+	    updateUnitStatsDisplay();
+	 }
+	else
+	{
+	    insufficientFunds.setText("Insufficient Funds");
+	}
    }
 
    @FXML
    public void upgradeArmor(ActionEvent event)
    {
-       String id = ((Button) event.getSource()).getId();
-
-       int pl = Player.level;
-
-       Unit u = Player.unitList.get(Integer.parseInt(id));
-
-       u.health += (5*pl)/1.5;
-
-       updateUnitStatsDisplay();
+	String id = ((Button) event.getSource()).getId();
+	Unit u = Player.unitList.get(Integer.parseInt(id));
+	if(Player.currency >= (int)(u.health*1.5))
+	{
+	    Player.currency -= (int)(u.health*1.5);
+	    
+	    int pl = Player.level;
+	    u.health += (5*pl)/1.5;
+	    
+	    updateUpgradeCost();
+	    updateUnitStatsDisplay();
+	}
+	else
+	{
+	    insufficientFunds.setText("Insufficient Funds");
+	}
+   }
+   
+   private void setUnitIcons()
+   {
+       try
+       {
+	    unit1Icon.getStyleClass().add(determineIcon(0));
+	    unit2Icon.getStyleClass().add(determineIcon(1));
+	    unit3Icon.getStyleClass().add(determineIcon(2));
+       }
+       catch(Exception e)
+       {
+	   String m = e.getMessage();
+       }
+   }
+   
+   private String determineIcon(int index)
+   {
+       ArrayList<Unit> u = Player.unitList;
+       switch(u.get(index).type)
+       {
+	   case "water":
+	       return "waterUnit";
+	   case "fire":
+	       return "fireUnit";
+	   case "earth":
+	       return "earthUnit";
+	   default:
+	       return"";
+       }
    }
 
-   @FXML
+   private void updateUpgradeCost()
+   {
+       ArrayList<Unit> units = Player.unitList;
+       playerCurrency.setText(Integer.toString(Player.currency));
+       weaponCost1.setText(Integer.toString((int)(units.get(0).damage*1.5)));
+       armorCost1.setText(Integer.toString((int)(units.get(0).health*1.5)));
+       weaponCost2.setText(Integer.toString((int)(units.get(1).damage*1.5)));
+       armorCost2.setText(Integer.toString((int)(units.get(1).health*1.5)));
+       weaponCost3.setText(Integer.toString((int)(units.get(2).damage*1.5)));
+       armorCost3.setText(Integer.toString((int)(units.get(2).health*1.5)));
+   }
+    
    private void updateUnitStatsDisplay()
    {
        

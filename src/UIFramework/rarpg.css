@@ -142,6 +142,16 @@
 .marketContainer {
     -fx-alignment: CENTER;
     -fx-spacing: 15;
+    -fx-min-width: 400;
+    -fx-min-height: 90;
+}
+.paddedMarketBox {
+    -fx-padding: 15;
+    -fx-background-color: #666666;
+    -fx-background-radius: 22;
+    -fx-max-width: 350px;
+    -fx-alignment: center;
+    
 }
 /* Label */
 .marketLabel {
@@ -152,6 +162,16 @@
     -fx-text-fill: #92b326  ;
     -fx-effect: dropshadow(two-pass-box, #333333, 10, 0.5, 3, 3);
 }
+
+.marketPCLabel {
+    -fx-alignment: center;
+    -fx-font-family: sans-serif;
+    -fx-font-size: 24;
+    -fx-font-weight: bold; 
+    -fx-text-fill: #92b326  ;
+    -fx-effect: dropshadow(two-pass-box, #333333, 10, 0.5, 3, 3);
+}
+
 .marketCostLabel {
     -fx-alignment: center;
     -fx-background-image: url('gemIcon.png');
@@ -183,7 +203,7 @@
 }
 
 /* TODO Only one of these should really be needed once the controller is finished */
-.marketUnit1 {
+.fireUnit {
     -fx-alignment: center;
     -fx-background-image: url('fireIcon.png');
     -fx-background-size: 100%;
@@ -199,7 +219,7 @@
     -fx-effect: dropshadow(one-pass-box, #444444, 10, 0.5, 2, 2);
 }
 
-.marketUnit2 {
+.waterUnit {
     -fx-alignment: center;
     -fx-background-image: url('waterIcon.png');
     -fx-background-size: 100%;
@@ -214,7 +234,7 @@
     -fx-min-height: 200;
     -fx-effect: dropshadow(one-pass-box, #444444, 10, 0.5, 2, 2);
 }
-.marketUnit3 {
+.earthUnit {
     -fx-alignment: center;
     -fx-background-image: url('earthIcon.png');
     -fx-background-size: 100%;
@@ -230,7 +250,6 @@
     -fx-effect: dropshadow(one-pass-box, #444444, 10, 0.5, 2, 2);
 }
 
-
 .marketBanner {
      -fx-background-image: url('banner.png');
     -fx-background-size: 100%;
@@ -239,7 +258,7 @@
     -fx-background-color: transparent;
     -fx-min-height: 250;
     -fx-min-width: 175;
-    -fx-padding: 25;
+    -fx-padding: 30;
     -fx-spacing: 5;
 }
 
@@ -313,7 +332,9 @@
     -fx-border-radius: 20;
     -fx-border-width: 1 1 1 1;*/
 }
-.fire{
+
+#fire{
+	
     -fx-alignment: center;
     -fx-background-image: url('fireIcon.png');
     -fx-background-size: 100%;
@@ -324,11 +345,11 @@
     -fx-border-color: linear-gradient(#cccccc, #888888);
     -fx-border-radius: 200;
     -fx-border-width: 3;
-    -fx-min-width: 125;
-    -fx-min-height: 125;
+    -fx-min-width: 100;
+    -fx-min-height: 100;
     -fx-effect: dropshadow(one-pass-box, #444444, 10, 0.5, 2, 2);
 }
-.earth{
+#earth{
 	
     -fx-alignment: center;
     -fx-background-image: url('earthIcon.png');
@@ -340,11 +361,11 @@
     -fx-border-color: linear-gradient(#cccccc, #888888);
     -fx-border-radius: 500;
     -fx-border-width: 3;
-    -fx-min-width: 125;
-    -fx-min-height: 125;
+    -fx-min-width: 100;
+    -fx-min-height: 100;
     -fx-effect: dropshadow(one-pass-box, #444444, 10, 0.5, 2, 2);
 }
-.water{
+#water{
 	
     -fx-alignment: center;
     -fx-background-image: url('waterIcon.png');
@@ -356,7 +377,7 @@
     -fx-border-color: linear-gradient(#cccccc, #888888);
     -fx-border-radius: 500;
     -fx-border-width: 3;
-    -fx-min-width: 125;
-    -fx-min-height: 125;
+    -fx-min-width: 100;
+    -fx-min-height: 100;
     -fx-effect: dropshadow(one-pass-box, #444444, 10, 0.5, 2, 2);
 }
