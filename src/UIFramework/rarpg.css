@@ -338,7 +338,7 @@
     -fx-border-width: 1 1 1 1;*/
 }
 
-#fire{
+.fire{
 	
     -fx-alignment: center;
     -fx-background-image: url('fireIcon.png');
@@ -350,11 +350,11 @@
     -fx-border-color: linear-gradient(#cccccc, #888888);
     -fx-border-radius: 200;
     -fx-border-width: 3;
-    -fx-min-width: 100;
-    -fx-min-height: 100;
+    -fx-min-width: 125;
+    -fx-min-height: 125;
     -fx-effect: dropshadow(one-pass-box, #444444, 10, 0.5, 2, 2);
 }
-#earth{
+.earth{
 	
     -fx-alignment: center;
     -fx-background-image: url('earthIcon.png');
@@ -366,11 +366,11 @@
     -fx-border-color: linear-gradient(#cccccc, #888888);
     -fx-border-radius: 500;
     -fx-border-width: 3;
-    -fx-min-width: 100;
-    -fx-min-height: 100;
+    -fx-min-width: 125;
+    -fx-min-height: 125;
     -fx-effect: dropshadow(one-pass-box, #444444, 10, 0.5, 2, 2);
 }
-#water{
+.water{
 	
     -fx-alignment: center;
     -fx-background-image: url('waterIcon.png');
@@ -382,7 +382,7 @@
     -fx-border-color: linear-gradient(#cccccc, #888888);
     -fx-border-radius: 500;
     -fx-border-width: 3;
-    -fx-min-width: 100;
-    -fx-min-height: 100;
+    -fx-min-width: 125;
+    -fx-min-height: 125;
     -fx-effect: dropshadow(one-pass-box, #444444, 10, 0.5, 2, 2);
 }

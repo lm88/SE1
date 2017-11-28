@@ -4,6 +4,8 @@ package GameUI;
  *
  */
 import java.io.IOException;
+import java.util.ArrayList;
+
 import DataModels.Player;
 import DataModels.Unit;
 import UIFramework.NavigationController;
@@ -18,7 +20,7 @@ public class GameCreationController {
 	
 	@FXML HBox typeSelectContainer; //Inject element IDs into controller
 	
-	Player thisPlayer = new Player(); //Instantiate Player object
+	//Player thisPlayer = new Player(); //Instantiate Player object
 	
 	String teamMember; //Team member index
 	int index;
@@ -31,7 +33,6 @@ public class GameCreationController {
 	private void handlePlayerSelect(ActionEvent event) throws IOException {
 		teamMember = ((Button) event.getSource()).getId();
 		index = getIndex(teamMember);
-		
 		typeSelectContainer.setVisible(true);
 		
 	}
@@ -59,21 +60,22 @@ public class GameCreationController {
 	
 	@FXML
 	private void handleTypeSelect(ActionEvent event) throws IOException {
+		
 		String type = ((Button) event.getSource()).getId();
 		
 		switch(type) {
 			case "fire":
-				thisPlayer.unitList.add(index, new Unit(type, 10));
+				Player.unitList.add(index, new Unit(type, 10));
 				typeSelectContainer.setVisible(false);
 				replaceButton(index, type);
 				break;
 			case "earth":
-				thisPlayer.unitList.add(index, new Unit(type, 10));
+				Player.unitList.add(index, new Unit(type, 10));
 				typeSelectContainer.setVisible(false);
 				replaceButton(index, type);
 				break;
 			case "water":
-				thisPlayer.unitList.add(index, new Unit(type, 10));
+				Player.unitList.add(index, new Unit(type, 10));
 				typeSelectContainer.setVisible(false);
 				replaceButton(index, type);
 				break;	
