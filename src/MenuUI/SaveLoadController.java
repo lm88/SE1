@@ -5,6 +5,7 @@
  */
 package MenuUI;
 
+import DataModels.Player;
 import Persistence.FileIO;
 import UIFramework.NavigationController;
 import java.io.IOException;
@@ -105,8 +106,15 @@ public class SaveLoadController
 
 		fileHandler.loadFile(Integer.parseInt(_Selection.getId()));
 		
-		// Transition to main menu
-		transitionView(event);
+		if(validateGameLoad())
+		{	
+		    // Transition to main menu
+		    transitionView(event);
+		}
+		else
+		{
+		    statusMessage.setText("Game Could Not Be Loaded");
+		}
 	    }
 	    catch (IOException ex)
 	    {
@@ -119,5 +127,16 @@ public class SaveLoadController
 	    // Display error message
 	    statusMessage.setText("Please Select A Save");
 	}
+    }
+
+
+    private boolean validateGameLoad()
+    {
+	 if(Player.level <= 0 || Player.currency < 0 || Player.unitList.isEmpty())
+	 {
+	     return false;
+	 }
+	 
+	 return true;
     }
 }

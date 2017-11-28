@@ -39,9 +39,9 @@
                                
 	<VBox styleClass="menuButtonHolder">
 		
-		<Button styleClass="menuButton" onAction="#setSlotNum" id="0" text="New Game"/>
-		<Button styleClass="menuButton" onAction="#setSlotNum" id="1" text="New Game"/>
-		<Button styleClass="menuButton" onAction="#setSlotNum" id="2" text="New Game"/>
+		<Button styleClass="menuButton" onAction="#setSlotNum" id="0" text="Overloard 1"/>
+		<Button styleClass="menuButton" onAction="#setSlotNum" id="1" text="Overloard 2"/>
+		<Button styleClass="menuButton" onAction="#setSlotNum" id="2" text="Overloard 3"/>
                 <Label styleClass="statusMessage" fx:id="statusMessage" text=""/>
                 <HBox alignment="center" spacing="10">
                     <Button styleClass="menuButton" onAction="#saveGame" id="save" text="Save"/>
