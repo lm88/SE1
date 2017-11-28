@@ -21,12 +21,24 @@ public class GameCreationController {
 	@FXML HBox typeSelectContainer; //Inject element IDs into controller
 	
 	String teamMember; //Team member index
-	int index;
+	int index; //Index for placement in arrayList
 	
+	/********************************************************
+	 * Utility method for handlePlayerSelect().  Gets index 
+	 * of team member button selected for location in 
+	 * arrayList.
+	 * @param teamMember
+	 * @return index
+	 *******************************************************/
 	private int getIndex(String teamMember) {
 		return (teamMember.equals("teamMember1")) ? 0 : (teamMember.equals("teamMember2")) ? 1 : 2;
 	}
 	
+	/********************************************************
+	 * Handles team member select button press.  Gets index 
+	 * of button pressed and displays unit type options.
+	 * @param event
+	 *******************************************************/
 	@FXML
 	private void handlePlayerSelect(ActionEvent event) throws IOException {
 		teamMember = ((Button) event.getSource()).getId();
@@ -35,6 +47,11 @@ public class GameCreationController {
 		
 	}
 	
+	/********************************************************
+	 * Utility method for handleTypeSelect().  Switches 
+	 * button styling.
+	 * @param index, type
+	 *******************************************************/
 	private void setButtonIcon(String type, Button btn) {
 		btn.getStyleClass().removeAll("unitSelect");
 		if(type.equals("fire")) btn.getStyleClass().add("fire");
@@ -42,6 +59,11 @@ public class GameCreationController {
 		if(type.equals("water")) btn.getStyleClass().add("water");
 	}
 	
+	/********************************************************
+	 * Utility method for handleTypeSelect().  Replaces
+	 * button icon with its chosen element.
+	 * @param index, type
+	 *******************************************************/
 	private void replaceButton(int index, String type) {
 		if(index == 0) {
 			setButtonIcon(type, teamMember1);
@@ -54,12 +76,22 @@ public class GameCreationController {
 		}
 	}
 	
+	/********************************************************
+	 * Utility method for handleTypeSelect().  Sets unit in
+	 * arrayList and hides type select button container.
+	 * @param type
+	 *******************************************************/
 	private void typeSelect(String type) {
 		Player.unitList.add(index, new Unit(type, 0, 10));
 		typeSelectContainer.setVisible(false);
 		replaceButton(index, type);
 	}
 	
+	/********************************************************
+	 * Sets unit to element chosen by user and replaces 
+	 * team member select button with its chosen element.
+	 * @param event
+	 *******************************************************/
 	@FXML
 	private void handleTypeSelect(ActionEvent event) throws IOException {
 		
