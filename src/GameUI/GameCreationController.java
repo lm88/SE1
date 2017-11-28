@@ -5,7 +5,6 @@ package GameUI;
  */
 import DataModels.Player;
 import DataModels.Unit;
-
 import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
