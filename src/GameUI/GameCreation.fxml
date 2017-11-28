@@ -24,20 +24,20 @@
 	<left>
 		<VBox styleClass="unitSelectContainer">
 			<!-- left margin -->
-			<Button styleClass="unitSelect" id="0" text="Team Member 1" onAction="#handlePlayerSelect" visible="true"/>
+			<Button styleClass="unitSelect" fx:id="teamMember1" text="Team Member 1" onAction="#handlePlayerSelect" visible="true"/>
 		</VBox>
 	</left>
 	
 	<center>
 		<VBox styleClass="unitSelectContainer">
-			<Button styleClass="unitSelect" id="1" text="Team Member 2" onAction="#handlePlayerSelect" visible="true"/>
+			<Button styleClass="unitSelect" fx:id="teamMember2" text="Team Member 2" onAction="#handlePlayerSelect" visible="true"/>
 		</VBox>
 	</center>
 	
 	<right>
 		<VBox styleClass="unitSelectContainer">
 			<!-- right margin -->
-			<Button styleClass="unitSelect" id="2" text="Team Member 3" onAction="#handlePlayerSelect" visible="true"/>
+			<Button styleClass="unitSelect" fx:id="teamMember3" text="Team Member 3" onAction="#handlePlayerSelect" visible="true"/>
 		</VBox>
 	</right>
 	

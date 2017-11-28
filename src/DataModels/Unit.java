@@ -1,6 +1,5 @@
 package DataModels;
 
-
 public class Unit {
 	public String type;
 	public int health;

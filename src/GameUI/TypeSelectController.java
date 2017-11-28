@@ -1,11 +1,10 @@
-package GameUI;
 /**
- * @author Kenneth Dale
- *
+ * 
  */
+package GameUI;
+
 import DataModels.Player;
 import DataModels.Unit;
-
 import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,28 +22,32 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import UIFramework.NavigationController;
 
-public class GameCreationController {
+/**
+ * @author Kenneth Dale
+ *
+ */
+public class TypeSelectController {
 	@FXML
-	private Button teamMember1;
+	private Label modalTitle;
 	
-	@FXML
-	private Button teamMember2;
-	
-	@FXML
-	private Button teamMember3;
-	
-	
-	
-	Player thisPlayer = new Player();
-	TypeSelectController tsc = new TypeSelectController();
 	Stage stage;
 	int teamMemberIndex;
 	
+	Player thisPlayer = new Player();
+	//GameCreationController gcc = new GameCreationController();
+	
 	@FXML
-	private void handlePlayerSelect(ActionEvent event) throws IOException {
-		//teamMemberIndex = Integer.parseInt(((Button) event.getSource()).getId());
-		
-		tsc.displayModal();
+	public void displayModal() throws IOException {
+		FXMLLoader modal = new FXMLLoader(getClass().getResource("typeSelect.fxml"));
+		Parent root1 = (Parent) modal.load();
+		stage = new Stage();
+		stage.initStyle(StageStyle.TRANSPARENT);
+		Scene scene = new Scene(root1);
+		scene.setFill(null);
+		scene.getStylesheets().add(getClass().getResource("/UIFramework/rarpg.css").toExternalForm());
+		stage.setScene(scene);
+		stage.initModality(Modality.APPLICATION_MODAL);
+		stage.show();
 	}
 	
 	@FXML
@@ -68,12 +71,5 @@ public class GameCreationController {
 				break;
 		}
 		
-	}
-	
-	
-	
-	/** Send view change request */ 
-	@FXML private void transitionView() {
-		NavigationController.loadView(NavigationController.BATTLE);
 	}
 }

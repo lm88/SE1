@@ -283,6 +283,19 @@
     
     -fx-background-color: rgba(0, 0, 0, 0);
 }
+.modalTitle {
+	-fx-alignment: center;
+	-fx-min-width: 400;
+	-fx-min-height: 50;
+}
+.modalTitleText {
+	-fx-alignment: center;
+	-fx-font-family: serif;
+	-fx-font-size: 14;
+	-fx-font-weight: bold; 
+	-fx-text-fill: radial-gradient(center 50% -40%, radius 185%, #f8941c 55%, #fcca8e 65%);
+	-fx-effect: dropshadow(two-pass-box, #684d38, 10, 0.5, 3, 3);
+}
 
 .typeSelect{
 	-fx-min-width: 100;
@@ -302,8 +315,8 @@
     -fx-border-color: linear-gradient(#cccccc, #888888);
     -fx-border-radius: 200;
     -fx-border-width: 3;
-    -fx-min-width: 200;
-    -fx-min-height: 200;
+    -fx-min-width: 100;
+    -fx-min-height: 100;
     -fx-effect: dropshadow(one-pass-box, #444444, 10, 0.5, 2, 2);
 }
 #earth{
@@ -318,8 +331,8 @@
     -fx-border-color: linear-gradient(#cccccc, #888888);
     -fx-border-radius: 500;
     -fx-border-width: 3;
-    -fx-min-width: 200;
-    -fx-min-height: 200;
+    -fx-min-width: 100;
+    -fx-min-height: 100;
     -fx-effect: dropshadow(one-pass-box, #444444, 10, 0.5, 2, 2);
 }
 #water{
@@ -334,7 +347,7 @@
     -fx-border-color: linear-gradient(#cccccc, #888888);
     -fx-border-radius: 500;
     -fx-border-width: 3;
-    -fx-min-width: 200;
-    -fx-min-height: 200;
+    -fx-min-width: 100;
+    -fx-min-height: 100;
     -fx-effect: dropshadow(one-pass-box, #444444, 10, 0.5, 2, 2);
 }
