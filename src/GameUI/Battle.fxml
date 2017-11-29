@@ -7,155 +7,200 @@
 <BorderPane styleClass="window" fx:id="battle" fx:controller="GameUI.BattleController" xmlns:fx="http://javafx.com/fxml">
 	
 	<top>
-	<HBox styleClass="battleBorder">
+	<HBox styleClass="battleBorderTop">
 		<!-- header -->
 		
-		<Label styleClass="overlord" text="ALL HAIL THE OVERLORD!"/>
 	</HBox>
 	</top>
 	
-	<bottom>
-	<HBox styleClass="battleBorder">
-		<!-- footer -->
-		
-		<Button styleClass="menuButton" onAction="#transitionView" text="To Main Menu"/>
-	</HBox>
-	</bottom>
-	
-	<left>
-	<VBox styleClass="battleBorder, battleBorderLeft">
-		<!-- left margin -->
-		
-		<Button styleClass="unitIcons, battleUnitIcons" fx:id="enemyUnit1"/>
-		<Button styleClass="unitIcons, battleUnitIcons" fx:id="enemyUnit2"/>
-		<Button styleClass="unitIcons, battleUnitIcons" fx:id="enemyUnit3"/>
-		
-	</VBox>
-	</left>
-	
 	<right>
-	<VBox styleClass="battleBorder, battleBorderRight">
+	<VBox styleClass="battleBorderSide">
 		<!-- right margin -->
+		<Label styleClass="battleLabel" text=" Player " />
 		
-		<HBox>
-			<VBox styleClass="battleUnitBox">
+		<HBox styleClass="battleUnitBox">
+			<VBox styleClass="battleUnitStatBox">
 				<HBox>
-					<Label styleClass="statsLabel" text="Health:"/>
-					<Label styleClass="hp" id="unit1health" text="10"/>
+					<Label styleClass="stats" text="Health:"/>
+					<Label styleClass="stats, hp" fx:id="playerUnit1health" text="x"/>
 				</HBox>
 				<HBox>
-					<Label styleClass="statsLabel" text="Resource:"/>
-					<Label styleClass="mp" id="unit1resource" text="10"/>
+					<Label styleClass="stats" text="Resource:"/>
+					<Label styleClass="stats, mp" fx:id="playerUnit1resource" text="x"/>
 				</HBox>
 			</VBox>
-			<Button styleClass="unitIcons, battleUnitIcons" fx:id="playerUnit1"/>
+			<Button styleClass="battleUnitIcons" fx:id="playerUnit1"/>
 		</HBox>
 		
-		<HBox>
-			<VBox styleClass="battleUnitBox">
+		<HBox styleClass="battleUnitBox">
+			<VBox styleClass="battleUnitStatBox">
 				<HBox>
-					<Label styleClass="statsLabel" text="Health:"/>
-					<Label styleClass="hp" id="unit2health" text="10"/>
+					<Label styleClass="stats" text="Health:"/>
+					<Label styleClass="stats, hp" fx:id="playerUnit2health" text="x"/>
 				</HBox>
 				<HBox>
-					<Label styleClass="statsLabel" text="Resource:"/>
-					<Label styleClass="mp" id="unit2resource" text="15"/>
+					<Label styleClass="stats" text="Resource:"/>
+					<Label styleClass="stats, mp" fx:id="playerUnit2resource" text="x"/>
 				</HBox>
 			</VBox>
-			<Button styleClass="unitIcons, battleUnitIcons" fx:id="playerUnit2"/>
+			<Button styleClass="battleUnitIcons" fx:id="playerUnit2"/>
 		</HBox>
 		
-		<HBox>
-			<VBox styleClass="battleUnitBox">
+		<HBox styleClass="battleUnitBox">
+			<VBox styleClass="battleUnitStatBox">
 				<HBox>
-					<Label styleClass="statsLabel" text="Health:"/>
-					<Label styleClass="hp" id="unit3health" text="15"/>
+					<Label styleClass="stats" text="Health:"/>
+					<Label styleClass="stats, hp" fx:id="playerUnit3health" text="x"/>
 				</HBox>
 				<HBox>
-					<Label styleClass="statsLabel" text="Resource:"/>
-					<Label styleClass="mp" id="unit3resource" text="10"/>
+					<Label styleClass="stats" text="Resource:"/>
+					<Label styleClass="stats, mp" fx:id="playerUnit3resource" text="x"/>
 				</HBox>
 			</VBox>
-			<Button styleClass="unitIcons, battleUnitIcons" fx:id="playerUnit3"/>
+			<Button styleClass="battleUnitIcons" fx:id="playerUnit3"/>
 		</HBox>
 		
 	</VBox>
 	</right>
 	
+	<bottom>
+	<VBox styleClass="battleBorderBottom">
+		<!-- footer -->
+		
+		<Label styleClass="battleLabel" fx:id="overlord" text="ALL HAIL THE OVERLORD!"/>
+		<Button styleClass="menuButton" onAction="#transitionView" text="To Main Menu"/>
+	</VBox>
+	</bottom>
+	
+	<left>
+	<VBox styleClass="battleBorderSide">
+		<!-- left margin -->
+		
+		<Label styleClass="battleLabel" text=" Enemy " />
+		
+		<HBox styleClass="battleUnitBox">
+			<Button styleClass="battleUnitIcons" fx:id="enemyUnit1"/>
+			<VBox styleClass="battleUnitStatBox">
+				<HBox>
+					<Label styleClass="stats" text="Health:"/>
+					<Label styleClass="stats, hp" fx:id="enemyUnit1health" text="x"/>
+				</HBox>
+				<HBox>
+					<Label styleClass="stats" text="Resource:"/>
+					<Label styleClass="stats, mp" fx:id="enemyUnit1resource" text="x"/>
+				</HBox>
+			</VBox>
+		</HBox>
+		
+		<HBox styleClass="battleUnitBox">
+			<Button styleClass="battleUnitIcons" fx:id="enemyUnit2"/>
+			<VBox styleClass="battleUnitStatBox">
+				<HBox>
+					<Label styleClass="stats" text="Health:"/>
+					<Label styleClass="stats, hp" fx:id="enemyUnit2health" text="x"/>
+				</HBox>
+				<HBox>
+					<Label styleClass="stats" text="Resource:"/>
+					<Label styleClass="stats, mp" fx:id="enemyUnit2resource" text="x"/>
+				</HBox>
+			</VBox>
+		</HBox>
+		
+		<HBox styleClass="battleUnitBox">
+			<Button styleClass="battleUnitIcons" fx:id="enemyUnit3"/>
+			<VBox styleClass="battleUnitStatBox">
+				<HBox>
+					<Label styleClass="stats" text="Health:"/>
+					<Label styleClass="stats, hp" fx:id="enemyUnit3health" text="x"/>
+				</HBox>
+				<HBox>
+					<Label styleClass="stats" text="Resource:"/>
+					<Label styleClass="stats, mp" fx:id="enemyUnit3resource" text="x"/>
+				</HBox>
+			</VBox>
+		</HBox>
+		
+	</VBox>
+	</left>
+	
 	<center>
-		<TilePane styleClass="battleTileHolder">
+		<TilePane styleClass="battleTileHolder" fx:id="tilePane">
 			
-			<Button styleClass="tile, whtTile" onAction="#tilePress" id="00"/>
-			<Button styleClass="tile, blkTile" onAction="#tilePress" id="01"/>
-			<Button styleClass="tile, whtTile" onAction="#tilePress" id="02"/>
-			<Button styleClass="tile, blkTile" onAction="#tilePress" id="03"/>
-			<Button styleClass="tile, whtTile" onAction="#tilePress" id="04"/>
-			<Button styleClass="tile, blkTile" onAction="#tilePress" id="05"/>
-			<Button styleClass="tile, whtTile" onAction="#tilePress" id="06"/>
-			<Button styleClass="tile, blkTile" onAction="#tilePress" id="07"/>
+			<!-- tiles are now created by the controller, but leaving this here for now in case it is needed again
 			
-			<Button styleClass="tile, blkTile" onAction="#tilePress" id="08"/>
-			<Button styleClass="tile, whtTile" onAction="#tilePress" id="09"/>
-			<Button styleClass="tile, blkTile" onAction="#tilePress" id="10"/>
-			<Button styleClass="tile, whtTile" onAction="#tilePress" id="11"/>
-			<Button styleClass="tile, blkTile" onAction="#tilePress" id="12"/>
-			<Button styleClass="tile, whtTile" onAction="#tilePress" id="13"/>
-			<Button styleClass="tile, blkTile" onAction="#tilePress" id="14"/>
-			<Button styleClass="tile, whtTile" onAction="#tilePress" id="15"/>
+			<Button styleClass="tile, whtTile" onAction="#tilePress" fx:id="tile00" id="00"/>
+			<Button styleClass="tile, blkTile" onAction="#tilePress" fx:id="tile01" id="01"/>
+			<Button styleClass="tile, whtTile" onAction="#tilePress" fx:id="tile02" id="02"/>
+			<Button styleClass="tile, blkTile" onAction="#tilePress" fx:id="tile03" id="03"/>
+			<Button styleClass="tile, whtTile" onAction="#tilePress" fx:id="tile04" id="04"/>
+			<Button styleClass="tile, blkTile" onAction="#tilePress" fx:id="tile05" id="05"/>
+			<Button styleClass="tile, whtTile" onAction="#tilePress" fx:id="tile06" id="06"/>
+			<Button styleClass="tile, blkTile" onAction="#tilePress" fx:id="tile07" id="07"/>
 			
-			<Button styleClass="tile, whtTile" onAction="#tilePress" id="16"/>
-			<Button styleClass="tile, blkTile" onAction="#tilePress" id="17"/>
-			<Button styleClass="tile, whtTile" onAction="#tilePress" id="18"/>
-			<Button styleClass="tile, blkTile" onAction="#tilePress" id="19"/>
-			<Button styleClass="tile, whtTile" onAction="#tilePress" id="20"/>
-			<Button styleClass="tile, blkTile" onAction="#tilePress" id="21"/>
-			<Button styleClass="tile, whtTile" onAction="#tilePress" id="22"/>
-			<Button styleClass="tile, blkTile" onAction="#tilePress" id="23"/>
+			<Button styleClass="tile, blkTile" onAction="#tilePress" fx:id="tile10" id="08"/>
+			<Button styleClass="tile, whtTile" onAction="#tilePress" fx:id="tile11" id="09"/>
+			<Button styleClass="tile, blkTile" onAction="#tilePress" fx:id="tile12" id="10"/>
+			<Button styleClass="tile, whtTile" onAction="#tilePress" fx:id="tile13" id="11"/>
+			<Button styleClass="tile, blkTile" onAction="#tilePress" fx:id="tile14" id="12"/>
+			<Button styleClass="tile, whtTile" onAction="#tilePress" fx:id="tile15" id="13"/>
+			<Button styleClass="tile, blkTile" onAction="#tilePress" fx:id="tile16" id="14"/>
+			<Button styleClass="tile, whtTile" onAction="#tilePress" fx:id="tile17" id="15"/>
 			
-			<Button styleClass="tile, blkTile" onAction="#tilePress" id="24"/>
-			<Button styleClass="tile, whtTile" onAction="#tilePress" id="25"/>
-			<Button styleClass="tile, blkTile" onAction="#tilePress" id="26"/>
-			<Button styleClass="tile, whtTile" onAction="#tilePress" id="27"/>
-			<Button styleClass="tile, blkTile" onAction="#tilePress" id="28"/>
-			<Button styleClass="tile, whtTile" onAction="#tilePress" id="29"/>
-			<Button styleClass="tile, blkTile" onAction="#tilePress" id="30"/>
-			<Button styleClass="tile, whtTile" onAction="#tilePress" id="31"/>
+			<Button styleClass="tile, whtTile" onAction="#tilePress" fx:id="tile20" id="16"/>
+			<Button styleClass="tile, blkTile" onAction="#tilePress" fx:id="tile21" id="17"/>
+			<Button styleClass="tile, whtTile" onAction="#tilePress" fx:id="tile22" id="18"/>
+			<Button styleClass="tile, blkTile" onAction="#tilePress" fx:id="tile23" id="19"/>
+			<Button styleClass="tile, whtTile" onAction="#tilePress" fx:id="tile24" id="20"/>
+			<Button styleClass="tile, blkTile" onAction="#tilePress" fx:id="tile25" id="21"/>
+			<Button styleClass="tile, whtTile" onAction="#tilePress" fx:id="tile26" id="22"/>
+			<Button styleClass="tile, blkTile" onAction="#tilePress" fx:id="tile27" id="23"/>
 			
-			<Button styleClass="tile, whtTile" onAction="#tilePress" id="32"/>
-			<Button styleClass="tile, blkTile" onAction="#tilePress" id="33"/>
-			<Button styleClass="tile, whtTile" onAction="#tilePress" id="34"/>
-			<Button styleClass="tile, blkTile" onAction="#tilePress" id="35"/>
-			<Button styleClass="tile, whtTile" onAction="#tilePress" id="36"/>
-			<Button styleClass="tile, blkTile" onAction="#tilePress" id="37"/>
-			<Button styleClass="tile, whtTile" onAction="#tilePress" id="38"/>
-			<Button styleClass="tile, blkTile" onAction="#tilePress" id="39"/>
+			<Button styleClass="tile, blkTile" onAction="#tilePress" fx:id="tile30" id="24"/>
+			<Button styleClass="tile, whtTile" onAction="#tilePress" fx:id="tile31" id="25"/>
+			<Button styleClass="tile, blkTile" onAction="#tilePress" fx:id="tile32" id="26"/>
+			<Button styleClass="tile, whtTile" onAction="#tilePress" fx:id="tile33" id="27"/>
+			<Button styleClass="tile, blkTile" onAction="#tilePress" fx:id="tile34" id="28"/>
+			<Button styleClass="tile, whtTile" onAction="#tilePress" fx:id="tile35" id="29"/>
+			<Button styleClass="tile, blkTile" onAction="#tilePress" fx:id="tile36" id="30"/>
+			<Button styleClass="tile, whtTile" onAction="#tilePress" fx:id="tile37" id="31"/>
 			
-			<Button styleClass="tile, blkTile" onAction="#tilePress" id="40"/>
-			<Button styleClass="tile, whtTile" onAction="#tilePress" id="41"/>
-			<Button styleClass="tile, blkTile" onAction="#tilePress" id="42"/>
-			<Button styleClass="tile, whtTile" onAction="#tilePress" id="43"/>
-			<Button styleClass="tile, blkTile" onAction="#tilePress" id="44"/>
-			<Button styleClass="tile, whtTile" onAction="#tilePress" id="45"/>
-			<Button styleClass="tile, blkTile" onAction="#tilePress" id="46"/>
-			<Button styleClass="tile, whtTile" onAction="#tilePress" id="47"/>
+			<Button styleClass="tile, whtTile" onAction="#tilePress" fx:id="tile40" id="32"/>
+			<Button styleClass="tile, blkTile" onAction="#tilePress" fx:id="tile41" id="33"/>
+			<Button styleClass="tile, whtTile" onAction="#tilePress" fx:id="tile42" id="34"/>
+			<Button styleClass="tile, blkTile" onAction="#tilePress" fx:id="tile43" id="35"/>
+			<Button styleClass="tile, whtTile" onAction="#tilePress" fx:id="tile44" id="36"/>
+			<Button styleClass="tile, blkTile" onAction="#tilePress" fx:id="tile45" id="37"/>
+			<Button styleClass="tile, whtTile" onAction="#tilePress" fx:id="tile46" id="38"/>
+			<Button styleClass="tile, blkTile" onAction="#tilePress" fx:id="tile47" id="39"/>
 			
-			<Button styleClass="tile, whtTile" onAction="#tilePress" id="48"/>
-			<Button styleClass="tile, blkTile" onAction="#tilePress" id="49"/>
-			<Button styleClass="tile, whtTile" onAction="#tilePress" id="50"/>
-			<Button styleClass="tile, blkTile" onAction="#tilePress" id="51"/>
-			<Button styleClass="tile, whtTile" onAction="#tilePress" id="52"/>
-			<Button styleClass="tile, blkTile" onAction="#tilePress" id="53"/>
-			<Button styleClass="tile, whtTile" onAction="#tilePress" id="54"/>
-			<Button styleClass="tile, blkTile" onAction="#tilePress" id="55"/>
+			<Button styleClass="tile, blkTile" onAction="#tilePress" fx:id="tile50" id="40"/>
+			<Button styleClass="tile, whtTile" onAction="#tilePress" fx:id="tile51" id="41"/>
+			<Button styleClass="tile, blkTile" onAction="#tilePress" fx:id="tile52" id="42"/>
+			<Button styleClass="tile, whtTile" onAction="#tilePress" fx:id="tile53" id="43"/>
+			<Button styleClass="tile, blkTile" onAction="#tilePress" fx:id="tile54" id="44"/>
+			<Button styleClass="tile, whtTile" onAction="#tilePress" fx:id="tile55" id="45"/>
+			<Button styleClass="tile, blkTile" onAction="#tilePress" fx:id="tile56" id="46"/>
+			<Button styleClass="tile, whtTile" onAction="#tilePress" fx:id="tile57" id="47"/>
 			
-			<Button styleClass="tile, blkTile" onAction="#tilePress" id="56"/>
-			<Button styleClass="tile, whtTile" onAction="#tilePress" id="57"/>
-			<Button styleClass="tile, blkTile" onAction="#tilePress" id="58"/>
-			<Button styleClass="tile, whtTile" onAction="#tilePress" id="59"/>
-			<Button styleClass="tile, blkTile" onAction="#tilePress" id="60"/>
-			<Button styleClass="tile, whtTile" onAction="#tilePress" id="61"/>
-			<Button styleClass="tile, blkTile" onAction="#tilePress" id="62"/>
-			<Button styleClass="tile, whtTile" onAction="#tilePress" id="63"/>
+			<Button styleClass="tile, whtTile" onAction="#tilePress" fx:id="tile60" id="48"/>
+			<Button styleClass="tile, blkTile" onAction="#tilePress" fx:id="tile61" id="49"/>
+			<Button styleClass="tile, whtTile" onAction="#tilePress" fx:id="tile62" id="50"/>
+			<Button styleClass="tile, blkTile" onAction="#tilePress" fx:id="tile63" id="51"/>
+			<Button styleClass="tile, whtTile" onAction="#tilePress" fx:id="tile64" id="52"/>
+			<Button styleClass="tile, blkTile" onAction="#tilePress" fx:id="tile65" id="53"/>
+			<Button styleClass="tile, whtTile" onAction="#tilePress" fx:id="tile66" id="54"/>
+			<Button styleClass="tile, blkTile" onAction="#tilePress" fx:id="tile67" id="55"/>
+			
+			<Button styleClass="tile, blkTile" onAction="#tilePress" fx:id="tile70" id="56"/>
+			<Button styleClass="tile, whtTile" onAction="#tilePress" fx:id="tile71" id="57"/>
+			<Button styleClass="tile, blkTile" onAction="#tilePress" fx:id="tile72" id="58"/>
+			<Button styleClass="tile, whtTile" onAction="#tilePress" fx:id="tile73" id="59"/>
+			<Button styleClass="tile, blkTile" onAction="#tilePress" fx:id="tile74" id="60"/>
+			<Button styleClass="tile, whtTile" onAction="#tilePress" fx:id="tile75" id="61"/>
+			<Button styleClass="tile, blkTile" onAction="#tilePress" fx:id="tile76" id="62"/>
+			<Button styleClass="tile, whtTile" onAction="#tilePress" fx:id="tile77" id="63"/>
+			
+			 -->
 			
 		</TilePane>
 	</center>

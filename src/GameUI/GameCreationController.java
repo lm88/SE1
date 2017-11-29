@@ -62,6 +62,7 @@ public class GameCreationController {
 	 *******************************************************/
 	private void setButtonIcon(String type, Button btn) {
 		btn.getStyleClass().removeAll("unitSelect");
+		btn.getStyleClass().add("gcUnitButton");
 		if(type.equals("fire")) btn.getStyleClass().add("fire");
 		if(type.equals("earth")) btn.getStyleClass().add("earth");
 		if(type.equals("water")) btn.getStyleClass().add("water");

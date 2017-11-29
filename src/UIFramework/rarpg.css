@@ -4,7 +4,7 @@
  */
 
 
-/* Universal Window Settings */
+/* Universal Settings */
 .window {
 	-fx-alignment: center;
 	-fx-pref-width: 1280;
@@ -19,6 +19,15 @@
     -fx-background-position: 80 110;
     -fx-background-color: transparent;
     -fx-opacity: 60%;
+}
+.fire {
+    -fx-background-image: url('fireIcon.png');
+}
+.earth {
+    -fx-background-image: url('earthIcon.png');
+}
+.water {
+    -fx-background-image: url('waterIcon.png');
 }
 
 
@@ -95,90 +104,37 @@
 
 
 /* Battle Properties */
-/* Pane */
-.battleBorder {
+.battleBorderTop {
 	-fx-alignment: center;
-	-fx-min-width: 400;
-	-fx-min-height: 120;
+	-fx-min-height: 30;
 }
-.battleBorderLeft {
-	-fx-alignment: center-left;
+.battleBorderSide {
+	-fx-alignment: center;
+	-fx-min-width: 380;
 	-fx-spacing: 10;
-	-fx-padding: 75;
+	-fx-padding: 30;
 }
-.battleBorderRight {
-	-fx-alignment: center-right;
+.battleBorderBottom {
+	-fx-alignment: center;
 	-fx-spacing: 10;
-	-fx-padding: 75;
+	-fx-min-height: 170;
 }
 .battleTileHolder {
 	-fx-alignment: center;
-	-fx-max-width: 480;
-	-fx-max-height: 480;
+	-fx-max-width: 520;
+	-fx-max-height: 520;
 	-fx-padding: 0;
-	-fx-pref-tile-width: 60;	/* must match .tile:-fx-min-width */
-	-fx-pref-tile-height: 60;	/* must match .tile:-fx-min-height */
+	-fx-pref-tile-width: 65;	/* must match .tile:-fx-min-width */
+	-fx-pref-tile-height: 65;	/* must match .tile:-fx-min-height */
 	-fx-hgap: 0;
 	-fx-vgap: 0;
 }
-.battleUnitIcons {
-    -fx-alignment: center;
-    -fx-background-size: 100%;
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: center;
-    -fx-background-color: linear-gradient(#999999, #cccccc);
-    -fx-border-color: linear-gradient(#cccccc, #888888);
-    -fx-border-radius: 500;
-    -fx-border-width: 3;
-    -fx-min-width: 80;
-    -fx-min-height: 80;
-    -fx-effect: dropshadow(one-pass-box, #444444, 10, 0.5, 2, 2);
-}
-.battleUnitBox {
-    -fx-background-color: #666666;
-    -fx-background-radius: 22;
-    -fx-max-width: 150px;
-    -fx-max-height: 100px;
-    -fx-alignment: center;
-    -fx-spacing: 10;
-}
-.stats {
-	-fx-text-fill: #000000;
-	-fx-font-family: serif;
-	-fx-font-size: 24;
-	-fx-font-weight: bold;
-    -fx-effect: dropshadow(one-pass-box, #444444, 10, 0.5, 2, 2);
-}
-.hp {
-	-fx-text-fill: #FF0000;
-	-fx-font-family: serif;
-	-fx-font-size: 24;
-	-fx-font-weight: bold;
-    -fx-effect: dropshadow(one-pass-box, #444444, 10, 0.5, 2, 2);
-}
-.mp {
-	-fx-text-fill: #0000FF;
-	-fx-font-family: serif;
-	-fx-font-size: 24;
-	-fx-font-weight: bold;
-    -fx-effect: dropshadow(one-pass-box, #444444, 10, 0.5, 2, 2);
-}
-/* Label */
-.overlord {
-	-fx-border-color: #4d3338;
-	-fx-border-style: solid;
-	-fx-border-radius: 10;
-	-fx-border-width: 5;
-	-fx-font-family: serif;
-	-fx-font-size: 80;
-	-fx-font-weight: bold;
-	-fx-text-fill: #ff7a01;
-	-fx-effect: dropshadow(two-pass-box, #684d38, 10, 0.5, 3, 3);
-}
-/* Button */
 .tile {
-	-fx-min-width: 60;			/* must match .battleTileHolder:-fx-pref-tile-width */
-	-fx-min-height: 60;			/* must match .battleTileHolder:-fx-pref-tile-height */
+	-fx-min-width: 65;			/* must match .battleTileHolder:-fx-pref-tile-width */
+	-fx-min-height: 65;			/* must match .battleTileHolder:-fx-pref-tile-height */
+    -fx-background-size: 95%;
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
 }
 .whtTile {
 	-fx-background-color: linear-gradient(#ffffff, #d9d9d9),
@@ -196,10 +152,64 @@
     -fx-background-insets: 0, 1, 2;
 	-fx-text-fill: #ffffff;
 }
+.playerTile {
+	-fx-effect: innershadow(two-pass-box, #333399, 10, 0.2, 0, 0);
+}
+.enemyTile {
+	-fx-effect: innershadow(two-pass-box, #993333, 10, 0.2, 0, 0);
+}
+.battleLabel {
+	-fx-border-color: #4d3338;
+	-fx-border-style: solid;
+	-fx-border-radius: 10;
+	-fx-border-width: 5;
+	-fx-font-family: serif;
+	-fx-font-size: 40;
+	-fx-font-weight: bold;
+	-fx-text-fill: #ff7a01;
+	-fx-effect: dropshadow(two-pass-box, #684d38, 10, 0.5, 3, 3);
+}
+.battleUnitBox {
+    -fx-max-width: 300px;
+    -fx-alignment: center;
+    -fx-spacing: 10;
+}
+.battleUnitIcons {
+    -fx-alignment: center;
+    -fx-background-size: 100%;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-color: linear-gradient(#999999, #cccccc);
+    -fx-border-color: linear-gradient(#cccccc, #888888);
+    -fx-min-width: 80;
+    -fx-min-height: 80;
+    -fx-effect: dropshadow(one-pass-box, #444444, 10, 0.5, 2, 2);
+}
+.battleUnitStatBox {
+    -fx-background-color: #666666;
+    -fx-background-radius: 22;
+    -fx-max-width: 200px;
+    -fx-max-height: 100px;
+    -fx-alignment: center-right;
+    -fx-spacing: 10;
+    -fx-padding: 10;
+}
+.stats {
+	-fx-text-fill: #000000;
+	-fx-font-family: serif;
+	-fx-font-size: 24;
+	-fx-font-weight: bold;
+    -fx-effect: dropshadow(one-pass-box, #444444, 10, 0.5, 2, 2);
+}
+.hp {
+	-fx-text-fill: #FF0000;
+}
+.mp {
+	-fx-text-fill: #0000FF;
+}
 
 
 /* Market Properties */
-/* Pane */
 .marketContainer {
     -fx-alignment: CENTER;
     -fx-spacing: 15;
@@ -213,7 +223,6 @@
     -fx-max-width: 350px;
     -fx-alignment: center;
 }
-/* Label */
 .marketLabel {
     -fx-alignment: center;
     -fx-font-family: sans-serif;
@@ -250,7 +259,6 @@
     -fx-font-weight: bold;
     -fx-effect: dropshadow(one-pass-box, #b6cfff, 10, 0.5, 2, 2);
 }
-/* Button */
 .marketButton {
     -fx-alignment: center;
     -fx-background-image: url('plusIcon.png');
@@ -262,7 +270,6 @@
     -fx-min-height: 50;
 }
 
-/* TODO Only one of these should really be needed once the controller is finished */
 .battleUnitIcons {
     -fx-alignment: center;
     -fx-background-size: 100%;
@@ -353,33 +360,14 @@
      -fx-background-color: radial-gradient(center 50% 110%, radius 150%, #15648e 55%, #7bc5ec 65%);
      -fx-border-color: linear-gradient(#7bc5ec, #1a7cb0);
 }
-.fire .text {
-    -fx-font-size: 20;
-	-fx-font-weight: bold; 
-	-fx-fill: #eeeeee;
-	
-}
-.earth .text {
-    -fx-font-size: 20;
-	-fx-font-weight: bold; 
-	-fx-fill: #eeeeee;
 
-}
-.water .text {
-    -fx-font-size: 20;
-	-fx-font-weight: bold; 
-	-fx-fill: #eeeeee;
-	
-}
 .typeSelectContainer{
 	-fx-min-width: 400;
 	-fx-min-height: 210;
-    
 }
 .typeContainer{
 	-fx-alignment: center;
 	-fx-min-width: 256;
-    
 }
 .unitSelectContainer {
 	-fx-alignment: center;
@@ -393,10 +381,8 @@
 	-fx-alignment: center;
 	-fx-min-width: 330;
 }
-
-.fire{
+.gcUnitButton {
     -fx-alignment: center;
-    -fx-background-image: url('fireIcon.png');
     -fx-background-size: 100%;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
@@ -409,33 +395,9 @@
     -fx-min-height: 175;
     -fx-effect: dropshadow(one-pass-box, #444444, 10, 0.5, 2, 2);
 }
-.earth{
-    -fx-alignment: center;
-    -fx-background-image: url('earthIcon.png');
-    -fx-background-size: 100%;
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: center;
-    -fx-background-color: linear-gradient(#999999, #cccccc);
-    -fx-background-radius: 450;
-    -fx-border-color: linear-gradient(#cccccc, #888888);
-    -fx-border-radius: 500;
-    -fx-border-width: 3;
-    -fx-min-width: 175;
-    -fx-min-height: 175;
-    -fx-effect: dropshadow(one-pass-box, #444444, 10, 0.5, 2, 2);
-}
-.water{
-    -fx-alignment: center;
-    -fx-background-image: url('waterIcon.png');
-    -fx-background-size: 100%;
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: center;
-    -fx-background-color: linear-gradient(#999999, #cccccc);
-    -fx-background-radius: 450;
-    -fx-border-color: linear-gradient(#cccccc, #888888);
-    -fx-border-radius: 500;
-    -fx-border-width: 3;
-    -fx-min-width: 175;
-    -fx-min-height: 175;
-    -fx-effect: dropshadow(one-pass-box, #444444, 10, 0.5, 2, 2);
+.gcUnitButton .text {
+    -fx-font-size: 20;
+	-fx-font-weight: bold; 
+	-fx-fill: #eeeeee;
+	
 }
