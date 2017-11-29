@@ -28,7 +28,10 @@ public class GameCreationController {
 	 *******************************************************/
 	@FXML 
 	public void initialize() {
-		Player.unitList.clear();
+		Player.unitList.clear();  //Clear existing units in unitList
+		for(int i = 0; i < 3; i++) {  //Manually set size of unitList
+			Player.unitList.add(0, null);
+		}
 	}
 	
 	/********************************************************
@@ -90,7 +93,7 @@ public class GameCreationController {
 	 * @param type
 	 *******************************************************/
 	private void typeSelect(String type) {
-		Player.unitList.add(index, new Unit(type, 0, 10));
+		Player.unitList.set(index, new Unit(type, 0, 10));
 		typeSelectContainer.setVisible(false);
 		replaceButton(index, type);
 	}
