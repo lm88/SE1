@@ -24,6 +24,14 @@ public class GameCreationController {
 	int index; //Index for placement in arrayList
 	
 	/********************************************************
+	 * Clear unitList on load.
+	 *******************************************************/
+	@FXML 
+	public void initialize() {
+		Player.unitList.clear();
+	}
+	
+	/********************************************************
 	 * Utility method for handlePlayerSelect().  Gets index 
 	 * of team member button selected for location in 
 	 * arrayList.
