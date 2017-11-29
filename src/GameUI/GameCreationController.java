@@ -29,9 +29,6 @@ public class GameCreationController {
 	@FXML 
 	public void initialize() {
 		Player.unitList.clear();  //Clear existing units in unitList
-		for(int i = 0; i < 3; i++) {  //Manually set size of unitList
-			Player.unitList.add(0, null);
-		}
 	}
 	
 	/********************************************************
@@ -93,7 +90,7 @@ public class GameCreationController {
 	 * @param type
 	 *******************************************************/
 	private void typeSelect(String type) {
-		Player.unitList.set(index, new Unit(type, 0, 10));
+		Player.unitList.add(index, new Unit(type, 0, 10));
 		typeSelectContainer.setVisible(false);
 		replaceButton(index, type);
 	}
@@ -120,7 +117,14 @@ public class GameCreationController {
 	}
 	
 	/** Send view change request */ 
-	@FXML private void transitionView() {
-		NavigationController.loadView(NavigationController.BATTLE);
+	@FXML private void transitionView(ActionEvent event) {
+		String btn = ((Button) event.getSource()).getId();
+		
+		if (btn.equals("battleButton")) {
+			NavigationController.loadView(NavigationController.BATTLE);
+		}
+		else if (btn.equals("mainMenu")) {
+			NavigationController.loadView(NavigationController.MAINMENU);
+		}
 	}
 }
