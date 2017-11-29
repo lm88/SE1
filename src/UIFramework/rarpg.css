@@ -308,8 +308,8 @@
     -fx-border-color: linear-gradient(#fcca8e, #9a5605);
 }
 .unitSelect:pressed {
-        -fx-background-color: radial-gradient(center 50% 110%, radius 150%, #15648e 55%, #7bc5ec 65%);
-        -fx-border-color: linear-gradient(#7bc5ec, #1a7cb0);
+     -fx-background-color: radial-gradient(center 50% 110%, radius 150%, #15648e 55%, #7bc5ec 65%);
+     -fx-border-color: linear-gradient(#7bc5ec, #1a7cb0);
 }
 .fire .text {
     -fx-font-size: 20;

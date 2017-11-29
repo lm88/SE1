@@ -90,7 +90,12 @@ public class GameCreationController {
 	 * @param type
 	 *******************************************************/
 	private void typeSelect(String type) {
-		Player.unitList.add(index, new Unit(type, 0, 10));
+		if(type.equals("earth")) {
+			Player.unitList.add(index, new Unit(type, 0, 15));
+		}
+		else{
+			Player.unitList.add(index, new Unit(type, 0, 10));
+		}
 		typeSelectContainer.setVisible(false);
 		replaceButton(index, type);
 	}
