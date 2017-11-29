@@ -45,7 +45,7 @@
                         </VBox>
                         <!-- Unit one image & Stats -->
                         <VBox spacing="10">
-                            <Button fx:id="unit1Icon" id="1"/>
+                            <Button styleClass="marketUnitIcons" fx:id="unit1Icon" id="1"/>
                             <VBox styleClass="paddedMarketBox">
                                 <Label styleClass="marketLabel" text="" fx:id="unit1Damage"/>
                                 <Label styleClass="marketLabel" text="" fx:id="unit1Health"/>
@@ -70,7 +70,7 @@
                         </VBox>
                         <!-- Unit two image & Stats -->
                         <VBox spacing="10">
-                            <Button fx:id="unit2Icon" id="2"/>
+                            <Button styleClass="marketUnitIcons" fx:id="unit2Icon" id="2"/>
                             <VBox styleClass="paddedMarketBox">
                                 <Label styleClass="marketLabel" text="" fx:id="unit2Damage"/>
                                 <Label styleClass="marketLabel" text="" fx:id="unit2Health"/>
@@ -96,7 +96,7 @@
 
                         <!-- Unit three image & stats -->
                         <VBox spacing="10">
-                            <Button fx:id="unit3Icon" id="3"/>
+                            <Button styleClass="marketUnitIcons" fx:id="unit3Icon" id="3"/>
                             <VBox styleClass="paddedMarketBox">
                                 <Label styleClass="marketLabel" text="" fx:id="unit3Damage"/>
                                 <Label styleClass="marketLabel" text="" fx:id="unit3Health"/>

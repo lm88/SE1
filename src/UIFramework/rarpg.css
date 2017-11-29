@@ -12,6 +12,14 @@
     -fx-background-image: url("stoneBG.png");
     /*-fx-background-color: #668899; */
 }
+.bg {
+    -fx-background-image: url('gameLogo.png');
+    -fx-background-size: 40%;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 80 110;
+    -fx-background-color: transparent;
+    -fx-opacity: 60%;
+}
 
 
 /* Menu Properties */
@@ -25,10 +33,6 @@
 	-fx-alignment: center;
 	-fx-min-width: 400;
 	-fx-min-height: 210;
-	-fx-background-image: url('gameLogo.png');
-    -fx-background-size: 15%;
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: 100 20;
     -fx-background-color: transparent;
 }
 .menuButtonHolder {
@@ -97,6 +101,16 @@
 	-fx-min-width: 400;
 	-fx-min-height: 120;
 }
+.battleBorderLeft {
+	-fx-alignment: center-left;
+	-fx-spacing: 10;
+	-fx-padding: 75;
+}
+.battleBorderRight {
+	-fx-alignment: center-right;
+	-fx-spacing: 10;
+	-fx-padding: 75;
+}
 .battleTileHolder {
 	-fx-alignment: center;
 	-fx-max-width: 480;
@@ -106,6 +120,48 @@
 	-fx-pref-tile-height: 60;	/* must match .tile:-fx-min-height */
 	-fx-hgap: 0;
 	-fx-vgap: 0;
+}
+.battleUnitIcons {
+    -fx-alignment: center;
+    -fx-background-size: 100%;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-color: linear-gradient(#999999, #cccccc);
+    -fx-border-color: linear-gradient(#cccccc, #888888);
+    -fx-border-radius: 500;
+    -fx-border-width: 3;
+    -fx-min-width: 80;
+    -fx-min-height: 80;
+    -fx-effect: dropshadow(one-pass-box, #444444, 10, 0.5, 2, 2);
+}
+.battleUnitBox {
+    -fx-background-color: #666666;
+    -fx-background-radius: 22;
+    -fx-max-width: 150px;
+    -fx-max-height: 100px;
+    -fx-alignment: center;
+    -fx-spacing: 10;
+}
+.stats {
+	-fx-text-fill: #000000;
+	-fx-font-family: serif;
+	-fx-font-size: 24;
+	-fx-font-weight: bold;
+    -fx-effect: dropshadow(one-pass-box, #444444, 10, 0.5, 2, 2);
+}
+.hp {
+	-fx-text-fill: #FF0000;
+	-fx-font-family: serif;
+	-fx-font-size: 24;
+	-fx-font-weight: bold;
+    -fx-effect: dropshadow(one-pass-box, #444444, 10, 0.5, 2, 2);
+}
+.mp {
+	-fx-text-fill: #0000FF;
+	-fx-font-family: serif;
+	-fx-font-size: 24;
+	-fx-font-weight: bold;
+    -fx-effect: dropshadow(one-pass-box, #444444, 10, 0.5, 2, 2);
 }
 /* Label */
 .overlord {
@@ -156,7 +212,6 @@
     -fx-background-radius: 22;
     -fx-max-width: 350px;
     -fx-alignment: center;
-    
 }
 /* Label */
 .marketLabel {
@@ -208,9 +263,22 @@
 }
 
 /* TODO Only one of these should really be needed once the controller is finished */
-.fireUnit {
+.battleUnitIcons {
     -fx-alignment: center;
-    -fx-background-image: url('fireIcon.png');
+    -fx-background-size: 100%;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-color: linear-gradient(#999999, #cccccc);
+    -fx-background-radius: 450;
+    -fx-border-color: linear-gradient(#cccccc, #888888);
+    -fx-border-radius: 500;
+    -fx-border-width: 3;
+    -fx-min-width: 100;
+    -fx-min-height: 100;
+    -fx-effect: dropshadow(one-pass-box, #444444, 10, 0.5, 2, 2);
+}
+.marketUnitIcons {
+    -fx-alignment: center;
     -fx-background-size: 100%;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
@@ -222,37 +290,16 @@
     -fx-min-width: 200;
     -fx-min-height: 200;
     -fx-effect: dropshadow(one-pass-box, #444444, 10, 0.5, 2, 2);
+}
+.fireUnit {
+    -fx-background-image: url('fireIcon.png');
 }
 
 .waterUnit {
-    -fx-alignment: center;
     -fx-background-image: url('waterIcon.png');
-    -fx-background-size: 100%;
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: center;
-    -fx-background-color: linear-gradient(#999999, #cccccc);
-    -fx-background-radius: 450;
-    -fx-border-color: linear-gradient(#cccccc, #888888);
-    -fx-border-radius: 500;
-    -fx-border-width: 3;
-    -fx-min-width: 200;
-    -fx-min-height: 200;
-    -fx-effect: dropshadow(one-pass-box, #444444, 10, 0.5, 2, 2);
 }
 .earthUnit {
-    -fx-alignment: center;
     -fx-background-image: url('earthIcon.png');
-    -fx-background-size: 100%;
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: center;
-    -fx-background-color: linear-gradient(#999999, #cccccc);
-    -fx-background-radius: 450;
-    -fx-border-color: linear-gradient(#cccccc, #888888);
-    -fx-border-radius: 500;
-    -fx-border-width: 3;
-    -fx-min-width: 200;
-    -fx-min-height: 200;
-    -fx-effect: dropshadow(one-pass-box, #444444, 10, 0.5, 2, 2);
 }
 
 .marketBanner {
@@ -279,11 +326,6 @@
 }
 
 /*Game Creation*/
-.gameCreationWindow {
-	-fx-pref-width: 1280;
-	-fx-pref-height: 720;
-    -fx-background-image: url("stoneBG.png");
-}
 
 .unitSelect{
 	-fx-alignment: center;

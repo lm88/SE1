@@ -34,8 +34,7 @@ public class BattleController {
 		NavigationController.loadView(NavigationController.MAINMENU);
 	}
 	
-
-	   
+	
    private void setUnitIcons()
    {
        try

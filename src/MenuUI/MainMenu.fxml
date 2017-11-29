@@ -4,7 +4,9 @@
 <?import javafx.scene.layout.*?>
 <?scenebuilder-stylesheet rarpg.css?>
 
-<BorderPane styleClass="window" fx:id="mainmenu" fx:controller="MenuUI.MainMenuController" xmlns:fx="http://javafx.com/fxml">
+<StackPane styleClass="window" fx:id="mainmenu" fx:controller="MenuUI.MainMenuController" xmlns:fx="http://javafx.com/fxml">
+<Pane styleClass="bg" />
+<BorderPane>
 	
 	<top>
 	<HBox styleClass="menuBorderTitle">
@@ -46,3 +48,4 @@
 	</center>
 	
 </BorderPane>
+</StackPane>

@@ -4,7 +4,9 @@
 <?import javafx.scene.layout.*?>
 <?scenebuilder-stylesheet rarpg.css?>
 
-<BorderPane styleClass="window" fx:id="startmenu" fx:controller="MenuUI.SaveLoadController" xmlns:fx="http://javafx.com/fxml">
+<StackPane styleClass="window" fx:id="saveload" fx:controller="MenuUI.SaveLoadController" xmlns:fx="http://javafx.com/fxml">
+<Pane styleClass="bg" />
+<BorderPane>
 	
 	<top>
 	<HBox styleClass="menuBorderTitle">
@@ -39,9 +41,9 @@
                                
 	<VBox styleClass="menuButtonHolder">
 		
-		<Button styleClass="menuButton" onAction="#setSlotNum" id="0" text="Overloard 1"/>
-		<Button styleClass="menuButton" onAction="#setSlotNum" id="1" text="Overloard 2"/>
-		<Button styleClass="menuButton" onAction="#setSlotNum" id="2" text="Overloard 3"/>
+		<Button styleClass="menuButton" onAction="#setSlotNum" id="0" text="Overlord 1"/>
+		<Button styleClass="menuButton" onAction="#setSlotNum" id="1" text="Overlord 2"/>
+		<Button styleClass="menuButton" onAction="#setSlotNum" id="2" text="Overlord 3"/>
                 <Label styleClass="statusMessage" fx:id="statusMessage" text=""/>
                 <HBox alignment="center" spacing="10">
                     <Button styleClass="menuButton" onAction="#saveGame" id="save" text="Save"/>
@@ -52,3 +54,4 @@
 	</center>
 	
 </BorderPane>
+</StackPane>
