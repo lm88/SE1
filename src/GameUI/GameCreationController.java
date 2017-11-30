@@ -29,6 +29,9 @@ public class GameCreationController {
 	@FXML 
 	public void initialize() {
 		Player.unitList.clear();  //Clear existing units in unitList
+		for(int i = 0; i < 3; i++) {
+			Player.unitList.add(i, null);
+		}
 	}
 	
 	/********************************************************
@@ -92,10 +95,10 @@ public class GameCreationController {
 	 *******************************************************/
 	private void typeSelect(String type) {
 		if(type.equals("earth")) {
-			Player.unitList.add(index, new Unit(type, 0, 15));
+			Player.unitList.set(index, new Unit(type, 0, 15));
 		}
 		else{
-			Player.unitList.add(index, new Unit(type, 0, 10));
+			Player.unitList.set(index, new Unit(type, 0, 10));
 		}
 		typeSelectContainer.setVisible(false);
 		replaceButton(index, type);
@@ -117,9 +120,18 @@ public class GameCreationController {
 			case "water": typeSelect(type);  break;	
 		}
 		
-		if(Player.unitList.size() == 3) {
-			battleButton.setDisable(false);
+		battleButton.setDisable(!isFull());
+	}
+	
+	/********************************************************
+	 * Checks to see if all units are set.
+	 * @return boolean
+	 *******************************************************/
+	private boolean isFull() {
+		for(int i = 0; i < 3; i++) {
+			if(Player.unitList.get(i) == null)  return false;
 		}
+		return true;
 	}
 	
 	/** Send view change request */ 
@@ -130,7 +142,7 @@ public class GameCreationController {
 			NavigationController.loadView(NavigationController.BATTLE);
 		}
 		else if (btn.equals("mainMenu")) {
-			NavigationController.loadView(NavigationController.MAINMENU);
+			NavigationController.loadView(NavigationController.PREVIOUS);
 		}
 	}
 }

@@ -42,8 +42,8 @@
 			<VBox styleClass="unitSelectContainer" >
 				<Button styleClass="menuButton" fx:id="battleButton" onAction="#transitionView" text="To Battle!" disable="true"/>
 			</VBox>
-			<VBox styleClass="unitSelectContainer">
-				<Button styleClass="menuButton" id="mainMenu" onAction="#transitionView" text="Main Menu"/>
+			<VBox styleClass="backButtonContainer">
+				<Button styleClass="backButton" id="mainMenu" onAction="#transitionView" text="Back"/>
 			</VBox>
 		</HBox>
 		
