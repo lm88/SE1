@@ -1,9 +1,13 @@
 package GameUI;
 
+import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.util.Duration;
+
 import java.util.ArrayList;
 import DataModels.*;
 import GameRules.BattleRules;
@@ -18,6 +22,8 @@ public class BattleController {
 	private String gameState = "Player: TurnStart";
 	
 	private ArrayList<BattleUnit> playerUnitList = new ArrayList<>();
+	private ArrayList<BattleUnit> enemyUnitList = new ArrayList<>();
+	
 	@FXML Button playerUnit1;
 	@FXML Button playerUnit2;
 	@FXML Button playerUnit3;
@@ -28,7 +34,6 @@ public class BattleController {
 	@FXML Label playerUnit2resource;
 	@FXML Label playerUnit3resource;
 	
-	private ArrayList<BattleUnit> enemyUnitList = new ArrayList<>();
 	@FXML Button enemyUnit1;
 	@FXML Button enemyUnit2;
 	@FXML Button enemyUnit3;
@@ -39,6 +44,7 @@ public class BattleController {
 	@FXML Label enemyUnit2resource;
 	@FXML Label enemyUnit3resource;
 	
+	@FXML BorderPane battle;
 	@FXML TilePane tilePane;
 	@FXML Label overlord;
 	@FXML Label instructions;
@@ -55,6 +61,7 @@ public class BattleController {
 	@FXML private void initialize() {
 		rules = new BattleRules();
 		turn = 0;
+		unitRotation = 0;
 		
 		createUnitLists();
 		setUnitIcons();
@@ -176,6 +183,24 @@ public class BattleController {
 				gameState = "PlayerMovement";  // game waits for player input after this
 				break;
 			case "AI: TurnStart":
+				
+				battle.setMouseTransparent(true);
+				PauseTransition wait = new PauseTransition(Duration.millis(1000));
+				wait.onFinishedProperty().set(new EventHandler<ActionEvent>() {
+						@Override
+						public void handle(ActionEvent event) {
+							aiControl();
+							updateStats();		// TODO remove once AI can perform actions
+							victoryCheck();		// TODO remove once AI can perform actions
+							gameState = "Player: TurnStart";
+							turn++;
+							unitRotation++;
+							battle.setMouseTransparent(false);
+							turnStart();
+						}
+				});
+				wait.play();
+				/*
 				aiControl();
 				updateStats();		// TODO remove once AI can perform actions
 				victoryCheck();		// TODO remove once AI can perform actions
@@ -183,6 +208,7 @@ public class BattleController {
 				turn++;
 				unitRotation++;
 				turnStart();
+				*/
 				break;
 			default:
 		}
@@ -301,6 +327,7 @@ public class BattleController {
 	/** AI turn control */
 	private void aiControl() {
 		// TODO make AI work (g'luck)
+
 	}
 	
 	/** Check the opponent team's condition */
@@ -337,10 +364,10 @@ public class BattleController {
 		playerUnitList.clear();
 		playerUnitList.add(new BattleUnit(Player.unitList.get(0).getType(), Player.unitList.get(0).getDamage(),
 				Player.unitList.get(0).getHealth(), Player.unitList.get(0).getResource(), "player", 6, 2));
-		playerUnitList.add(new BattleUnit(Player.unitList.get(1).getType(), Player.unitList.get(0).getDamage(),
-				Player.unitList.get(0).getHealth(), Player.unitList.get(0).getResource(), "player", 6, 4));
-		playerUnitList.add(new BattleUnit(Player.unitList.get(2).getType(), Player.unitList.get(0).getDamage(),
-				Player.unitList.get(0).getHealth(), Player.unitList.get(0).getResource(), "player", 6, 6));
+		playerUnitList.add(new BattleUnit(Player.unitList.get(1).getType(), Player.unitList.get(1).getDamage(),
+				Player.unitList.get(1).getHealth(), Player.unitList.get(1).getResource(), "player", 6, 4));
+		playerUnitList.add(new BattleUnit(Player.unitList.get(2).getType(), Player.unitList.get(2).getDamage(),
+				Player.unitList.get(2).getHealth(), Player.unitList.get(2).getResource(), "player", 6, 6));
 	}
 	
 	/** Draw the appropriate icon for each unit on the side panels */

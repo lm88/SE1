@@ -39,7 +39,7 @@ public class BattleRules {
 	
 	/** Determines the targets available to a selected unit
 	 * @param activeUnit the unit performing an action
-	 * @param targetList the appropriate target for the action
+	 * @param targetList the appropriate target for the action (enemies for attacks, friendlies for heals)
 	 * @return 2D boolean array where true elements are valid targets */
 	public boolean[][] isTargetValid(BattleUnit activeUnit, ArrayList<BattleUnit> targetList) {
 		boolean[][] targetArray = new boolean[8][8];
