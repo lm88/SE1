@@ -5,14 +5,19 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import java.util.ArrayList;
-import DataModels.Player;
-import DataModels.Unit;
+import DataModels.*;
+import GameRules.BattleRules;
 import UIFramework.NavigationController;
 
 public class BattleController {
 	
-	private ArrayList<Unit> enemyUnitList = new ArrayList<>();
+	private BattleRules rules;
+	private ArrayList<BattleUnit> enemyUnitList = new ArrayList<>();
+	private ArrayList<BattleUnit> playerUnitList = new ArrayList<>();
 	private Button[][] tiles;
+	private int turn;
+	private int unitRotation;
+	private String gameState = "Player:TurnStart";
 	
 	/* tiles are now created by the controller, but leaving this here for now in case it is needed again
 	@FXML Button tile00, tile01, tile02, tile03, tile04, tile05, tile06, tile07;
@@ -46,12 +51,16 @@ public class BattleController {
 	
 	@FXML TilePane tilePane;
 	@FXML Label overlord;
+	@FXML Label instructions;
 	
 	/** <h1>Executed on first load of the view</h1>
 	 * The method creates the game board 2D-button-array and enemy unit list,
 	 * draws unit information on view, and prepares game board for play */
 	@FXML private void initialize() {
-		makeEnemies();
+		rules = new BattleRules();
+		turn = 0;
+		
+		createUnitLists();
 		setUnitIcons();
 		createBoard();
 		updateStats();
@@ -64,6 +73,8 @@ public class BattleController {
 		placePlayerUnit(0, 6, 2);
 		placePlayerUnit(1, 6, 4);
 		placePlayerUnit(2, 6, 6);
+		
+		turnCycle();
 	}
 	
 	/** Send tile coordinates */
@@ -72,7 +83,9 @@ public class BattleController {
 		int tileID = Integer.valueOf(tile.getId());
 		int x = tileID / 10;
 		int y = tileID % 10;
-		tile.setText(x + "," + y);
+		tile.setText(x + "" + y);
+		showValidMoves(rules.isMoveValid(x, y));
+		turnCycle();
 	}
 
 	/** Send view change request */
@@ -81,11 +94,20 @@ public class BattleController {
 	}
 	
 	/** Generate a fresh list of enemy units for a battle */
-	private void makeEnemies() {
+	private void createUnitLists() {
 		enemyUnitList.clear();
-		enemyUnitList.add(new Unit("earth", 1, 15));
-		enemyUnitList.add(new Unit("fire", 3, 10));
-		enemyUnitList.add(new Unit("water", 2, 10));
+		enemyUnitList.add(new BattleUnit("earth", 1, 15, 0, 1, 1));
+		enemyUnitList.add(new BattleUnit("fire", 3, 10, 15, 1, 3));
+		enemyUnitList.add(new BattleUnit("water", 2, 10, 10, 1, 5));
+		
+		// TODO find a better way, this seems crude..
+		playerUnitList.clear();
+		playerUnitList.add(new BattleUnit(Player.unitList.get(0).getType(), Player.unitList.get(0).getDamage(),
+				Player.unitList.get(0).getHealth(), Player.unitList.get(0).getResource(), 6, 2));
+		playerUnitList.add(new BattleUnit(Player.unitList.get(1).getType(), Player.unitList.get(0).getDamage(),
+				Player.unitList.get(0).getHealth(), Player.unitList.get(0).getResource(), 6, 2));
+		playerUnitList.add(new BattleUnit(Player.unitList.get(2).getType(), Player.unitList.get(0).getDamage(),
+				Player.unitList.get(0).getHealth(), Player.unitList.get(0).getResource(), 6, 2));
 	}
 	
 	/** Draw the appropriate icon for each unit on the side panels */
@@ -136,6 +158,109 @@ public class BattleController {
 		tiles[row][col].getStyleClass().add("enemyTile");
 		tiles[row][col].getStyleClass().add(enemyUnitList.get(index).type);
 	}
+	
+	
+	
+	
+	
+	
+	private void turnCycle() {
+		// check for victory
+		
+		// unit rotation number (turn 0 = index 0, turn 1 = index 1, turn 2 = index 2, turn 3 = index 
+		int unitIndex = unitRotation % 3;
+		// gameState = current turn phase
+		switch (gameState) {
+			case "Player:TurnStart":
+				// update instructions for player to move
+				instructions.setText("Select a tile to move");
+				// TODO present move options for unit index turn % 3
+				showValidMoves(rules.isMoveValid(playerUnitList.get(unitIndex).getxPos(), playerUnitList.get(unitIndex).getyPos()));
+				gameState = "Player:Move"; // await player input
+				break;
+			case "Player:Move":
+				handleMovement();
+				gameState = "Player:Action"; // await player input
+				break;
+			case "Player:SelectAction":
+				// update instructions for player to take an action
+				instructions.setText("Select a target");
+				// TODO present action targets
+				gameState = "Player:TurnFinish";
+				break;
+			case "Player:Action":
+				// TODO accept action and execute
+				updateStats();
+				victoryCheck();
+				gameState = "AI:Turn";
+				turn++; // advance to the turn counter (odd = AI, even  = Player)
+				break;
+			case "AI:Turn":
+				// TODO add AI methods
+				/* << temporary >> */System.out.println("AI move done");
+				updateStats();
+				victoryCheck();
+				gameState = "Player:TurnStart";
+				turn++;
+				break;
+			default:
+		}
+	}
+	
+	private void handleMovement() {
+		// TODO accept move option and execute
+		
+	}
+	
+	private void selectAction() {
+		
+	}
+	
+	private void handleAction() {
+		
+	}
+	
+	private void aiControl() {
+		
+	}
+	
+	/** Check the opponent team's condition */
+	private void victoryCheck() {
+		// determine who's turn it is
+		String currentPlayer = "";
+		if (turn % 2 == 0)
+			currentPlayer = "Player";
+		else
+			currentPlayer = "AI";
+		
+		boolean victory;
+		if (currentPlayer == "AI")
+			victory = rules.isEnemyDefeated(playerUnitList);
+		else
+			victory = rules.isEnemyDefeated(enemyUnitList);
+		
+		if (victory)
+			NavigationController.loadView(NavigationController.MAINMENU);
+	}
+	
+	/** Visually highlight tiles valid for moves
+	 * @param moveList 2D boolean array where true elements are valid moves */
+	private void showValidMoves(boolean[][] moveList) {
+		for (int row = 0; row < 8; row++) {
+			for (int col = 0; col < 8; col++) {
+				if (moveList[row][col])
+					tiles[row][col].getStyleClass().add("blueHighlight");
+				else
+					tiles[row][col].getStyleClass().remove("blueHighlight");
+			}
+		}
+	}
+	
+	
+	
+	
+	
+	
 	
 	/** Update health and resource labels next to unit icons */
 	private void updateStats() {

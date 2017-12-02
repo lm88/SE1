@@ -64,12 +64,13 @@
 	</right>
 	
 	<bottom>
-	<VBox styleClass="battleBorderBottom">
+	<HBox styleClass="battleBorderBottom">
 		<!-- footer -->
 		
 		<Label styleClass="battleLabel" fx:id="overlord" text="ALL HAIL THE OVERLORD!"/>
-		<Button styleClass="menuButton" onAction="#transitionView" text="To Main Menu"/>
-	</VBox>
+		<Label styleClass="battleLabel" fx:id="instructions" text="ALL HAIL THE OVERLORD!"/>
+		<Button styleClass="menuButton" onAction="#transitionView" text="Forfeit"/>
+	</HBox>
 	</bottom>
 	
 	<left>

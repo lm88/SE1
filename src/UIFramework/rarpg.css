@@ -158,6 +158,13 @@
 .enemyTile {
 	-fx-effect: innershadow(two-pass-box, #993333, 10, 0.2, 0, 0);
 }
+.blueHighlight {
+	-fx-background-color: linear-gradient(#0000ff, #d9d9d9),
+		linear-gradient(#0000f2, #d9d9d9 20%, #e6e6e6),
+		linear-gradient(#0000d9, #f2f2f2 50%);
+    -fx-background-radius: 0, 1, 2;
+    -fx-background-insets: 0, 1, 2;
+}
 .battleLabel {
 	-fx-border-color: #4d3338;
 	-fx-border-style: solid;

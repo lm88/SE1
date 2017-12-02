@@ -95,10 +95,13 @@ public class GameCreationController {
 	 *******************************************************/
 	private void typeSelect(String type) {
 		if(type.equals("earth")) {
-			Player.unitList.set(index, new Unit(type, 0, 15));
+			Player.unitList.set(index, new Unit(type, 1, 15, 0));
 		}
-		else{
-			Player.unitList.set(index, new Unit(type, 0, 10));
+		else if (type.equals("water")) {
+			Player.unitList.set(index, new Unit(type, 2, 10, 10));
+		}
+		else {
+			Player.unitList.set(index, new Unit(type, 3, 10, 15));
 		}
 		typeSelectContainer.setVisible(false);
 		replaceButton(index, type);
