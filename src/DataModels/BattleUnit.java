@@ -2,13 +2,26 @@ package DataModels;
 
 public class BattleUnit extends Unit {
 	
+	private String team;
 	private int xPos;
 	private int yPos;
 	
-	public BattleUnit(String newType, int newDamage, int newHealth, int newResource, int xPos, int yPos) {
+	public BattleUnit(String newType, int newDamage, int newHealth, int newResource, String newTeam, int xPos, int yPos) {
 		super(newType, newDamage, newHealth, newResource);
+		this.team = newTeam;
 		this.xPos = xPos;
 		this.yPos = yPos;
+	}
+	
+	/** @return the team */
+	public String getTeam() {
+		return team;
+	}
+
+	/** Set the team
+	@param team */
+	public void setTeam(String team) {
+		this.team = team;
 	}
 
 	/** @return the xPos */
