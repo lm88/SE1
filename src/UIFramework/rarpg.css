@@ -29,12 +29,6 @@
 .water {
     -fx-background-image: url('waterIcon.png');
 }
-.state {
-	-fx-font-family: sans-serif;
-	-fx-font-size: 10;
-	-fx-text-fill: #ffffff;
-	-fx-effect: dropshadow(two-pass-box, #000000, 5, 0.5, 0, 0);
-}
 
 
 /* Menu Properties */

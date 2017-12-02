@@ -9,7 +9,7 @@
 	<top>
 	<HBox styleClass="battleBorderTop">
 		<!-- header -->
-		<Label styleClass="state" fx:id="stateText" />
+		
 	</HBox>
 	</top>
 	

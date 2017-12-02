@@ -11,10 +11,6 @@ import UIFramework.NavigationController;
 
 public class BattleController {
 	
-	
-	/* TODO remove state before turn-in */@FXML Label stateText;
-	
-	
 	private BattleRules rules;
 	private Button[][] tiles;
 	private int turn;
@@ -65,12 +61,12 @@ public class BattleController {
 		updateStats();
 		createBoard();
 		
-		updateBoard(enemyUnitList.get(0), tiles[0][0], tiles[1][1]);
-		updateBoard(enemyUnitList.get(1), tiles[0][0], tiles[1][3]);
-		updateBoard(enemyUnitList.get(2), tiles[0][0], tiles[1][5]);
-		updateBoard(playerUnitList.get(0), tiles[0][0], tiles[6][2]);
-		updateBoard(playerUnitList.get(1), tiles[0][0], tiles[6][4]);
-		updateBoard(playerUnitList.get(2), tiles[0][0], tiles[6][6]);
+		updateBoard(enemyUnitList.get(0), tiles[0][0], tiles[enemyUnitList.get(0).getxPos()][enemyUnitList.get(0).getyPos()]);
+		updateBoard(enemyUnitList.get(1), tiles[0][0], tiles[enemyUnitList.get(1).getxPos()][enemyUnitList.get(1).getyPos()]);
+		updateBoard(enemyUnitList.get(2), tiles[0][0], tiles[enemyUnitList.get(2).getxPos()][enemyUnitList.get(2).getyPos()]);
+		updateBoard(playerUnitList.get(0), tiles[0][0], tiles[playerUnitList.get(0).getxPos()][playerUnitList.get(0).getyPos()]);
+		updateBoard(playerUnitList.get(1), tiles[0][0], tiles[playerUnitList.get(1).getxPos()][playerUnitList.get(1).getyPos()]);
+		updateBoard(playerUnitList.get(2), tiles[0][0], tiles[playerUnitList.get(2).getxPos()][playerUnitList.get(2).getyPos()]);
 		
 		battleActions.setVisible(false);
 		overlord.setText("Overlord Level " + Player.level);
@@ -178,10 +174,8 @@ public class BattleController {
 				// present move options
 				showValidMoves(rules.isMoveValid(activeUnit.getxPos(), activeUnit.getyPos(), playerUnitList, enemyUnitList));
 				gameState = "PlayerMovement";  // game waits for player input after this
-				/* TODO remove state before turn-in */stateText.setText("Waiting for player to select a movement tile for unit " + unitIndex);
 				break;
 			case "AI: TurnStart":
-				/* TODO remove state before turn-in */stateText.setText("AI turn starts");
 				aiControl();
 				updateStats();		// TODO remove once AI can perform actions
 				victoryCheck();		// TODO remove once AI can perform actions
@@ -238,7 +232,6 @@ public class BattleController {
 		// TODO present action targets
 		/* uncomment when method exists */ // showValidTargets(rules.isTargetValid());
 		gameState = "PlayerAction: " + action;
-		/* TODO remove state before turn-in */ stateText.setText("Waiting for player to select a target");
 	}
 	
 	/** Verify and execute unit movement
@@ -264,7 +257,6 @@ public class BattleController {
 		battleActions.setVisible(true);
 		removeHighlights();
 		gameState = "Player: SelectAction";
-		/* TODO remove state before turn-in */ stateText.setText("Waiting for player to select an action");
 	}
 	
 	/** Verify and execute unit action
@@ -298,7 +290,6 @@ public class BattleController {
 		// validate action and execute
 		if (rules.isActionValid(activeUnit, targetUnit, action)) {
 			// TODO execute action
-			/* TODO remove state before turn-in */ stateText.setText("Action performed successfully.");
 			// clean up after successful action and prepare next phase
 			updateStats();
 			victoryCheck();
@@ -381,23 +372,5 @@ public class BattleController {
 				tiles[row][col] = tile;
 			}
 		}
-	}
-	
-	/** Place the Player's unit token on a tile
-	 * @param index index of the unit in Player's unit list
-	 * @param row location of the tile (first index in 2D array)
-	 * @param col location of the tile (second index in 2D array) */
-	private void initPlayerUnit(int index, int row, int col) {
-		tiles[row][col].getStyleClass().add("playerTile");
-		tiles[row][col].getStyleClass().add(playerUnitList.get(index).getType());
-	}
-	
-	/** Place the Enemy's unit token on a tile
-	 * @param index index of the unit in Enemy's unit list
-	 * @param row vertical location of the tile (first index in 2D array)
-	 * @param col horizontal location of the tile (second index in 2D array) */
-	private void initEnemyUnit(int index, int row, int col) {
-		tiles[row][col].getStyleClass().add("enemyTile");
-		tiles[row][col].getStyleClass().add(enemyUnitList.get(index).getType());
 	}
 }
