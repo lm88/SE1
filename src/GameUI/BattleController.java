@@ -91,15 +91,35 @@ public class BattleController {
 	@FXML private void tilePress(ActionEvent event) {
 		Button tile = (Button) event.getSource();
 		int tileID = Integer.valueOf(tile.getId());
-		int x = tileID / 10;
-		int y = tileID % 10;
-		processTilePress(x, y);
+		int tileX = tileID / 10;
+		int tileY = tileID % 10;
+		
+		switch (gameState) {
+			case "PlayerMovement":
+				handleMovement(tileX, tileY);
+				break;
+			case "PlayerAction: attack":
+				handleAction(tileX, tileY, "attack");
+				break;
+			case "PlayerAction: ability":
+				handleAction(tileX, tileY, "ability");
+				break;
+			case "PlayerAction: heal":
+				handleAction(tileX, tileY, "heal");
+				break;
+			default:
+		}
 	}
 	
 	/** Identify action button selected */
 	@FXML private void selectAction(ActionEvent event) {
 		Button action = (Button) event.getSource();
 		String actionID = action.getId();
+		
+		// hide action buttons after selection
+		battleActions.setVisible(false);
+		instructions.setVisible(true);
+		
 		selectAction(actionID);
 	}
 
@@ -130,11 +150,45 @@ public class BattleController {
 	}
 	
 	/** Update unit position on game board */
-	private void updateBoard(BattleUnit activeUnit, Button oldTile, Button newTile) {
-		oldTile.getStyleClass().remove(activeUnit.getTeam());
-		oldTile.getStyleClass().remove(activeUnit.getType());
-		newTile.getStyleClass().add(activeUnit.getType());
-		newTile.getStyleClass().add(activeUnit.getTeam());
+	private void updateBoard(BattleUnit unit, Button oldTile, Button newTile) {
+		oldTile.getStyleClass().remove(unit.getTeam());
+		oldTile.getStyleClass().remove(unit.getType());
+		newTile.getStyleClass().add(unit.getType());
+		newTile.getStyleClass().add(unit.getTeam());
+	}
+	
+	/** Enable or disable action buttons as appropriate */
+	private void showActionOptions() {
+		// start with all buttons disabled
+		attack.setDisable(true);
+		ability.setDisable(true);
+		heal.setDisable(true);
+		
+		// if there are targets in range to attack: enable attack button
+		if (rules.validTargetsExist(activeUnit(), opponentUnitList(), "attack"))
+			attack.setDisable(false);
+		
+		// if the unit is not a healer..
+		if (!(activeUnit().getType().equals("water"))) {
+			// if the unit has enough resource for its ability..
+			if ((activeUnit().getType().equals("earth") && activeUnit().getResource() > 0) ||
+				(activeUnit().getType().equals("fire") && activeUnit().getResource() >= 2) ) {
+				// as long as a target is in range for an ability: enable ability button
+				if (rules.validTargetsExist(activeUnit(), opponentUnitList(), "ability")) 
+					ability.setDisable(false);
+			}
+		// if the unit is a healer..
+		} else {
+			// if the unit has enough resource to heal..
+			if (activeUnit().getType().equals("water") && activeUnit().getResource() >= 1) {
+				// if there are targets in range to heal: enable heal button
+				if (rules.validTargetsExist(activeUnit(), friendlyUnitList(), "heal"))
+					heal.setDisable(false);
+			}
+			// if the unit has enough resource for its ability: enable ability button
+			if (activeUnit().getType().equals("water") && activeUnit().getResource() >= 2)
+				ability.setDisable(false);
+		}
 	}
 	
 	/** Visually highlight tiles valid for moves
@@ -144,28 +198,26 @@ public class BattleController {
 			for (int col = 0; col < 8; col++) {
 				if (moveList[row][col])
 					tiles[row][col].getStyleClass().add("blueHighlight");
-				else
-					tiles[row][col].getStyleClass().remove("blueHighlight");
 			}
 		}
 	}
 
-	/** Visually highlight tiles occupied by valid targets */
+	/** Visually highlight tiles occupied by valid targets
+	 * @param targetArray 2D boolean array where true elements are valid target locations
+	 * @param team unit team targetable by action*/
 	private void showValidTargets(boolean[][] targetArray, String team) {
 		// select highlight color
 		String highlight;
-		if (team.equals("enemy"))
+		if (team.equals(opponent()))
 			highlight = "redHighlight";		// enemy units highlight red
 		else
 			highlight = "greenHighlight";	// friendly units highlight green
 		
-		// apply highlight, ensuring non-targets do not highlight
+		// apply highlight
 		for (int row = 0; row < 8; row++) {
 			for (int col = 0; col < 8; col++) {
 				if (targetArray[row][col])
 					tiles[row][col].getStyleClass().add(highlight);
-				else
-					tiles[row][col].getStyleClass().remove(highlight);
 			}
 		}
 	}
@@ -189,109 +241,66 @@ public class BattleController {
 	private void turnStart() {
 		switch (gameState) {
 			case "Player: TurnStart":
-				int unitIndex = unitRotation % 3; // cycles through indexes 0, 1, 2, 0, 1, 2, etc each new turn
-				BattleUnit activeUnit = playerUnitList.get(unitIndex);
 		
 				// update instructions for player to move
 				instructions.setText("Select a tile to move");
 				// present move options
-				showValidMoves(rules.isMoveValid(activeUnit.getxPos(), activeUnit.getyPos(), playerUnitList, enemyUnitList));
+				showValidMoves(rules.isMoveValid(activeUnit().getxPos(), activeUnit().getyPos(), friendlyUnitList(), opponentUnitList()));
 				gameState = "PlayerMovement";  // game waits for player input after this
 				break;
 			case "AI: TurnStart":
+				turn++;
 				aiControl();
 				break;
 			default:
 		}
 	}
 	
-	/** Determine tile click function based on current game state (movement or targeting)
-	@param newX selected tile's x coordinate
-	@param newY selected tile's y coordinate */
-	private void processTilePress(int newX, int newY) {
+	/** Verify and execute unit movement
+	 * @param newX x-coordinate of destination tile
+	 * @param newY y-coordinate of destination tile
+	 * @return true if move is successful */
+	private void handleMovement(int newX, int newY) {
 		
-		// gameState = current turn phase
-		switch (gameState) {
-			case "PlayerMovement":
-				handleMovement(newX, newY);
-				break;
-			case "PlayerAction: attack":
-				handleAction(newX, newY, "attack");
-				break;
-			case "PlayerAction: ability":
-				handleAction(newX, newY, "ability");
-				break;
-			case "PlayerAction: heal":
-				handleAction(newX, newY, "heal");
-				break;
-			default:
-		}
+		// ignore moves outside highlights
+		boolean validMove = tiles[newX][newY].getStyleClass().contains("blueHighlight");
+		if (!validMove)
+			return;
+		
+		// execute move
+		Button oldTile = tiles[activeUnit().getxPos()][activeUnit().getyPos()];
+		Button newTile = tiles[newX][newY];
+		updateBoard(activeUnit(), oldTile, newTile);
+		activeUnit().setxPos(newX);
+		activeUnit().setyPos(newY);
+		
+		// clean up after successful move and prepare next phase
+		removeHighlights();
+		instructions.setVisible(false);
+		battleActions.setVisible(true);
+		gameState = "Player: SelectAction";
+		showActionOptions();
 	}
 	
 	/** Prepare target list for selected action
 	@param action action to be performed */
 	private void selectAction(String action) {
-		// hide action buttons after selection
-		battleActions.setVisible(false);
-		instructions.setVisible(true);
-
-		int unitIndex = unitRotation % 3;
-		BattleUnit activeUnit = playerUnitList.get(unitIndex);
-				
-		ArrayList<BattleUnit> targetList = null;
-		String targetTeam = "";
-		switch (action) {
-			case "attack":
-			case "ability":
-				targetList = enemyUnitList;
-				targetTeam = "enemy";
-				break;
-			case "heal":
-				targetList = playerUnitList;
-				targetTeam = "player";
-				break;
-			case "pass":
-			default: // treat unknown actions as a pass
-				gameState = "AI: TurnStart";
-				turnStart();
-				return; // skip the rest of targeting process
+		
+		if (action.equals("pass")) {
+			gameState = "AI: TurnStart";
+			turnStart();
+			return; // skip the rest of targeting process
 		}
 		
 		// update instructions for player to select a target
 		instructions.setText("Select a target");
-		// TODO present action targets
-		showValidTargets(rules.isTargetValid(activeUnit, targetList), targetTeam);
+		
+		if(action.equals("attack") || !(activeUnit().getType().equals("water")))
+			showValidTargets(rules.isActionValid(activeUnit(), opponentUnitList(), action), opponent());
+		else
+			showValidTargets(rules.isActionValid(activeUnit(), friendlyUnitList(), action), activeUnit().getTeam());
+		
 		gameState = "PlayerAction: " + action;
-	}
-	
-	/** Verify and execute unit movement
-	 * @param activeUnit unit to be moved
-	 * @param newX x-coordinate of destination tile
-	 * @param newY y-coordinate of destination tile
-	 * @return true if move is successful */
-	private void handleMovement(int newX, int newY) {
-
-		// determine the active unit to move
-		int unitIndex = unitRotation % 3;
-		BattleUnit activeUnit = playerUnitList.get(unitIndex);
-		
-		// ignore moves outside highlights
-		boolean isValid = tiles[newX][newY].getStyleClass().contains("blueHighlight");
-		if (!isValid)
-			return;
-		
-		// execute move
-		Button oldTile = tiles[activeUnit.getxPos()][activeUnit.getyPos()];
-		Button newTile = tiles[newX][newY];
-		updateBoard(activeUnit, oldTile, newTile);
-		activeUnit.setxPos(newX);
-		activeUnit.setyPos(newY);
-		
-		// clean up after successful move and prepare next phase
-		instructions.setVisible(false);
-		battleActions.setVisible(true);
-		removeHighlights();
-		gameState = "Player: SelectAction";
 	}
 	
 	/** Verify and execute unit action
@@ -300,85 +309,83 @@ public class BattleController {
 	 * @param targetY y-coordinate of target tile
 	 * @param action action to be performed */
 	private void handleAction(int targetX, int targetY, String action) {
-
-		// determine active unit performing an action
-		int unitIndex = unitRotation % 3;
-		BattleUnit activeUnit = playerUnitList.get(unitIndex);
 		
-		BattleUnit targetUnit = null;
-		// verify a target exists on selected tile
-		if (activeUnit.getTeam().equals("enemy")) {
-			for (BattleUnit unit : playerUnitList) {
-				if (unit.getxPos() == targetX && unit.getyPos() == targetY) {
-					targetUnit = unit;
-					break;
-				}
-			}
-		} else {
-			for (BattleUnit unit : enemyUnitList) {
-				if (unit.getxPos() == targetX && unit.getyPos() == targetY) {
-					targetUnit = unit;
-					break;
-				}
-			}
-		}
-		
-		// failed action because there is no target on selected tile, does not advance gameState, so this step will be repeated
-		if (targetUnit == null)
+		ArrayList<BattleUnit> targetList;
+		if (tiles[targetX][targetY].getStyleClass().contains("redHighlight"))
+			targetList = opponentUnitList();
+		else if (tiles[targetX][targetY].getStyleClass().contains("blueHighlight"))
+			targetList = friendlyUnitList();
+		else // only highlighted tiles contain valid targets, ignore the rest
 			return;
 		
-		// validate action and execute
-		if (rules.isActionValid(activeUnit, targetUnit, action)) {
-			// TODO execute action
-			switch (action) {
-				case "attack":
-					// apply damage changes
-					targetUnit.modHealth(-activeUnit.getDamage());
-					if (targetUnit.getHealth() < 0)
-						targetUnit.setHealth(0);
-					// apply resource changes
-					if (activeUnit.getType().equals("earth"))
-						activeUnit.setResource(activeUnit.getResource() + 1);
-					break;
-				case "ability":
-					switch (activeUnit.getType()) {
-						case "fire":
-							targetUnit.modHealth(-activeUnit.getDamage() * 2);
-							if (targetUnit.getHealth() < 0)
-								targetUnit.setHealth(0);
-							activeUnit.modResource(-2);
-							break;
-						case "earth":
-							// apply damage equal to amount of rage
-							targetUnit.modHealth(activeUnit.getResource());
-							if (targetUnit.getHealth() < 0)
-								targetUnit.setHealth(0);
-							// remove all rage
-							activeUnit.setResource(0);
-							break;
-						case "water":
-							// apply heal
-							targetUnit.modHealth(3);
-							// prevent over-healing
-							if (targetUnit.getHealth() > (targetUnit.getType().equals("earth") ? 15 : 10))
-								targetUnit.setHealth(targetUnit.getType().equals("earth") ? 15 : 10);
-							// apply resource cost
-							activeUnit.modResource(-2);
-							break;
-						default:
-					}
-					break;
-				case "heal":
-					break;
-				default:
+		BattleUnit targetUnit = null;
+		// get the unit on selected tile
+		for (BattleUnit unit : targetList) {
+			if (unit.getxPos() == targetX && unit.getyPos() == targetY) {
+				targetUnit = unit;
+				break;
 			}
-			
-			// clean up after successful action and prepare next phase
-			updateStats();
-			victoryCheck();
-			gameState = "AI: TurnStart";
-			turn++; // advance to the turn counter (odd = AI, even  = Player)
 		}
+		
+		// validate action and execute
+		switch (action) {
+			case "attack":
+				// apply damage changes
+				targetUnit.modHealth(-activeUnit().getDamage());
+				if (targetUnit.getHealth() < 0)
+					targetUnit.setHealth(0);
+				// apply resource changes
+				if (activeUnit().getType().equals("earth"))
+					activeUnit().setResource(activeUnit().getResource() + 1);
+				break;
+			case "ability":
+				switch (activeUnit().getType()) {
+					case "fire":
+						targetUnit.modHealth(-activeUnit().getDamage() * 2);
+						if (targetUnit.getHealth() < 0)
+							targetUnit.setHealth(0);
+						activeUnit().modResource(-2);
+						break;
+					case "earth":
+						// apply damage equal to amount of rage
+						targetUnit.modHealth(-activeUnit().getResource());
+						if (targetUnit.getHealth() < 0)
+							targetUnit.setHealth(0);
+						// remove all rage
+						activeUnit().setResource(0);
+						break;
+					case "water":
+						// apply heal to all friendly team units
+						for (BattleUnit unit : friendlyUnitList()) {
+							unit.modHealth(2);
+							// prevent over-healing
+							if (unit.getHealth() > (unit.getType().equals("earth") ? 15 : 10))
+								unit.setHealth(unit.getType().equals("earth") ? 15 : 10);
+						}
+						// apply resource cost
+						activeUnit().modResource(-2);
+						break;
+					default:
+				}
+				break;
+			case "heal":
+				// apply heal to target
+				targetUnit.modHealth(3);
+				// prevent over-healing
+				if (targetUnit.getHealth() > (targetUnit.getType().equals("earth") ? 15 : 10))
+					targetUnit.setHealth(targetUnit.getType().equals("earth") ? 15 : 10);
+				// apply resource cost
+				activeUnit().modResource(-1);
+				break;
+			default:
+		}
+		
+		// clean up after successful action and prepare next phase
+		updateStats();
+		removeHighlights();
+		victoryCheck();
+		gameState = "AI: TurnStart";
+		turn++; // advance to the turn counter (odd = AI, even  = Player)
 	}
 	
 	/** AI turn control */
@@ -394,8 +401,9 @@ public class BattleController {
 		wait.onFinishedProperty().set(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent event) {
-					updateStats();		// TODO remove once AI can perform actions
-					victoryCheck();		// TODO remove once AI can perform actions
+					// TODO remove some of these once AI can perform actions
+					updateStats();
+					victoryCheck();
 					gameState = "Player: TurnStart";
 					turn++;
 					unitRotation++;
@@ -408,18 +416,7 @@ public class BattleController {
 	
 	/** Check the opponent team's condition */
 	private void victoryCheck() {
-		// determine who's turn it is
-		String currentPlayer = "";
-		if (turn % 2 == 0)
-			currentPlayer = "Player";
-		else
-			currentPlayer = "AI";
-		
-		boolean victory;
-		if (currentPlayer.equals("AI"))
-			victory = rules.isEnemyDefeated(playerUnitList);
-		else
-			victory = rules.isEnemyDefeated(enemyUnitList);
+		boolean victory = rules.isEnemyDefeated(opponentUnitList());
 		
 		if (victory)
 			NavigationController.loadView(NavigationController.MAINMENU);
@@ -486,5 +483,38 @@ public class BattleController {
 				tiles[row][col] = tile;
 			}
 		}
+	}
+
+	/*===             === */
+	/*=== Information === */
+	/*===             === */
+	
+	private BattleUnit activeUnit() {
+		BattleUnit activeUnit = null;
+		int unitIndex = unitRotation % 3;
+		if (turn % 2 == 0)
+			activeUnit = playerUnitList.get(unitIndex);
+		else
+			activeUnit = enemyUnitList.get(unitIndex);
+		
+		return activeUnit;
+	}
+	
+	private ArrayList<BattleUnit> opponentUnitList() {
+		if (activeUnit().getTeam().equals("enemy"))
+			return playerUnitList;
+		else
+			return enemyUnitList;
+	}
+	
+	private ArrayList<BattleUnit> friendlyUnitList() {
+		if (activeUnit().getTeam().equals("player"))
+			return playerUnitList;
+		else
+			return enemyUnitList;
+	}
+	
+	private String opponent() {
+		return "";
 	}
 }
