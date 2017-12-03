@@ -214,6 +214,9 @@
 .mp {
 	-fx-text-fill: #0000FF;
 }
+.rage {
+	-fx-text-fill: #FFFF00;
+}
 .battleActionBox {
     -fx-alignment: center;
     -fx-max-width: 520px;

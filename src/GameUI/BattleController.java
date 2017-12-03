@@ -16,10 +16,10 @@ import UIFramework.NavigationController;
 public class BattleController {
 	
 	private BattleRules rules;
-	private Button[][] tiles;
 	private int turn;
 	private int unitRotation;
 	private String gameState = "Player: TurnStart";
+	private Button[][] tiles;
 	
 	private ArrayList<BattleUnit> playerUnitList = new ArrayList<>();
 	private ArrayList<BattleUnit> enemyUnitList = new ArrayList<>();
@@ -66,14 +66,16 @@ public class BattleController {
 		createUnitLists();
 		setUnitIcons();
 		updateStats();
+		setResourceColors();
 		createBoard();
 		
-		updateBoard(enemyUnitList.get(0), tiles[0][0], tiles[enemyUnitList.get(0).getxPos()][enemyUnitList.get(0).getyPos()]);
-		updateBoard(enemyUnitList.get(1), tiles[0][0], tiles[enemyUnitList.get(1).getxPos()][enemyUnitList.get(1).getyPos()]);
-		updateBoard(enemyUnitList.get(2), tiles[0][0], tiles[enemyUnitList.get(2).getxPos()][enemyUnitList.get(2).getyPos()]);
-		updateBoard(playerUnitList.get(0), tiles[0][0], tiles[playerUnitList.get(0).getxPos()][playerUnitList.get(0).getyPos()]);
-		updateBoard(playerUnitList.get(1), tiles[0][0], tiles[playerUnitList.get(1).getxPos()][playerUnitList.get(1).getyPos()]);
-		updateBoard(playerUnitList.get(2), tiles[0][0], tiles[playerUnitList.get(2).getxPos()][playerUnitList.get(2).getyPos()]);
+		// draw units in initial positions
+		for (BattleUnit unit : enemyUnitList) {
+			updateBoard(unit, tiles[0][0], tiles[unit.getxPos()][unit.getyPos()]);
+		}
+		for (BattleUnit unit : playerUnitList) {
+			updateBoard(unit, tiles[0][0], tiles[unit.getxPos()][unit.getyPos()]);
+		}
 		
 		battleActions.setVisible(false);
 		overlord.setText("Overlord Level " + Player.level);
@@ -127,6 +129,7 @@ public class BattleController {
 		enemyUnit3resource.setText("" + enemyUnitList.get(2).resource);
 	}
 	
+	/** Update unit position on game board */
 	private void updateBoard(BattleUnit activeUnit, Button oldTile, Button newTile) {
 		oldTile.getStyleClass().remove(activeUnit.getTeam());
 		oldTile.getStyleClass().remove(activeUnit.getType());
@@ -148,10 +151,23 @@ public class BattleController {
 	}
 
 	/** Visually highlight tiles occupied by valid targets */
-	private void showValidTargets(boolean[][] targetArray) {
-		// TODO highlight targetable units
-		// enemy units highlight red
-		// friendly units highlight green (if action = heal)
+	private void showValidTargets(boolean[][] targetArray, String team) {
+		// select highlight color
+		String highlight;
+		if (team.equals("enemy"))
+			highlight = "redHighlight";		// enemy units highlight red
+		else
+			highlight = "greenHighlight";	// friendly units highlight green
+		
+		// apply highlight, ensuring non-targets do not highlight
+		for (int row = 0; row < 8; row++) {
+			for (int col = 0; col < 8; col++) {
+				if (targetArray[row][col])
+					tiles[row][col].getStyleClass().add(highlight);
+				else
+					tiles[row][col].getStyleClass().remove(highlight);
+			}
+		}
 	}
 
 	/** Remove all visual highlights from all tiles */
@@ -183,59 +199,30 @@ public class BattleController {
 				gameState = "PlayerMovement";  // game waits for player input after this
 				break;
 			case "AI: TurnStart":
-				
-				battle.setMouseTransparent(true);
-				PauseTransition wait = new PauseTransition(Duration.millis(1000));
-				wait.onFinishedProperty().set(new EventHandler<ActionEvent>() {
-						@Override
-						public void handle(ActionEvent event) {
-							aiControl();
-							updateStats();		// TODO remove once AI can perform actions
-							victoryCheck();		// TODO remove once AI can perform actions
-							gameState = "Player: TurnStart";
-							turn++;
-							unitRotation++;
-							battle.setMouseTransparent(false);
-							turnStart();
-						}
-				});
-				wait.play();
-				/*
 				aiControl();
-				updateStats();		// TODO remove once AI can perform actions
-				victoryCheck();		// TODO remove once AI can perform actions
-				gameState = "Player: TurnStart";
-				turn++;
-				unitRotation++;
-				turnStart();
-				*/
 				break;
 			default:
 		}
 	}
 	
-	
-	/** Determine process to be performed based on current game state
+	/** Determine tile click function based on current game state (movement or targeting)
 	@param newX selected tile's x coordinate
 	@param newY selected tile's y coordinate */
 	private void processTilePress(int newX, int newY) {
 		
-		int unitIndex = unitRotation % 3;
-		BattleUnit activeUnit = playerUnitList.get(unitIndex);
-		
 		// gameState = current turn phase
 		switch (gameState) {
 			case "PlayerMovement":
-				handleMovement(activeUnit, newX, newY);
+				handleMovement(newX, newY);
 				break;
 			case "PlayerAction: attack":
-				handleAction(activeUnit, newX, newY, "attack");
+				handleAction(newX, newY, "attack");
 				break;
 			case "PlayerAction: ability":
-				handleAction(activeUnit, newX, newY, "ability");
+				handleAction(newX, newY, "ability");
 				break;
 			case "PlayerAction: heal":
-				handleAction(activeUnit, newX, newY, "heal");
+				handleAction(newX, newY, "heal");
 				break;
 			default:
 		}
@@ -244,19 +231,36 @@ public class BattleController {
 	/** Prepare target list for selected action
 	@param action action to be performed */
 	private void selectAction(String action) {
-		// skip targeting if player is passing
-		if (action.equals("pass")) {
-			gameState = "AI: TurnStart";
-			turnStart();
-			return;
-		}
-		
-		// update instructions for player to take an action
+		// hide action buttons after selection
 		battleActions.setVisible(false);
 		instructions.setVisible(true);
+
+		int unitIndex = unitRotation % 3;
+		BattleUnit activeUnit = playerUnitList.get(unitIndex);
+				
+		ArrayList<BattleUnit> targetList = null;
+		String targetTeam = "";
+		switch (action) {
+			case "attack":
+			case "ability":
+				targetList = enemyUnitList;
+				targetTeam = "enemy";
+				break;
+			case "heal":
+				targetList = playerUnitList;
+				targetTeam = "player";
+				break;
+			case "pass":
+			default: // treat unknown actions as a pass
+				gameState = "AI: TurnStart";
+				turnStart();
+				return; // skip the rest of targeting process
+		}
+		
+		// update instructions for player to select a target
 		instructions.setText("Select a target");
 		// TODO present action targets
-		/* uncomment when method exists */ // showValidTargets(rules.isTargetValid());
+		showValidTargets(rules.isTargetValid(activeUnit, targetList), targetTeam);
 		gameState = "PlayerAction: " + action;
 	}
 	
@@ -265,7 +269,12 @@ public class BattleController {
 	 * @param newX x-coordinate of destination tile
 	 * @param newY y-coordinate of destination tile
 	 * @return true if move is successful */
-	private void handleMovement(BattleUnit activeUnit, int newX, int newY) {
+	private void handleMovement(int newX, int newY) {
+
+		// determine the active unit to move
+		int unitIndex = unitRotation % 3;
+		BattleUnit activeUnit = playerUnitList.get(unitIndex);
+		
 		// ignore moves outside highlights
 		boolean isValid = tiles[newX][newY].getStyleClass().contains("blueHighlight");
 		if (!isValid)
@@ -290,7 +299,12 @@ public class BattleController {
 	 * @param targetX x-coordinate of target tile
 	 * @param targetY y-coordinate of target tile
 	 * @param action action to be performed */
-	private void handleAction(BattleUnit activeUnit, int targetX, int targetY, String action) {
+	private void handleAction(int targetX, int targetY, String action) {
+
+		// determine active unit performing an action
+		int unitIndex = unitRotation % 3;
+		BattleUnit activeUnit = playerUnitList.get(unitIndex);
+		
 		BattleUnit targetUnit = null;
 		// verify a target exists on selected tile
 		if (activeUnit.getTeam().equals("enemy")) {
@@ -316,6 +330,49 @@ public class BattleController {
 		// validate action and execute
 		if (rules.isActionValid(activeUnit, targetUnit, action)) {
 			// TODO execute action
+			switch (action) {
+				case "attack":
+					// apply damage changes
+					targetUnit.modHealth(-activeUnit.getDamage());
+					if (targetUnit.getHealth() < 0)
+						targetUnit.setHealth(0);
+					// apply resource changes
+					if (activeUnit.getType().equals("earth"))
+						activeUnit.setResource(activeUnit.getResource() + 1);
+					break;
+				case "ability":
+					switch (activeUnit.getType()) {
+						case "fire":
+							targetUnit.modHealth(-activeUnit.getDamage() * 2);
+							if (targetUnit.getHealth() < 0)
+								targetUnit.setHealth(0);
+							activeUnit.modResource(-2);
+							break;
+						case "earth":
+							// apply damage equal to amount of rage
+							targetUnit.modHealth(activeUnit.getResource());
+							if (targetUnit.getHealth() < 0)
+								targetUnit.setHealth(0);
+							// remove all rage
+							activeUnit.setResource(0);
+							break;
+						case "water":
+							// apply heal
+							targetUnit.modHealth(3);
+							// prevent over-healing
+							if (targetUnit.getHealth() > (targetUnit.getType().equals("earth") ? 15 : 10))
+								targetUnit.setHealth(targetUnit.getType().equals("earth") ? 15 : 10);
+							// apply resource cost
+							activeUnit.modResource(-2);
+							break;
+						default:
+					}
+					break;
+				case "heal":
+					break;
+				default:
+			}
+			
 			// clean up after successful action and prepare next phase
 			updateStats();
 			victoryCheck();
@@ -327,7 +384,26 @@ public class BattleController {
 	/** AI turn control */
 	private void aiControl() {
 		// TODO make AI work (g'luck)
+		
+		// inform player to wait for AI
+		instructions.setText("It is the enemy's turn..");
+		
 
+		battle.setMouseTransparent(true);
+		PauseTransition wait = new PauseTransition(Duration.millis(1000));
+		wait.onFinishedProperty().set(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent event) {
+					updateStats();		// TODO remove once AI can perform actions
+					victoryCheck();		// TODO remove once AI can perform actions
+					gameState = "Player: TurnStart";
+					turn++;
+					unitRotation++;
+					battle.setMouseTransparent(false);
+					turnStart();
+				}
+		});
+		wait.play();
 	}
 	
 	/** Check the opponent team's condition */
@@ -340,7 +416,7 @@ public class BattleController {
 			currentPlayer = "AI";
 		
 		boolean victory;
-		if (currentPlayer == "AI")
+		if (currentPlayer.equals("AI"))
 			victory = rules.isEnemyDefeated(playerUnitList);
 		else
 			victory = rules.isEnemyDefeated(enemyUnitList);
@@ -372,12 +448,23 @@ public class BattleController {
 	
 	/** Draw the appropriate icon for each unit on the side panels */
 	private void setUnitIcons() {
+		
 		playerUnit1.getStyleClass().add(playerUnitList.get(0).type);
 		playerUnit2.getStyleClass().add(playerUnitList.get(1).type);
 		playerUnit3.getStyleClass().add(playerUnitList.get(2).type);
 		enemyUnit1.getStyleClass().add(enemyUnitList.get(0).type);
 		enemyUnit2.getStyleClass().add(enemyUnitList.get(1).type);
 		enemyUnit3.getStyleClass().add(enemyUnitList.get(2).type);
+	}
+	
+	/** Color the resource label according to unit type */
+	private void setResourceColors() {
+		enemyUnit1resource.getStyleClass().add((enemyUnitList.get(0).getType().equals("earth") ? "rage" : "mp"));
+		enemyUnit2resource.getStyleClass().add((enemyUnitList.get(1).getType().equals("earth") ? "rage" : "mp"));
+		enemyUnit3resource.getStyleClass().add((enemyUnitList.get(2).getType().equals("earth") ? "rage" : "mp"));
+		playerUnit1resource.getStyleClass().add((playerUnitList.get(0).getType().equals("earth") ? "rage" : "mp"));
+		playerUnit2resource.getStyleClass().add((playerUnitList.get(1).getType().equals("earth") ? "rage" : "mp"));
+		playerUnit3resource.getStyleClass().add((playerUnitList.get(2).getType().equals("earth") ? "rage" : "mp"));
 	}
 	
 	/** Initialize the 2D button array representing the game board */

@@ -26,7 +26,7 @@
 				</HBox>
 				<HBox>
 					<Label styleClass="stats" text="Resource:"/>
-					<Label styleClass="stats, mp" fx:id="playerUnit1resource" text="x"/>
+					<Label styleClass="stats" fx:id="playerUnit1resource" text="x"/>
 				</HBox>
 			</VBox>
 			<Button styleClass="battleUnitIcons" fx:id="playerUnit1"/>
@@ -40,7 +40,7 @@
 				</HBox>
 				<HBox>
 					<Label styleClass="stats" text="Resource:"/>
-					<Label styleClass="stats, mp" fx:id="playerUnit2resource" text="x"/>
+					<Label styleClass="stats" fx:id="playerUnit2resource" text="x"/>
 				</HBox>
 			</VBox>
 			<Button styleClass="battleUnitIcons" fx:id="playerUnit2"/>
@@ -54,7 +54,7 @@
 				</HBox>
 				<HBox>
 					<Label styleClass="stats" text="Resource:"/>
-					<Label styleClass="stats, mp" fx:id="playerUnit3resource" text="x"/>
+					<Label styleClass="stats" fx:id="playerUnit3resource" text="x"/>
 				</HBox>
 			</VBox>
 			<Button styleClass="battleUnitIcons" fx:id="playerUnit3"/>
@@ -101,7 +101,7 @@
 				</HBox>
 				<HBox>
 					<Label styleClass="stats" text="Resource:"/>
-					<Label styleClass="stats, mp" fx:id="enemyUnit1resource" text="x"/>
+					<Label styleClass="stats" fx:id="enemyUnit1resource" text="x"/>
 				</HBox>
 			</VBox>
 		</HBox>
@@ -115,7 +115,7 @@
 				</HBox>
 				<HBox>
 					<Label styleClass="stats" text="Resource:"/>
-					<Label styleClass="stats, mp" fx:id="enemyUnit2resource" text="x"/>
+					<Label styleClass="stats" fx:id="enemyUnit2resource" text="x"/>
 				</HBox>
 			</VBox>
 		</HBox>
@@ -129,7 +129,7 @@
 				</HBox>
 				<HBox>
 					<Label styleClass="stats" text="Resource:"/>
-					<Label styleClass="stats, mp" fx:id="enemyUnit3resource" text="x"/>
+					<Label styleClass="stats" fx:id="enemyUnit3resource" text="x"/>
 				</HBox>
 			</VBox>
 		</HBox>

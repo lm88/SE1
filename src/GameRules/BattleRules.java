@@ -91,10 +91,10 @@ public class BattleRules {
 	}
 	
 	/** Check the condition of the opposing team
-	 * @param units the opposing team's unit list */
-	public boolean isEnemyDefeated(ArrayList<BattleUnit> units) {
+	 * @param unitList the opposing team's unit list */
+	public boolean isEnemyDefeated(ArrayList<BattleUnit> unitList) {
 		// if any unit on the other team still has health, the battle is not over
-		for (BattleUnit unit : units) {
+		for (BattleUnit unit : unitList) {
 			if (unit.health != 0)
 				return false;
 		}

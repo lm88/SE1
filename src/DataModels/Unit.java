@@ -40,11 +40,11 @@ public class Unit {
 	}
 	
 	public void modHealth(int modBy) {
-		health = health - damage; 
+		health = health + modBy; 
 	}
 	
 	public void modResource(int modBy) {
-		
+		resource = resource + modBy;
 	}
 }
 
