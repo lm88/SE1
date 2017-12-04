@@ -27,6 +27,7 @@ public class NavigationController {
 	public static final String SAVELOAD		= "/MenuUI/SaveLoad.fxml";
 	public static final String STARTMENU	= "/MenuUI/StartMenu.fxml";
 	public static String PREVIOUS;
+	public static String WINNERMSG = "Welcome!"; 
 	private static Pane root;
     
 	/** Set the root Pane for the application

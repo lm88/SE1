@@ -125,6 +125,7 @@ public class BattleController {
 
 	/** Send view change request */
 	@FXML private void transitionView() {
+		NavigationController.WINNERMSG = "You Lose!";
 		NavigationController.loadView(NavigationController.MAINMENU);
 	}
 
@@ -425,8 +426,17 @@ public class BattleController {
 	private void victoryCheck() {
 		boolean victory = rules.isEnemyDefeated(opponentUnitList());
 		
-		if (victory)
+		if (victory) {
+			if (activeTeam().equals("player")) {
+				Player.level += 1;
+				Player.currency += 20;
+				NavigationController.WINNERMSG = "You Win!";
+			} else {
+				Player.currency += 5;
+				NavigationController.WINNERMSG = "You Lose!";
+			}
 			NavigationController.loadView(NavigationController.MAINMENU);
+		}
 	}
 
 	/*===            === */
