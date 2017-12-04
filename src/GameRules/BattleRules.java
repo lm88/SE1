@@ -27,6 +27,7 @@ public class BattleRules {
 					moveList[row][col] = true;			// allow the move
 					if (tileOccupied(row, col, playerUnits) || tileOccupied(row, col, enemyUnits)) {
 						// TODO enable the player to select the tile the unit is already on, as a way to pass on movement phase
+						// BattleRules cannot tell what unit is active
 						moveList[row][col] = false;		// deny moving to occupied tiles (includes the one the active unit is on)
 					}
 				} else

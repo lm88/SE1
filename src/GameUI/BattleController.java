@@ -18,7 +18,7 @@ public class BattleController {
 	private BattleRules rules;
 	private int turn;
 	private int unitRotation;
-	private String gameState = "Player: TurnStart";
+	private String gameState = "player: TurnStart";
 	private Button[][] tiles;
 	
 	private ArrayList<BattleUnit> playerUnitList = new ArrayList<>();
@@ -95,16 +95,16 @@ public class BattleController {
 		int tileY = tileID % 10;
 		
 		switch (gameState) {
-			case "PlayerMovement":
+			case "player: Movement":
 				handleMovement(tileX, tileY);
 				break;
-			case "PlayerAction: attack":
+			case "player: attack":
 				handleAction(tileX, tileY, "attack");
 				break;
-			case "PlayerAction: ability":
+			case "player: ability":
 				handleAction(tileX, tileY, "ability");
 				break;
-			case "PlayerAction: heal":
+			case "player: heal":
 				handleAction(tileX, tileY, "heal");
 				break;
 			default:
@@ -190,6 +190,17 @@ public class BattleController {
 				ability.setDisable(false);
 		}
 	}
+
+	/** Remove all visual highlights from all tiles */
+	private void removeHighlights() {
+		for (int row = 0; row < 8; row++) {
+			for (int col = 0; col < 8; col++) {
+				tiles[row][col].getStyleClass().remove("blueHighlight");
+				tiles[row][col].getStyleClass().remove("redHighlight");
+				tiles[row][col].getStyleClass().remove("greenHighlight");
+			}
+		}
+	}
 	
 	/** Visually highlight tiles valid for moves
 	 * @param moveList 2D boolean array where true elements are valid moves */
@@ -206,29 +217,15 @@ public class BattleController {
 	 * @param targetArray 2D boolean array where true elements are valid target locations
 	 * @param team unit team targetable by action*/
 	private void showValidTargets(boolean[][] targetArray, String team) {
-		// select highlight color
-		String highlight;
-		if (team.equals(opponent()))
-			highlight = "redHighlight";		// enemy units highlight red
-		else
-			highlight = "greenHighlight";	// friendly units highlight green
-		
-		// apply highlight
+		// apply highlights
 		for (int row = 0; row < 8; row++) {
 			for (int col = 0; col < 8; col++) {
-				if (targetArray[row][col])
-					tiles[row][col].getStyleClass().add(highlight);
-			}
-		}
-	}
-
-	/** Remove all visual highlights from all tiles */
-	private void removeHighlights() {
-		for (int row = 0; row < 8; row++) {
-			for (int col = 0; col < 8; col++) {
-				tiles[row][col].getStyleClass().remove("blueHighlight");
-				tiles[row][col].getStyleClass().remove("redHighlight");
-				tiles[row][col].getStyleClass().remove("greenHighlight");
+				if (targetArray[row][col]) {
+					if (team.equals(opponentTeam()))			// enemies highlighted red
+						tiles[row][col].getStyleClass().add("redHighlight");
+					else									// friendlies highlighted green
+						tiles[row][col].getStyleClass().add("greenHighlight");
+				}
 			}
 		}
 	}
@@ -240,17 +237,25 @@ public class BattleController {
 	/** Turns for both players begin here */
 	private void turnStart() {
 		switch (gameState) {
-			case "Player: TurnStart":
+			case "player: TurnStart":
 		
 				// update instructions for player to move
 				instructions.setText("Select a tile to move");
 				// present move options
 				showValidMoves(rules.isMoveValid(activeUnit().getxPos(), activeUnit().getyPos(), friendlyUnitList(), opponentUnitList()));
-				gameState = "PlayerMovement";  // game waits for player input after this
+				gameState = "player: Movement";  // game waits for player input after this
 				break;
-			case "AI: TurnStart":
+			case "enemy: TurnStart":
+				// prepare for enemy's turn
 				turn++;
+				battle.setMouseTransparent(true);
+				
 				aiControl();
+				
+				// prepare for player's turn
+				turn++;
+				unitRotation++;
+				battle.setMouseTransparent(false);
 				break;
 			default:
 		}
@@ -276,9 +281,11 @@ public class BattleController {
 		
 		// clean up after successful move and prepare next phase
 		removeHighlights();
-		instructions.setVisible(false);
-		battleActions.setVisible(true);
-		gameState = "Player: SelectAction";
+		if (activeTeam() == "player") {
+			instructions.setVisible(false);
+			battleActions.setVisible(true);
+		}
+		gameState = activeTeam() + ": SelectAction";
 		showActionOptions();
 	}
 	
@@ -287,7 +294,7 @@ public class BattleController {
 	private void selectAction(String action) {
 		
 		if (action.equals("pass")) {
-			gameState = "AI: TurnStart";
+			gameState = opponentTeam() + ": TurnStart";
 			turnStart();
 			return; // skip the rest of targeting process
 		}
@@ -296,11 +303,10 @@ public class BattleController {
 		instructions.setText("Select a target");
 		
 		if(action.equals("attack") || !(activeUnit().getType().equals("water")))
-			showValidTargets(rules.isActionValid(activeUnit(), opponentUnitList(), action), opponent());
+			showValidTargets(rules.isActionValid(activeUnit(), opponentUnitList(), action), opponentTeam());
 		else
-			showValidTargets(rules.isActionValid(activeUnit(), friendlyUnitList(), action), activeUnit().getTeam());
-		
-		gameState = "PlayerAction: " + action;
+			showValidTargets(rules.isActionValid(activeUnit(), friendlyUnitList(), action), activeTeam());
+		gameState = activeTeam() + ": " + action;
 	}
 	
 	/** Verify and execute unit action
@@ -313,7 +319,7 @@ public class BattleController {
 		ArrayList<BattleUnit> targetList;
 		if (tiles[targetX][targetY].getStyleClass().contains("redHighlight"))
 			targetList = opponentUnitList();
-		else if (tiles[targetX][targetY].getStyleClass().contains("blueHighlight"))
+		else if (tiles[targetX][targetY].getStyleClass().contains("greenHighlight"))
 			targetList = friendlyUnitList();
 		else // only highlighted tiles contain valid targets, ignore the rest
 			return;
@@ -380,12 +386,14 @@ public class BattleController {
 			default:
 		}
 		
+		// TODO remove defeated units from board, or indicate unit is unusable somehow
+		
 		// clean up after successful action and prepare next phase
 		updateStats();
 		removeHighlights();
 		victoryCheck();
-		gameState = "AI: TurnStart";
-		turn++; // advance to the turn counter (odd = AI, even  = Player)
+		gameState = opponentTeam() + ": TurnStart";
+		turnStart();
 	}
 	
 	/** AI turn control */
@@ -395,19 +403,18 @@ public class BattleController {
 		// inform player to wait for AI
 		instructions.setText("It is the enemy's turn..");
 		
-
-		battle.setMouseTransparent(true);
-		PauseTransition wait = new PauseTransition(Duration.millis(1000));
+		gameState = "enemy: Movement";
+		showValidMoves(rules.isMoveValid(activeUnit().getxPos(), activeUnit().getyPos(), friendlyUnitList(), opponentUnitList()));
+		
+		PauseTransition wait = new PauseTransition(Duration.millis(300));
 		wait.onFinishedProperty().set(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent event) {
-					// TODO remove some of these once AI can perform actions
+					// TODO remove some of these once AI can use handleActions
 					updateStats();
+					removeHighlights();
 					victoryCheck();
-					gameState = "Player: TurnStart";
-					turn++;
-					unitRotation++;
-					battle.setMouseTransparent(false);
+					gameState = "player: TurnStart";
 					turnStart();
 				}
 		});
@@ -500,21 +507,29 @@ public class BattleController {
 		return activeUnit;
 	}
 	
+	private String activeTeam() {
+		if (turn % 2 == 0)
+			return "player";
+		return "enemy";
+	}
+	
+	private String opponentTeam() {
+		if (turn % 2 == 0)
+			return "enemy";
+		return "player";
+	}
+	
 	private ArrayList<BattleUnit> opponentUnitList() {
-		if (activeUnit().getTeam().equals("enemy"))
+		if (activeTeam().equals("enemy"))
 			return playerUnitList;
 		else
 			return enemyUnitList;
 	}
 	
 	private ArrayList<BattleUnit> friendlyUnitList() {
-		if (activeUnit().getTeam().equals("player"))
+		if (activeTeam().equals("player"))
 			return playerUnitList;
 		else
 			return enemyUnitList;
-	}
-	
-	private String opponent() {
-		return "";
 	}
 }
