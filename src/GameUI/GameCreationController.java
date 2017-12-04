@@ -4,7 +4,6 @@ package GameUI;
  *
  */
 import java.io.IOException;
-import java.util.ArrayList;
 
 import DataModels.Player;
 import DataModels.Unit;
