@@ -21,7 +21,7 @@ import javafx.scene.control.Label;
  */
 public class SaveLoadController 
 {
-    private int saveSlotNum = -1;
+    //private int saveSlotNum = -1;
     private String _Previous;
     private Button _Selection;
     
@@ -43,7 +43,8 @@ public class SaveLoadController
 		NavigationController.loadView(_Previous);
 		break;
 	    case "load":
-		// Load the game, trasition to main menu
+	    NavigationController.WINNERMSG = "Welcome Back!";
+		// Load the game, transition to main menu
 		NavigationController.loadView(NavigationController.MAINMENU);
 		break;
 	    default:
@@ -86,7 +87,7 @@ public class SaveLoadController
 	if(_Selection != null)
 	{
 	    //ObservableList<String> styles = _Selection.getStyleClass();
-	    boolean removeAll = _Selection.getStyleClass().removeAll("menuButtonSelected");
+	    _Selection.getStyleClass().removeAll("menuButtonSelected");
 	}
 	
 	_Selection = ((Button) event.getSource());

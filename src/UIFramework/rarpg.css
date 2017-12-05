@@ -128,42 +128,77 @@
 	-fx-pref-tile-height: 65;	/* must match .tile:-fx-min-height */
 	-fx-hgap: 0;
 	-fx-vgap: 0;
-}
+} 
 .tile {
 	-fx-min-width: 65;			/* must match .battleTileHolder:-fx-pref-tile-width */
 	-fx-min-height: 65;			/* must match .battleTileHolder:-fx-pref-tile-height */
-    -fx-background-size: 95%;
-    -fx-background-position: center;
-    -fx-background-repeat: no-repeat;
+	-fx-background-size: 95%;
+	-fx-background-position: center;
+	-fx-background-repeat: no-repeat;
 }
 .whtTile {
-	-fx-background-color: linear-gradient(#ffffff, #d9d9d9),
+	-fx-background-color: #ffffff,
 		linear-gradient(#f2f2f2, #d9d9d9 20%, #e6e6e6),
 		linear-gradient(#d9d9d9, #f2f2f2 50%);
     -fx-background-radius: 0, 1, 2;
     -fx-background-insets: 0, 1, 2;
-	-fx-text-fill: #000000;
+}
+.whtTile.player {
+	-fx-background-color: #ffffff,
+		linear-gradient(#f2f2f2, #d9d9d9 20%, #e6e6e6),
+		linear-gradient(#d9d9d9, #f2f2f2 50%),
+		#0000bb;
+    -fx-background-radius: 0, 1, 2, 30;
+    -fx-background-insets: 0, 1, 2, 3;
+}
+.whtTile.enemy {
+	-fx-background-color: #ffffff,
+		linear-gradient(#f2f2f2, #d9d9d9 20%, #e6e6e6),
+		linear-gradient(#d9d9d9, #f2f2f2 50%),
+		#bb0000;
+    -fx-background-radius: 0, 1, 2, 30;
+    -fx-background-insets: 0, 1, 2, 3;
 }
 .blkTile {
-	-fx-background-color: linear-gradient(#000000, #404040),
+	-fx-background-color: #000000,
 		linear-gradient(#1a1a1a, #404040 20%, #262626),
 		linear-gradient(#404040, #1a1a1a 50%);
     -fx-background-radius: 0, 1, 2;
     -fx-background-insets: 0, 1, 2;
-	-fx-text-fill: #ffffff;
 }
-.playerTile {
-	-fx-effect: innershadow(two-pass-box, #333399, 10, 0.2, 0, 0);
+.blkTile.player {
+	-fx-background-color: #000000,
+		linear-gradient(#1a1a1a, #404040 20%, #262626),
+		linear-gradient(#404040, #1a1a1a 50%),
+		#0000bb;
+    -fx-background-radius: 0, 1, 2, 30;
+    -fx-background-insets: 0, 1, 2, 3;
 }
-.enemyTile {
-	-fx-effect: innershadow(two-pass-box, #993333, 10, 0.2, 0, 0);
+.blkTile.enemy {
+	-fx-background-color: #000000,
+		linear-gradient(#1a1a1a, #404040 20%, #262626),
+		linear-gradient(#404040, #1a1a1a 50%),
+		#bb0000;
+    -fx-background-radius: 0, 1, 2, 30;
+    -fx-background-insets: 0, 1, 2, 3;
 }
 .blueHighlight {
-	-fx-background-color: linear-gradient(#0000ff, #d9d9d9),
-		linear-gradient(#0000f2, #d9d9d9 20%, #e6e6e6),
-		linear-gradient(#0000d9, #f2f2f2 50%);
-    -fx-background-radius: 0, 1, 2;
-    -fx-background-insets: 0, 1, 2;
+	-fx-background-color: #0000ff,
+		linear-gradient(derive(#0000ff, +90%), derive(#0000ff, +100%) 20%, derive(#0000ff, +80%));
+    -fx-background-radius: 0, 2;
+    -fx-background-insets: 0, 2;
+}
+.redHighlight.enemy {
+	-fx-background-color: #ff0000,
+		linear-gradient(derive(#ff0000, +90%), derive(#ff0000, +100%) 20%, derive(#ff0000, +80%));
+    -fx-background-radius: 0, 2;
+    -fx-background-insets: 0, 2;
+}
+.greenHighlight.player {
+	-fx-background-color: #00ff00,
+		linear-gradient(derive(#00ff00, +90%), derive(#00ff00, +100%) 20%, derive(#00ff00, +80%));
+    -fx-background-radius: 0, 2;
+    -fx-background-insets: 0, 2;
 }
 .battleLabel {
 	-fx-border-color: #4d3338;
@@ -213,6 +248,15 @@
 }
 .mp {
 	-fx-text-fill: #0000FF;
+}
+.rage {
+	-fx-text-fill: #FFFF00;
+}
+.battleActionBox {
+    -fx-alignment: center;
+    -fx-max-width: 520px;
+    -fx-max-height: 170px;
+    -fx-spacing: 10;
 }
 
 

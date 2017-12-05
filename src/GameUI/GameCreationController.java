@@ -4,6 +4,10 @@ package GameUI;
  *
  */
 import java.io.IOException;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 4a629f63d28c7eedf0aaea6f8cff355aeef5a7d0
 import DataModels.Player;
 import DataModels.Unit;
 import UIFramework.NavigationController;
@@ -28,6 +32,7 @@ public class GameCreationController {
 	@FXML 
 	public void initialize() {
 		Player.unitList.clear();  //Clear existing units in unitList
+		Player.level = 1;
 		for(int i = 0; i < 3; i++) {
 			Player.unitList.add(i, null);
 		}

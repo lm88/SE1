@@ -65,7 +65,7 @@ public class FileIO {
 	Gson serializer = gsonBuilder.create();
 
 	Player p = new Player();
-	Player obj = serializer.fromJson(text, p.getClass());
+	serializer.fromJson(text, p.getClass());
     }
     
     public void writeToFile(String text, String fileName) throws IOException

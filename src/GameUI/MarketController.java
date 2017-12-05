@@ -97,9 +97,9 @@ public class MarketController {
    {
        String id = ((Button) event.getSource()).getId();
 	Unit u = Player.unitList.get(Integer.parseInt(id));
-	if(Player.currency >= (int)(u.damage*1.5))
+	if(Player.currency >= (int)(u.damage*3))
 	{
-	    Player.currency -= (int)(u.damage*1.5);
+	    Player.currency -= (int)(u.damage*3);
 	    int pl = Player.level;
 
 	    u.damage += (5*pl)/1.5;
@@ -144,7 +144,7 @@ public class MarketController {
        }
        catch(Exception e)
        {
-	   String m = e.getMessage();
+	   e.getMessage();
        }
    }
    
@@ -168,11 +168,11 @@ public class MarketController {
    {
        ArrayList<Unit> units = Player.unitList;
        playerCurrency.setText(Integer.toString(Player.currency));
-       weaponCost1.setText(Integer.toString((int)(units.get(0).damage*1.5)));
+       weaponCost1.setText(Integer.toString((int)(units.get(0).damage*3)));
        armorCost1.setText(Integer.toString((int)(units.get(0).health*1.5)));
-       weaponCost2.setText(Integer.toString((int)(units.get(1).damage*1.5)));
+       weaponCost2.setText(Integer.toString((int)(units.get(1).damage*3)));
        armorCost2.setText(Integer.toString((int)(units.get(1).health*1.5)));
-       weaponCost3.setText(Integer.toString((int)(units.get(2).damage*1.5)));
+       weaponCost3.setText(Integer.toString((int)(units.get(2).damage*3)));
        armorCost3.setText(Integer.toString((int)(units.get(2).health*1.5)));
    }
     
@@ -180,11 +180,11 @@ public class MarketController {
    {
        
        ArrayList<Unit> units = Player.unitList;
-       unit1Damage.setText("Weapon Strength: " + Integer.toString(units.get(0).damage));
-       unit1Health.setText("Armor Strength: " + Integer.toString(units.get(0).health));
-       unit2Damage.setText("Weapon Strength: " + Integer.toString(units.get(1).damage));
-       unit2Health.setText("Armor Strength: " + Integer.toString(units.get(1).health));
-       unit3Damage.setText("Weapon Strength: " + Integer.toString(units.get(2).damage));
-       unit3Health.setText("Armor Strength: " + Integer.toString(units.get(2).health));
+       unit1Damage.setText("Weapon Strength: " + units.get(0).damage);
+       unit1Health.setText("Armor Strength: " + units.get(0).health);
+       unit2Damage.setText("Weapon Strength: " + units.get(1).damage);
+       unit2Health.setText("Armor Strength: " + units.get(1).health);
+       unit3Damage.setText("Weapon Strength: " + units.get(2).damage);
+       unit3Health.setText("Armor Strength: " + units.get(2).health);
    }
 }

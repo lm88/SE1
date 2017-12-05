@@ -3,9 +3,16 @@ package MenuUI;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import UIFramework.NavigationController;
 
 public class MainMenuController {
+	
+	@FXML Label bannerMsg;
+	
+	@FXML private void initialize() {
+		bannerMsg.setText(NavigationController.WINNERMSG);
+	}
 	
 	/** Send view change request
 	 * @param event - the onAction event from fxml */ 

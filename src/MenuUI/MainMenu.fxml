@@ -12,7 +12,7 @@
 	<HBox styleClass="menuBorderTitle">
 		<!-- header -->
 		
-		<Label styleClass="menuTitle" text="You Win!"/>
+		<Label styleClass="menuTitle" fx:id="bannerMsg" text="You Win!"/>
 	</HBox>
 	</top>
 	
