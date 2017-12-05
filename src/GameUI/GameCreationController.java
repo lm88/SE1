@@ -4,8 +4,6 @@ package GameUI;
  *
  */
 import java.io.IOException;
-import java.util.ArrayList;
-
 import DataModels.Player;
 import DataModels.Unit;
 import UIFramework.NavigationController;
@@ -24,7 +22,8 @@ public class GameCreationController {
 	int index; //Index for placement in arrayList
 	
 	/********************************************************
-	 * Clear unitList on load.
+	 * Clear unitList on load.  Initialize array list to a 
+	 * fixed size.
 	 *******************************************************/
 	@FXML 
 	public void initialize() {
