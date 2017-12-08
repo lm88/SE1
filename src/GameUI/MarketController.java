@@ -95,29 +95,55 @@ public class MarketController {
    @FXML
    public void upgradeWeapon(ActionEvent event)
    {
-       String id = ((Button) event.getSource()).getId();
-	Unit u = Player.unitList.get(Integer.parseInt(id));
-	if(Player.currency >= (int)(u.damage*3))
+	int id = Integer.parseInt(((Button) event.getSource()).getId());
+	if(applyUpgradeWeapon(id))
+	{
+	    updateUpgradeCost();
+	    updateUnitStatsDisplay();
+	}
+	else
+	{
+	    insufficientFunds.setText("Insufficient Funds");
+	}
+	    
+   }
+   
+   public boolean applyUpgradeWeapon(int id)
+   {
+       Unit u = Player.unitList.get(id);
+       if(Player.currency >= (int)(u.damage*3))
 	{
 	    Player.currency -= (int)(u.damage*3);
 	    int pl = Player.level;
 
 	    u.damage += (5*pl)/1.5;
 
+	    return true;
+	}
+	else
+	{
+	    return false;
+	}
+   }
+   
+   @FXML
+   public void upgradeArmor(ActionEvent event)
+   {
+       int id = Integer.parseInt(((Button) event.getSource()).getId());
+	if(ApplyUpgradeArmor(id))
+	{
 	    updateUpgradeCost();
 	    updateUnitStatsDisplay();
-	 }
+	}
 	else
 	{
 	    insufficientFunds.setText("Insufficient Funds");
 	}
    }
 
-   @FXML
-   public void upgradeArmor(ActionEvent event)
+   public boolean ApplyUpgradeArmor(int id)
    {
-	String id = ((Button) event.getSource()).getId();
-	Unit u = Player.unitList.get(Integer.parseInt(id));
+	Unit u = Player.unitList.get(id);
 	if(Player.currency >= (int)(u.health*1.5))
 	{
 	    Player.currency -= (int)(u.health*1.5);
@@ -125,12 +151,11 @@ public class MarketController {
 	    int pl = Player.level;
 	    u.health += (5*pl)/1.5;
 	    
-	    updateUpgradeCost();
-	    updateUnitStatsDisplay();
+	    return true;
 	}
 	else
 	{
-	    insufficientFunds.setText("Insufficient Funds");
+	   return false;
 	}
    }
    

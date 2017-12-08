@@ -5,6 +5,9 @@
  */
 package GameUI;
 
+import DataModels.Player;
+import DataModels.Unit;
+import java.util.ArrayList;
 import javafx.event.ActionEvent;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -24,6 +27,12 @@ public class MarketControllerTest {
     
     @BeforeClass
     public static void setUpClass() {
+	Player.currency = 30;
+	Player.level = 1;
+	Player.unitList = new ArrayList<>();
+	Player.unitList.add(0, new Unit("water", 8, 8, 5));
+	Player.unitList.add(1, new Unit("fire", 8, 5, 5));
+	Player.unitList.add(2, new Unit("earth", 5, 8, 5));
     }
     
     @AfterClass
@@ -32,22 +41,11 @@ public class MarketControllerTest {
     
     @Before
     public void setUp() {
+	Player.currency = 30;
     }
     
     @After
     public void tearDown() {
-    }
-
-    /**
-     * Test of initialize method, of class MarketController.
-     */
-    @Test
-    public void testInitialize() {
-	System.out.println("initialize");
-	MarketController instance = new MarketController();
-	instance.initialize();
-	// TODO review the generated test code and remove the default call to fail.
-	fail("The test case is a prototype.");
     }
 
     /**
@@ -56,11 +54,16 @@ public class MarketControllerTest {
     @Test
     public void testUpgradeWeapon() {
 	System.out.println("upgradeWeapon");
-	ActionEvent event = null;
 	MarketController instance = new MarketController();
-	instance.upgradeWeapon(event);
-	// TODO review the generated test code and remove the default call to fail.
-	fail("The test case is a prototype.");
+	int unitId = 0;
+	Unit u = Player.unitList.get(unitId);
+	int expUnitDam = (int)(u.damage + (5*Player.level)/1.5);
+	int expPlayCurr = Player.currency - (u.damage*3);
+	
+	instance.applyUpgradeWeapon(unitId);
+	u = Player.unitList.get(unitId);
+	assertEquals("Weapon failed", expUnitDam, u.damage);
+	assertEquals("Currency failed", expPlayCurr, Player.currency);
     }
 
     /**
@@ -69,11 +72,17 @@ public class MarketControllerTest {
     @Test
     public void testUpgradeArmor() {
 	System.out.println("upgradeArmor");
-	ActionEvent event = null;
+	int unitId = 0;
 	MarketController instance = new MarketController();
-	instance.upgradeArmor(event);
-	// TODO review the generated test code and remove the default call to fail.
-	fail("The test case is a prototype.");
+	Unit u = Player.unitList.get(unitId);
+	int expUnitHealth = (int)(u.health + (5*Player.level)/1.5);
+	int expPlayCurr = (int)(Player.currency - (u.health*1.5));
+	
+	instance.ApplyUpgradeArmor(unitId);
+	
+	u = Player.unitList.get(unitId);
+	assertEquals("Health failed", expUnitHealth, u.health);
+	assertEquals("Currency failed", expPlayCurr, Player.currency);
     }
     
 }
