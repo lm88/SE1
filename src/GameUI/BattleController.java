@@ -87,7 +87,8 @@ public class BattleController {
 	/*=== UI events === */
 	/*===           === */
 	
-	/** Send tile coordinates */
+	/** Send tile coordinates
+	 * @param event button press from FXML */
 	@FXML private void tilePress(ActionEvent event) {
 		Button tile = (Button) event.getSource();
 		int tileID = Integer.valueOf(tile.getId());
@@ -111,7 +112,8 @@ public class BattleController {
 		}
 	}
 	
-	/** Identify action button selected */
+	/** Identify action button selected
+	 * @param event button press from FXML */
 	@FXML private void selectAction(ActionEvent event) {
 		Button action = (Button) event.getSource();
 		String actionID = action.getId();
@@ -123,7 +125,8 @@ public class BattleController {
 		selectAction(actionID);
 	}
 
-	/** Send view change request */
+	/** Send view change request
+	 * @param event button press from FXML */
 	@FXML private void transitionView() {
 		NavigationController.WINNERMSG = "You Lose!";
 		NavigationController.loadView(NavigationController.MAINMENU);
@@ -150,12 +153,23 @@ public class BattleController {
 		enemyUnit3resource.setText("" + enemyUnitList.get(2).resource);
 	}
 	
-	/** Update unit position on game board */
+	/** Update unit position on game board
+	 * @param unit the active unit being updated
+	 * @param oldTile the button where the unit currently is
+	 * @param newTile the button where the unit needs to go */
 	private void updateBoard(BattleUnit unit, Button oldTile, Button newTile) {
 		oldTile.getStyleClass().remove(unit.getTeam());
 		oldTile.getStyleClass().remove(unit.getType());
 		newTile.getStyleClass().add(unit.getType());
 		newTile.getStyleClass().add(unit.getTeam());
+	}
+	
+	/** Remove dead units from the board
+	 * @param unit a defeated unit */
+	private void cleanCorpses(BattleUnit unit) {
+		Button location = tiles[unit.getxPos()][unit.getyPos()];
+		location.getStyleClass().remove(unit.getTeam());
+		location.getStyleClass().remove(unit.getType());
 	}
 	
 	/** Enable or disable action buttons as appropriate */
@@ -239,33 +253,51 @@ public class BattleController {
 	private void turnStart() {
 		switch (gameState) {
 			case "player: TurnStart":
-		
-				// update instructions for player to move
-				instructions.setText("Select a tile to move");
-				// present move options
-				showValidMoves(rules.isMoveValid(activeUnit().getxPos(), activeUnit().getyPos(), friendlyUnitList(), opponentUnitList()));
-				gameState = "player: Movement";  // game waits for player input after this
+				// verify unit is alive and able to act
+				if (unitAlive(activeUnit())) {
+					// update instructions for player to move
+					instructions.setText("Select a tile to move");
+					// present move options
+					showValidMoves(rules.isMoveValid(activeUnit().getxPos(), activeUnit().getyPos(), friendlyUnitList(), opponentUnitList()));
+					gameState = "player: Movement";  // game waits for player input after this
+				} else {
+					
+				}
 				break;
+				
 			case "enemy: TurnStart":
-				// prepare for enemy's turn
-				turn++;
-				battle.setMouseTransparent(true);
-				
-				aiControl();
-				
-				// prepare for player's turn
-				turn++;
-				unitRotation++;
-				battle.setMouseTransparent(false);
+				if (unitAlive(activeUnit()))
+					aiControl();
+				else
+					nextTurn();
 				break;
+				
 			default:
 		}
 	}
 	
+	/** Ends a turn, then prepares for and begins the next */
+	private void nextTurn() {
+		// end the game if a team is defeated
+		victoryCheck();
+		
+		// after every turn
+		updateStats();
+		removeHighlights();
+		gameState = opponentTeam() + ": TurnStart";
+		battle.setMouseTransparent(!battle.isMouseTransparent());
+		turn++;
+		// after player and enemy both get turns
+		if (turn % 2 == 0)
+			unitRotation++;
+		
+		// next
+		turnStart();
+	}
+	
 	/** Verify and execute unit movement
 	 * @param newX x-coordinate of destination tile
-	 * @param newY y-coordinate of destination tile
-	 * @return true if move is successful */
+	 * @param newY y-coordinate of destination tile */
 	private void handleMovement(int newX, int newY) {
 		
 		// ignore moves outside highlights
@@ -282,7 +314,7 @@ public class BattleController {
 		
 		// clean up after successful move and prepare next phase
 		removeHighlights();
-		if (activeTeam() == "player") {
+		if (activeTeam().equals("player")) {
 			instructions.setVisible(false);
 			battleActions.setVisible(true);
 		}
@@ -295,9 +327,9 @@ public class BattleController {
 	private void selectAction(String action) {
 		
 		if (action.equals("pass")) {
-			gameState = opponentTeam() + ": TurnStart";
-			turnStart();
-			return; // skip the rest of targeting process
+			// skip the rest of targeting process
+			nextTurn();
+			return;
 		}
 		
 		// update instructions for player to select a target
@@ -387,14 +419,10 @@ public class BattleController {
 			default:
 		}
 		
-		// TODO remove defeated units from board, or indicate unit is unusable somehow
+		if (!unitAlive(targetUnit))
+			cleanCorpses(targetUnit);
 		
-		// clean up after successful action and prepare next phase
-		updateStats();
-		removeHighlights();
-		victoryCheck();
-		gameState = opponentTeam() + ": TurnStart";
-		turnStart();
+		nextTurn();
 	}
 	
 	/** AI turn control */
@@ -411,12 +439,7 @@ public class BattleController {
 		wait.onFinishedProperty().set(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent event) {
-					// TODO remove some of these once AI can use handleActions
-					updateStats();
-					removeHighlights();
-					victoryCheck();
-					gameState = "player: TurnStart";
-					turnStart();
+					nextTurn();
 				}
 		});
 		wait.play();
@@ -428,8 +451,8 @@ public class BattleController {
 		
 		if (victory) {
 			if (activeTeam().equals("player")) {
+				Player.currency += 15 + 5 * Player.level;
 				Player.level += 1;
-				Player.currency += 20;
 				NavigationController.WINNERMSG = "You Win!";
 			} else {
 				Player.currency += 5;
@@ -506,8 +529,10 @@ public class BattleController {
 	/*=== Information === */
 	/*===             === */
 	
+	/** Calculates the unit that is active for this turn
+	 * @return the current turn's active unit */
 	private BattleUnit activeUnit() {
-		BattleUnit activeUnit = null;
+		BattleUnit activeUnit;
 		int unitIndex = unitRotation % 3;
 		if (turn % 2 == 0)
 			activeUnit = playerUnitList.get(unitIndex);
@@ -517,29 +542,43 @@ public class BattleController {
 		return activeUnit;
 	}
 	
+	/** finds the team of the unit that is currently active
+	 * @return team name */
 	private String activeTeam() {
 		if (turn % 2 == 0)
 			return "player";
 		return "enemy";
 	}
 	
+	/** finds the opponent team of the unit that is currently active
+	 * @return team name */
 	private String opponentTeam() {
 		if (turn % 2 == 0)
 			return "enemy";
 		return "player";
 	}
 	
+	/** finds the list of units for the team opposing the active unit
+	 * @return the unit list of the opposing team */
 	private ArrayList<BattleUnit> opponentUnitList() {
 		if (activeTeam().equals("enemy"))
 			return playerUnitList;
-		else
-			return enemyUnitList;
+		return enemyUnitList;
 	}
 	
+	/** finds the list of units for the team of the active unit
+	 * @return the unit list of the active team */
 	private ArrayList<BattleUnit> friendlyUnitList() {
 		if (activeTeam().equals("player"))
 			return playerUnitList;
-		else
-			return enemyUnitList;
+		return enemyUnitList;
+	}
+	
+	/** Check if the unit is alive or defeated
+	 * @return true if the unit is alive */
+	private boolean unitAlive(BattleUnit unit) {
+		if (unit.getHealth() > 0)
+			return true;
+		return false;
 	}
 }

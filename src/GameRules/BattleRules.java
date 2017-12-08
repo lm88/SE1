@@ -108,15 +108,17 @@ public class BattleRules {
 		return true;
 	}
 	
-	/** Determine if tile is occupied by a member of selected team 
+	/** Determine if tile is occupied by a living member of selected team 
 	 * @param row tile x-coordinate
 	 * @param col tile y-coordinate
 	 * @param unitList team to be checked
-	 * @return true if team member exists */
+	 * @return true if team member exists and is not dead */
 	private boolean tileOccupied(int row, int col, ArrayList<BattleUnit> unitList) {
 		for (BattleUnit unit : unitList) {
-			if (unit.getxPos() == row && unit.getyPos() == col)
-				return true;
+			if (unit.getxPos() == row && unit.getyPos() == col) {
+				if (unit.getHealth() > 0)
+					return true;
+			}
 		}
 		return false;
 	}
