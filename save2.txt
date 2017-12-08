@@ -1,0 +1,1 @@
+{"level":1,"currency":0,"unitList":[{"type":"earth","health":15,"resource":0,"damage":1},{"type":"earth","health":15,"resource":0,"damage":1},{"type":"earth","health":15,"resource":0,"damage":1}]}
