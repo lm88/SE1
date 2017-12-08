@@ -64,31 +64,7 @@ public class FileIOTest {
     public void tearDown() {
     }
 
-    /**
-     * Test of saveFile method, of class FileIO.
-     */
-    @Test
-    public void testSaveFile() throws Exception {
-	System.out.println("saveFile");
-	int saveSlot = 0;
-	FileIO instance = new FileIO();
-	instance.saveFile(saveSlot);
-	// TODO review the generated test code and remove the default call to fail.
-    }
-
-    /**
-     * Test of loadFile method, of class FileIO.
-     */
-    @Test
-    public void testLoadFile() throws Exception {
-	System.out.println("loadFile");
-	int saveSlot = 0;
-	FileIO instance = new FileIO();
-	instance.loadFile(saveSlot);
-	// TODO review the generated test code and remove the default call to fail.
-    }
-
-    /**
+     /**
      * Test of serialize method, of class FileIO.
      */
     @Test
@@ -105,23 +81,12 @@ public class FileIOTest {
     @Test
     public void testDeserialize() {
 	System.out.println("deserialize");
-	String text = "";
+	String text = testString;
 	FileIO instance = new FileIO();
 	instance.deserialize(text);
-	// TODO review the generated test code and remove the default call to fail.
-    }
-
-    /**
-     * Test of writeToFile method, of class FileIO.
-     */
-    @Test
-    public void testWriteToFile() throws Exception {
-	System.out.println("writeToFile");
-	String text = "";
-	String fileName = "save1.txt";
-	FileIO instance = new FileIO();
-	instance.writeToFile(text, fileName);
-	// TODO review the generated test code and remove the default call to fail.
+	
+	assertEquals(Player.level, 1);
+	assertEquals(Player.currency, 4);	
     }
 
     /**
