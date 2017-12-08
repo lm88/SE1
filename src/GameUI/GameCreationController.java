@@ -29,6 +29,7 @@ public class GameCreationController {
 	public void initialize() {
 		Player.unitList.clear();  //Clear existing units in unitList
 		Player.level = 1;
+		Player.currency = 0;
 		for(int i = 0; i < 3; i++) {
 			Player.unitList.add(i, null);
 		}
